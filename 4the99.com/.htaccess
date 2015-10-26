@@ -1,0 +1,11 @@
+
+RewriteEngine on
+
+RewriteCond %{HTTP_HOST} ^4the99\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.4the99\.com$
+RewriteRule ^(.*)$ "http\:\/\/4the99\.org\/$1" [R=301,L]
+
+RewriteCond %{HTTP_HOST} ^4the99c\.4the99\.org$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.4the99c\.4the99\.org$
+RewriteRule ^/?$ "http\:\/\/4the99\.org\/" [R=301,L]
+

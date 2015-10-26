@@ -1,0 +1,696 @@
+<!DOCTYPE html> 
+<?php
+// (php 7)declare(strict_types=1)    <---- locked down input into bool, int, float, string has to be here? "at top" (dont delcare on the inclue)
+// see here https://www.youtube.com/watch?v=5r5GkJL7Dgg   (php7)
+// goes above doctype? 
+// can i echo doctype? 
+// do i need php_EOL;
+
+echo '<html>' PHP_EOL; 
+echo '<head>' PHP_EOL;
+echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8mb4" />;' PHP_EOL;
+echo "header('Content-type: text/html; charset=utf-8mb4');" PHP_EOL;  
+//block encoding exploits (obscure)
+// need to verify with hosts i converted all database tables/fields/columns/rows/indexes/databases to utf8mb4 correctly
+// this table does not contain a unique column. Grid edit, checkbox, Edit, Copy and Delete features are not available. <- phpmyadmin bitching @ me 
+// set "primary" key as uid is this not unique? 
+// need eventually to break up and organize db properly (massive headache, code now, fix later. \
+	
+// let hosts know: 
+// http://www.networkworld.com/article/2992592/security/cisco-dedicates-security-project-to-pissing-off-the-bad-guys.html
+// ask hosts for php 5.6 / 7
+// CVE-2015-5600 <--- i think your vulnerable
+// openssh v7 will fix 
+// http://www.itworld.com/article/2951494/bug-exposes-openssh-servers-to-bruteforce-password-guessing-attacks.html
+//http://securityaffairs.co/wordpress/38798/hacking/openssh-flaw-brute-force.html
+
+// fuck!!! i thought htmlentites() should safley filter all utf8-mb4 encoding but it looks like only a small subset of the extended askii table
+// how to i safely handle full utf compatibility along with making sure nullbytes aren’t injeacted in unassigned slots
+// there probbably is some form of blody char out there in the tables (its massive) that can break a string and let them inject custom code
+// http://stackoverflow.com/questions/46483/htmlentities-vs-htmlspecialchars
+
+// im beggining to suspect some fucntions may require me to hack the php core code to do what i want
+// remind to ask hosts about allowing that, or me running c++ functions outside dock root
+// need to look deeply into the security implications if i have to do this... i know its not good... and how to harden
+
+echo '<title>Welcome</title>' PHP_EOL;
+// should i be using ; (inside echo) to end the line for <title> <head> <meta> css inc, after a } ect
+<link rel="stylesheet" href="http://4the99.org/stylez/style.css">
+
+// gonna have to enforce the use of javascript it will just hurt to much intally not to, but plan to leave things so we can enable n js users later
+
+header allways append date_default_timezone_set("UTC");
+//don’t mess with server default time-zone, higher level functions will take care of conversions
+  
+//https://tools.ietf.org/html/rfc6797 <--- strict transport security 
+// http://www.rackspace.com/knowledge_center/article/force-ssl-on-your-php-site <--- .htaccess https enforcement extra layer, why not?
+//http://www.enigmagroup.org/code/view/php/196-PHP-security-class
+//http://www.enigmagroup.org/code/view/php/179-E-mail-Sender     <-- interesting sanitising technique for email
+
+header always append X-Frame-Options SAMEORIGIN;
+header always append X-Frame-Options DENY;
+header always append X-Forwarded-Proto: https;
+header always append X-Forwarded-Port: 8080;
+header always append Content-Security-Policy 
+header always append X-WebKit-CSP
+header always append X-Content-Security-Policy
+header always append Strict-Transport-Security: max-age=31536000; includeSubDomains;
+
+// ^^^^^^ suspected bad syntax also needs go go in apachie.conf (apparently) <---- not there in host options, set as hedder? how? per page?
+// http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/x-forwarded-headers.html#x-forwarded-port
+// want to add paypall, youtube, facebook, ebay, api (deeply restricted) only on certan sections for account migration
+// can only add one exception per page? or global? (read somewhere)
+// http://tools.ietf.org/html/rfc7034   <--- its an old one but might be newer
+// http://stackoverflow.com/questions/958997/frame-buster-buster-buster-code-needed
+// https://www.simonholywell.com/post/2013/04/three-things-i-set-on-new-servers/ <-- look deeper into this
+// cloudflare will get its panties in a bunch need to add to white list 
+// look at clodflare secure scrape and alow only direct connection from cloudflare, but let user route though ideas? anyone?
+
+// was considering for standard input boxes javascript encode html_special_charecters (entquotes), then preg_replace on php side in and out
+// still need to figure out the safest way to handle links (to make em click-able), and email (to make it emailable and not email php_info)
+//need to get working then look at converting into oop (im a bit iffy on the fine art)
+// if i can barley wrap my head around MVC im sure the other devs wont stand a chance, thus not using... 
+
+// datatype changing nice in theroy, but what happens to the dropped bits, and is there any risk of this being manipultated, (like in the memory buffers)
+// foreach ($post_array_variable as $cleaned_data) { htmlspecialchars($cleaned_data) } PHP_EOL;
+// foreach ($post_array_variable as $cleaned_data) { {float) $cleaned_data } PHP_EOL;
+// foreach ($post_array_variable as $cleaned_data) { (int) $cleaned_data } PHP_EOL;
+// foreach ($post_array_variable as $cleaned_data) { strip_tags($cleaned_data, '<br><i>' } PHP_EOL; <--- allows <br> and <i> or tags you desire
+// strip_tags INSUFFICENT TO STOP XSS but may help with url filtering for clickable links 
+
+//php.ini thoughts
+// disable_funcitons
+// disable_classes
+// max_input_vars    <---- limit how many form field inputs per page
+// upload_max_filesize 
+// max_input_nesting_level
+// max file uploads (simultaneous uploads)
+// filter file size and type (yes the mime type (eg image/gif) can be forged)
+// allwase check file error never output 
+// allways move file into apropriate location
+// enctype="multipart/form-data"   on forms or it will crash out  
+
+// there are many problems with this code, see if you can spot them :P 
+// *sigh* hundreds of lines of code to go... just for firkin login. 
+// having a hard time keeping focused lots is going on. 
+// don’t use short php tags! (baaad habit)
+// trust no one, secure everything (seriously, im only this far behind because im going hardcore)
+// crypto level im not toooooo worried about, may need tweaking when we go live until we start getting into mass dedicated servers
+// when we can specify custom hardware crypto cost is almost nothing
+
+// fucking css code now, prettyfy later, im focused on functionality rather than looking slick (for now)	
+// is css parsed by the server or the browser especially the screen size and can it be injected as such? or at all? 
+// same with -moz n stuff and @media as such is there a weak point in css, (google is being a fuck with detail)
+// or is it site admins allowing skinning and thus allowing javascript injections 
+// we will let custom skins happen BUT NOT WITH CODE, but rather build it as a feature.
+
+//http://stackoverflow.com/questions/2184601/how-to-increment-count-in-the-replacement-string-when-using-preg-replace
+// preg replace hack detect
+// get javascript crypto libary (i think its @ mit, lost link)
+// think it was on the crackstation ha
+?>
+
+
+<style>
+@media all and (orientation:landscape) 
+{
+		#container 
+		{
+			position: relative;
+			width: 900px;
+			height: 500px;
+		}
+	}
+	
+@media all and (orientation:portrait)
+	{
+		#container 
+		{
+			position: relative;
+			width: 500px;
+			height: 900px;
+		}
+	}
+	
+	#block
+	{
+		background: #000;
+		filter: alpha(opacity=60);
+		/* IE */
+	  -moz-opacity: 0.6;
+  		/* Mozilla */
+  		opacity: 0.6;
+  		/* CSS3 */
+  		position: absolute;
+  		top: 0;
+  		left: 0;
+  		height: 100%;
+  		width: 100%;
+	}
+
+	#txt 
+	{
+		filter: alpha(opacity=100);
+		/* IE */
+		moz-opacity: 1.0;
+		/* Mozilla */
+		opacity: 1.0;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		color: rgb(12,237,12)
+	}
+</style>
+
+
+</head>
+<body>
+
+<?php>
+//preg replace alert $haxxor landmine
+function haxxor_landmine($violation)
+{
+//grab header, locally resolved public ip, remotley resolve public ip, look for ban cookies seach datbase for fingerprints to see
+//if we have a persistent pest update accordingly log then nuke all connecitons and scripts 
+
+//need to redirect to blank page? for echo? multile echos, per page? in a process? socket? (bad for nuke)
+
+// just there for now for testing purposes 
+//$_post = 1 <--- will that work? overwrite post data? will it stuff up logging as well? there is the kill_post() function i was halfway though making 
+unset($_post)
+
+// flush buffer not sure if a good idea but thinking about it for attempted reflect attacks/http response splitting
+// we are hiding behind cloudflare, need a to take a closer look at the secure scrape authorisation (especially for same origin policy)
+ob_end_clean();
+//may cause undesired errors, need to look deeper @ 
+//https://www.prestashop.com/forums/topic/267543-solvedhow-to-fix-sql-import-error-ob-cleanfailed-to-delete-buffer/
+//to get rid of split hedder, cache reflection attacks ? 
+
+//kill off all connections 
+mysqli_close();
+closelog();
+session_destroy();
+fwrite(STDERR, "hack killed: $violation \n");
+exit(1); // A response code other than 0 is a failure <--- hub? why? 
+// session destroy wildcard? destroy all?
+// read all sessions (filtered), destroy all sessions, create new sessions/files, to fingerprint and idenfity malicous users (flash cookies, browser headers, ip)
+// create tempoary files, and other more... dangerous ideas for the real scum like pedos. suffice to say a trail of blinking lights for Interpol to follow. *classified* 
+// disabled need to filter safley probbably with html_entities 
+
+//use full (basic) fingerprinting to evolve below, needs work. 
+//get_browser($user_agent = null, $return_array = null);   
+// get_defined_functions();  <---- coustom functions from the injections? 
+//get_headers($url, $format = null);
+//header($string, $replace, $http_response_code);
+//mail($to, $subject, $message, $additional_headers = null, $additional_parameters = null);
+
+// depending on the violation and bruteforce check ect, set a ban cookie, or flash ban cookie
+// need to look deeper into forged packet source/destination headers, but that’s layer 3 attacks  
+// *sigh* sooooo much to do on network/server security at lower layers gonna be a headache 
+// NEED a external hardware/vps keyserver for 2 way crypto entropy and lock that down tight!! 
+// salted password rotation with epoch timestamp as well in hash 
+// remember to run a time synchronization between server and lag catching
+// request packet dont match exactly block. TIGHT! security/along with ip, and header, and look at crytop key exchanges and tls and all the toys ^^
+
+
+echo "Sprung! behave! this is a charity! for now, ill just warn..."
+
+// nice union sql injeaction catcher (wont stop, just detect idiots)
+// need to put in the right spot but that area is compex enough as it is for now 
+// could also taget wait for blind sql injection 
+if (stirpos($input_string, 'UNION ') === false)
+{
+// proceed as normal 
+}
+else 
+{
+$violation = "union sql injection attempt" ;
+haxxor_landmine($violation)
+//may put in page and box for all attacks as a second variable that way we can track attacks as they progress across the site
+//that is for silent mode/sandboxing
+
+
+//ffs
+//http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx/ 
+//http://stackoverflow.com/questions/7290674/php-is-filter-sanitize-email-pointless
+}
+}
+
+$kill_post = 1;
+if ($kill_post != 1 or 2)
+{
+$violation = "injecting injecting in2 kill_post var");
+haxxor_landne($violation)
+// can enforce clearing post from memory using $_POST = 1 then unset? 
+unset($_POST)
+}
+do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_login']))) 
+	{ 
+		$dirty_email = $_POST['dirty_email'];
+		$dirty_password = $_POST['dirty_password'];
+		$dirty_button = $_POST['dirty_login'];
+		// mabe use count() but its counts the entire array 
+ 		// dirty button undefended atm
+ 			 {
+			while (if ($java_script_is_enabled == true)) 	
+				//public variable not defended yet	<--- to do
+				// js detection on form (way down) may not work... need to test
+				{ 
+					// http://php.net/manual/en/function.microtime.php
+					// http://php.net/manual/en/function.strlen.php   <-- intresting function in comments 
+					// need to look at encoding for the count, but if i copy/encode vairable it breaks the if statment and
+					// killing post half way though once it hits a certan point? is this even possible? trying....
+					// $strlen_count = strlen(utf8_decode($string_to_count));  <-- encoding    $dirty_password =  $string_to_count
+					
+					// need to work this with while logic instead of if 
+					
+					$strlen_count_pass = 2;
+					$strlen_count_pass = strlen($dirty_email);
+					if($strlen_count_pass != 514)
+					// may cause timing issues on submit ect being processed before $_POST has had a chance to fully commit.
+					// mabe 500 milli second delay? (remember stay logged in, and working with sockets so no need to constantly authenticate) 
+					{
+						$violation = "injecting bufferoverflow inside initial js pw hashz";
+						haxxor_landmine($violation);
+					}
+						else if() 
+						{
+							$count_pass = 1; //this is a protected? vairable and cant be injected into? 
+							//start at 1 to prevent null-bite (i think)							
+							do 
+								{
+									
+   	 							// trying wrap my head around loop logic, want to fire off haxxor_landmine($violation) 
+   	 							// else allow password to continue 
+   	 							// incorrect regex syntax (0-9 A-F case insensitive hex hash output from JavaScript)
+   	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
+								// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+								}
+								while ($count_pass == 1) 
+									// use value of 1 to stop null-bites being parsed rather than 0 
+									{
+										if ($count_pass != 1) 
+											{
+											$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
+											haxxor_landmine($violation)
+											}
+									}	
+						}	
+					}
+					
+					else if($java_script_is_enabled == false) 
+						{		
+							$strlen_count_pass = 2;
+							$strlen_count_pass = strlen($dirty_email);
+							if(strlen_count_pass <= 12)  // <------- mabe a bit essesive for min lengh but probbably not
+								{
+							// return pass to short 
+								)
+					while($strlen_count_pass > 1000000)
+				
+				//allow post to continue but once it pops 1mill go thats a bit excessive.... we do encrypt properly
+				 
+					
+					else if($java_script_is_enabled != 1 or 2)
+					{
+						$violation = "injecting in2 javascript_is_enabled vairable";					
+						haxxor_landmine($violation);
+					}
+					// detect injection into the submit button, need to know its default values 
+					
+					// if email over 50 chars, and make email 
+					// place this outside of the while and kill post cuz all check are ok 
+				hash($dirty_password)
+					//clean email input factoring in weird email chars, html_entitles sound good in theory until you send an email
+				
+					//		$dirty_email = htmlentities(stripslashes($_POST['to'])); <--- something like that maybe ?
+					// http://php.net/manual/en/filter.examples.sanitization.php   <--- checkon filter in server 
+					}
+	}
+	
+// now all that is done, do we put it into this function below can they call an inject into the login fucntion 
+function login($dirty_email, $dirty_password) 
+{
+	
+//	https://www.leaseweb.com/labs/2013/06/the-php-floating-point-precision-is-wrong-by-default/ 
+	// microtime ([ bool $get_as_float = false ] )
+	//look up button value, if is not in essence true or false preg_replace, count flag and set off haxxor_landmine() <-- route hacker 2 sandbox 
+		
+		// include database php 
+		require("~/mysqli_con.php")
+		http://dba.stackexchange.com/questions/8239/how-to-easily-convert-utf8-tables-to-utf8mb4-in-mysql-5-5
+		//reminder to get this chowned and set up with hosts due to policy enforcement 
+		//is referenced properly? outside public_html to prevent hack single or double quotes? 
+		// even better need to look deeply at hardening the security of this, is there a way to detect where exactly this script is called from? 
+		// on which page, under which fuction, and lock it down as a protected variable
+		// as well lock down only certan files that are whitelisted (php.ini) can be included (may have to hack php/apachie core :(
+		// (and file-types ie php, but jpg ok (so long as filerd for nullbyte and mime and err shit in about,prosperities and block how they hide stuff in image files)
+		// really want to protect db pass with everything i can thow at it, to make sure everything is protected and not being able to be called client side 
+		
+		$file = str_replace(chr(0), '', $string);
+		// how the fuck do i specify null byte from the keyboard exactly? or is it just a space 
+		//poison null byte prevention https://www.hackthis.co.uk/articles/common-php-attacks-poison-null-byte
+		// add count options 4 haxxor_landmine()
+		// *** danger**** str_replace is not comaptable with full unicode, BUT it starts @ string end, to nail nullbyte first and formost 
+		// for this particlar attack, may have to run preg_replacee() as well over the top with the U flag (and others mentioned above)
+		// to fully clean all file linkings for include, and also look @ php.ini include lockdown and see if it can have whitelist 
+		
+		// will generate multiple sessions per browser/ip and user set session control later 
+	   // gonna get rid of the shitty fsm browser model aka stay logged in but secure from xss/csrf
+	   // gonna use websockets (to be figured out, socket.io) and write dynamic html (this to), and deliver over xml (and that to)  <-cs75.net
+	   
+	   // most of these are entropy/security needs cleaning up but putting there for remembering cutting n paste
+	   // Using prepared statements means that SQL injection is not possible. 
+	   // unsure if i need to change $statment variable to acutual connection script or $mysqli (working on it later code more)
+	    if ($stmt = $mysqli->prepare("SELECT UID, clean_login, clean_pass_hash, clean_user_salt, clean_encrypted_email,
+    	 clean_user_encrypted_registration_email, clean_user_registration_timestamp, clean_user_cookie_hash,
+    	 clean_encrypted_user_ip, clean_user_session_id_hash, clean_user_bruteforce_level, 
+    	 clean_user_bruteforce_ip, clean_user_bruteforce_header, clean_user_bruteforce_timestamp,
+    	 clean_user_alert_level, clean_user_alert_type, clean_user_alert_priority, clean_user_drama_queen_value,
+    	 clean_user_admin_is_pissed_off_at_level, clean_user_banned_level, clean_user_banned_reason, clean_user_banned_ipu
+    	 clean_user_is_hate_preacher clean_user_is_pedo_or_terrorist
+        FROM Userz_main
+       WHERE clean_email = ?
+        LIMIT 1"))
+			{
+        $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+ 
+        // get variables from result.
+        // need to add user ip as entropy (will add one shot pin authentication to gen new session)
+        // web socket echo encryption stage status (make this timing attack safe)
+        $stmt->bind_result($UID, $clean_login, $clean_pass_hash, $clean_user_salt, $clean_encrypted_email,
+    	 $clean_user_encrypted_registration_email, $clean_user_registration_timestamp, $clean_user_cookie_hash,
+    	 $clean_encrypted_user_ip, $clean_user_session_id_hash, $clean_user_bruteforce_level, 
+    	 $clean_user_bruteforce_ip, $clean_user_bruteforce_header, $clean_user_bruteforce_timestamp,
+    	 $clean_user_alert_level, $clean_user_alert_type, $clean_user_alert_priority, $clean_user_drama_queen_value,
+    	 $clean_user_admin_is_pissed_off_at_level, $clean_user_banned_level, $clean_user_banned_reason, $clean_user_banned_ip,
+    	 $clean_user_is_hate_preacher, $clean_user_is_pedo_or_terrorist);
+        $stmt->fetch();
+ 
+ // pulling salt to early in hashing, need to look @ using it in intal stages of encrypt and gen a few salts with password_hashing
+// fucking bcrypt cant have bigger than 72 chars, have to look @ 64 char hash outputs and do a pile 
+      
+      // begin UnFuCkInCraCaBle
+		// https://crackstation.net/hashing-security.htm <-- a good write up for those interested 
+		// look 4 mit crypto javascript implementation @ ^^^^ if not dig in this area in bookmarks
+		// ***** stage 1 encryption******
+		
+		//gather entropy 
+			$user_browser = $_SERVER['HTTP_USER_AGENT'];
+			// XSS protection as we might print this value
+			$user_browser = preg_replace("/[^0-9]+/", "", $user_id);
+			$entropy_s1n1 = hash('sha512', $dirty_password);
+			$entropy_s1n2 = hash('whirlpool', $clean_enrypted_email);
+			$entropy_s1n3 = hash('whirlpool', $clean_user_registration_timestamp);
+			$entropy_s1n4 = hash('sha512', $clean_user_salt);
+			$entropy_s1n5 = hash('sha512', $clean_user_registration_email);
+			$entropy_s1n6 = hash('whirlpool', $clean_pass_hash); 
+			$entropy_s1n7 = hash('whirlpool', $user_browser);
+			$entropy_s1n8 = hash('whirlpool', $UID);
+
+			//***stage 2 encryption***
+			//we can do anything here
+			//entropy masking         
+        //get time2
+        $ent1 = hash('whirlpool', $entropy_s1n1 . $entropy_s1n2);
+        $ent2 = hash('sha512', $entopy_s1n3 . $entropy_s1n4);
+        $ent3 = hash('whirlpool', $entropy_s1n5 . $entopys1n6);
+        $ent4 = hash('sha512', $entropy_s1n7 . $entopy_s1n8);
+        $ent5 = hash('whilpool', $ent1 . $ent2 . $ent3 . $ent4);
+        // and muck about with any variation of above, then push it to javascript and run a parallel test to server (for now) 
+        // have to check if JavaScript is disabled, i want the site to work fine without 
+        // ya going to enforce javascript for now (to much overhead and have to code own socket server
+		  // own socket server better in the long run parently node.js is insecure as of a few months ago to do at a later date. 
+			
+        
+        //***stage 3 encrypt***
+        //clone in javascript (not my forte, and i just am suspicious by nature of security risks for enabling it at all) 
+        //rather use sockets rather than ajax/js for client server interaction js just makes things look pretty 
+        //get time3 
+        //get client time2
+        
+      $ent6 = hash('whirlpool', $ent5 . $ent1);
+		$ent7 = hash('whirlpool', $ent2 . $ent3 . $ent6);
+		$ent8 = hash('whirlpool', $ent4 . $ent6 . $ent5 . $ent7);
+		$ent9 = hash('whirlpool', $ent1 . $ent8 . $ent6 . $ent4);
+		$ent10 = hash('whirlpool', $ent9 . $ent4 . $ent8 . $ent6);
+		$ent11 = hash('whirlpool', $ent1 . $ent2 . $ent3 . $ent4 . $ent5 . $ent6 . $ent7 . $ent8 . $ent9 . $ent10);
+		//get  client time 3 (just considering mobile phones will look @ timing later)
+		
+		//password_hashing() password_verify() password_needs_rehashing()
+		// *****warning**** password hashing uses bcrypt, and max password lengh is 72 so will need to use a portion of the string
+		// just how strong is bcrypt and what algos? i like the unique salt generation <--- check how, make sure its got good entropy source
+		// not weak like open ssl, because thats only generated once per load 
+		// enfofce javascript, to much hasstle to build a secure sockets from scratch (for now) but also look at hash server load
+		// LADAPS! 
+		
+		// extract user public key for addional entropy/fingerprinting bots x509/SPKAC(cause issues with cloudflare mitm?)
+		// could also be used to harden cloudflare secruty, thinking of detecting non cloudflare (ip/header/cert/connection) and blocking 
+		// open_ssl_default_stream_cyphers <--- aplication layer (php 5.6) or open ssl?
+// need to apply these to all cookies 		
+// session.cookie_httponly   <--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
+// session.cookie_secure		<--- enforces cookie over https 
+// session.use_strict_mode
+		//openssl.capath openssl.cafile with verify_peer
+		// if (hash_equals ($hash1, $hash2) === true)<--- open to timing attacks 
+		// preg_replace /e vunreable (back in 2012 lol) now deprecitated in php 5.5 removed in 7
+		// use preg_replace_callback instead 
+		
+
+// ***** new toys in php 7 ****
+// declare(strict_types=1)    <---- locked down input into bool, int, float, string
+// you can catch exceptions with error()
+
+
+		
+		
+	// needs overhauling not really focused here, just using as refrence, i got to get ^^^^ figured out first before i really spread my wings. 
+        if ($stmt->num_rows == 1) {
+            // If the user exists we check if the account is locked
+            // from too many login attempts 
+ 
+            if (checkbrute($user_id, $mysqli) == true) {
+                // Account is locked 
+                // Send an email to user saying their account is locked
+                return false;
+            } else {
+                // Check if the password in the database matches
+                // the password the user submitted.
+                if ($db_password == $password) {
+                    // Password is correct!
+                    // Get the user-agent string of the user.
+                    $user_browser = $_SERVER['HTTP_USER_AGENT'];
+                    // XSS protection as we might print this value
+                    $user_id = preg_replace("/[^0-9]+/", "", $user_id);
+                    $_SESSION['user_id'] = $user_id;     
+                    // XSS protection as we might print this value
+							// needs secure flag!                     
+                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", 
+                                                                "", 
+                                                                $username);
+                    $_SESSION['username'] = $username;
+                    $_SESSION['login_string'] = hash('sha512', 
+                              $password . $user_browser);
+                    // Login successful.
+                    return true;
+                } else {
+                    // Password is not correct
+                    // We record this attempt in the database
+                    $now = time();
+                    $mysqli->query("INSERT INTO login_attempts(user_id, time)
+                                    VALUES ('$user_id', '$now')");
+                    return false;
+                }
+            }
+        } else
+        {
+            // No user exists.
+            return false;
+        }
+		} 
+}
+}
+
+function checkbrute($user_id, $mysqli) {
+   // Get timestamp of current time
+   $now = time();
+   // All login attempts are counted from the past 2 hours. 
+   $valid_attempts = $now - (2 * 60 * 60); 
+
+   if ($stmt = $mysqli->prepare("SELECT time FROM login_attempts WHERE user_id = ? AND time > '$valid_attempts'")) { 
+      $stmt->bind_param('i', $user_id); 
+      // Execute the prepared query.
+      $stmt->execute();
+      $stmt->store_result();
+      // If there has been more than 5 failed logins
+      if($stmt->num_rows > 5) {
+         return true;
+      } else {
+         return false;
+      }
+   }
+}
+
+function login_check($mysqli) {
+   // Check if all session variables are set
+   if(isset($_SESSION['user_id'], $_SESSION['username'], $_SESSION['login_string'])) {
+     $user_id = $_SESSION['user_id'];
+     $login_string = $_SESSION['login_string'];
+     $username = $_SESSION['username'];
+
+     $user_browser = $_SERVER['HTTP_USER_AGENT']; // Get the user-agent string of the user.
+
+     if ($stmt = $mysqli->prepare("SELECT Password FROM accounts WHERE accountID = ? LIMIT 1")) { 
+        $stmt->bind_param('i', $user_id); // Bind "$user_id" to parameter.
+        $stmt->execute(); // Execute the prepared query.
+        $stmt->store_result();
+
+        if($stmt->num_rows == 1) { // If the user exists
+           $stmt->bind_result($password); // get variables from result.
+           $stmt->fetch();
+           $login_check = hash('sha512', $password.$user_browser);
+           if($login_check == $login_string) {
+              // Logged In!!!!
+              return true;
+           } else {
+              // Not logged in
+              return false;
+           }
+        } else {
+            // Not logged in
+            return false;
+        }
+     } else {
+        // Not logged in
+        return false;
+     }
+   } else {
+     // Not logged in
+     return false;
+   }
+}
+
+
+// bad code, it works, but its not enough, left for referencing if i get lost
+//include 'db_connect.php';
+//include 'functions.php';
+//sec_session_start(); // Our custom secure way of starting a php session. 
+// stooooopid idea
+
+//if(isset($_POST['email'], $_POST['password'])) { 
+//   $email = $_POST['email'];
+ //  $password = $_POST['password']; // The hashed password.
+ //  if(login($email, $password, $mysqli) == true) {
+    // Login success
+    //  echo 'Success: You have been logged in!';
+
+  // } else {
+      // Login failed
+  //    echo 'Fail';
+
+ //  }
+//} else { 
+   // The correct POST variables were not sent to this page.
+ //  echo 'Invalid Request';
+//}
+
+
+//http://php.net/manual/en/function.trim.php
+//handy for iditot input
+?>
+<!-- no pointer to public dirty vars yet --> 
+<form method="POST" action="" id="Login">
+	<input type="email" name="dirty_email" placeholder="Email"/>
+	<input type="password" name="dirty_password" placeholder="******"/>
+	<button name="dirty_login">Login</button> 
+
+<!-- need to make sure thais is ok -->
+<!-- http://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled -->
+	<form onsubmit="this.js_enabled.value=2;return true;">
+    <input type="hidden" name="js_enabled" value="1">
+    <input type="submit" value="go">
+</form>
+</form>
+<!-- remember to hash before sending over to server --> 
+<br />
+<br />
+<div id="container">
+		<div id="block">
+			<div id="txt">
+			<br />
+			This is earth. Over 7 billion people live here. <br />
+			A child starves to death every 4 seconds.<br />
+			21 children die every second of every day from diarrhoea. <br />
+			123 children die every second before they reach the age of 5.<br />
+			over a billion people cant read or even write their own name.<br />
+			with 1% of the of the money spent on weapons, every child could be in school<br />
+			1.1 billion people need a proper water supply.<br />
+			2.6 billion people need basic sanitation.<br />
+			At least 80% of humanity lives on less than $10 a day.<br />
+			Almost half of the world population live on less than $2.50 a day.<br />
+			More than 1.3 billion live in extreme poverty less than $1.25 a day.<br />
+			50% of the worlds population account for less than 1% of the worlds wealth.<br />
+			the top 1% of the worlds population accounts for just under half the worlds wealth.<br />
+			the top 10% of the worlds population holds almost 90% of the worlds wealth.<br />
+			Time to make a change.<br />
+			<br />
+			No more bottom line thinking, and shareholder profits, the worlds most desperate people are our dividend. <br />
+			We are not a standard charity begging for money, we believe in self sustaining charity.<br />
+			We believe in creating a self sustaining pool of income that’s always there and ever growing to make a change and make a difference. <br />
+			The seed that we will plant to grow the forest, here, now, today is simple. <br />
+			we will happily provide feature rich technological solutions to make your life better<br />
+			by simply using our services you change the world<br />
+			make a difference today, join now<br />
+			<br />
+			<br />
+			****under active development please check back soon****
+			<br />
+			<br />
+just dumping to keep <br />
+Across the world, billions of people are starving to death. <br />
+Global warming has now been declared a scientific certainty.<br />
+Companies for legal and tax reasons need to reduce their carbon footprint. <br />
+So lets plant some trees, but who ever said those trees cant grow food?<br />
+Over time this can only grow in size for the main cost being land acquisition, infrastructure, equipment and planting<br />
+Vast quantity of food will be available for those that need it the most.<br />
+This after all, is nothing more than a box to tick upon company registration,<br />
+a percentage of sales to allocate, and a donation to balance out at the end of the financial year.<br />
+A simple idea, massive impact, and one of the countless plans we have on the table.<br />
+	
+			<br />
+			</div>
+		</div>
+</div>
+<?php
+// credit where credit is due, thanks this dude, for the handy kick start 
+//i was haing nighmares once upon a time trying to track down a decent mysqli prepared statment example and rediscoverd in lost code pile 
+
+//the rest of the code was made by
+
+// no Klingon support yet :'(
+
+//"The greatest tragedy of this changing society is that people who never knew what it was like before will simply assume that this is the way things are supposed to be." -2600 Magazine, Fall 2002
+// ;)
+?>
+</body>
+</html>
+
+
+
+
+This is a .org domain, thus charity.
+
+NO we are definitely  not interested in Cms like drupal, or frameworks. 
+Im sure we dont fit their boxes and will cause vast headaches later on.
+Dont you dare try and run that insecure crap named flash on our domain either. 
+Even i can write exploits for it, no matter the "latest version". (and im white hat.)
+Im impressed how quickly you picked up on the site after i let slip the contact info, what 12 hour scrape? 
+we dont have the resources to hire you, and wont hire anyone until the site hits critical mass.
+If you truly read our index, do you really care? The world needs this, as crappy as the css is atm (i dont care, focused on better code)
+Im doing things different, because they need to be. Are you prepared to roll up your sleeves and get down and dirty with raw code? 
+
+If your interested in volunteering some time let me know id be quite happy to link you up with the rest of the team. 

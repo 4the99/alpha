@@ -1,0 +1,10 @@
+Options -indexes
+ErrorDocument 400 /blocked.php
+ErrorDocument 401 /blocked.php
+ErrorDocument 403 /blocked.php
+ErrorDocument 404 /blocked.php
+ErrorDocument 500 /blocked.php
+<files blocked.php>
+allow from all
+</files>
+Header set Cache-Control "max-age=0, private, no-cache, no-store, must-revalidate" 
