@@ -6,38 +6,27 @@
 // can i echo doctype? 
 // do i need php_EOL;
 
+//cpu choke for scripting
+// http://www.linuxscrew.com/2012/07/03/limit-cpu-usage-of-linux-process/
+
 echo '<html>' PHP_EOL; 
 echo '<head>' PHP_EOL;
 echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8mb4" />;' PHP_EOL;
 echo "header('Content-type: text/html; charset=utf-8mb4');" PHP_EOL;  
 //block encoding exploits (obscure)
-// need to verify with hosts i converted all database tables/fields/columns/rows/indexes/databases to utf8mb4 correctly
-// this table does not contain a unique column. Grid edit, checkbox, Edit, Copy and Delete features are not available. <- phpmyadmin bitching @ me 
-// set "primary" key as uid is this not unique? 
-// need eventually to break up and organize db properly (massive headache, code now, fix later. \
-	
-// let hosts know: 
-// http://www.networkworld.com/article/2992592/security/cisco-dedicates-security-project-to-pissing-off-the-bad-guys.html
-// ask hosts for php 5.6 / 7
-// CVE-2015-5600 <--- i think your vulnerable
-// openssh v7 will fix 
-// http://www.itworld.com/article/2951494/bug-exposes-openssh-servers-to-bruteforce-password-guessing-attacks.html
-//http://securityaffairs.co/wordpress/38798/hacking/openssh-flaw-brute-force.html
+
 
 // fuck!!! i thought htmlentites() should safley filter all utf8-mb4 encoding but it looks like only a small subset of the extended askii table
 // how to i safely handle full utf compatibility along with making sure nullbytes aren’t injeacted in unassigned slots
 // there probbably is some form of blody char out there in the tables (its massive) that can break a string and let them inject custom code
 // http://stackoverflow.com/questions/46483/htmlentities-vs-htmlspecialchars
-
-// im beggining to suspect some fucntions may require me to hack the php core code to do what i want
-// remind to ask hosts about allowing that, or me running c++ functions outside dock root
-// need to look deeply into the security implications if i have to do this... i know its not good... and how to harden
+// http://stackoverflow.com/questions/18749591/encode-html-entities-in-javascript
 
 echo '<title>Welcome</title>' PHP_EOL;
 // should i be using ; (inside echo) to end the line for <title> <head> <meta> css inc, after a } ect
 <link rel="stylesheet" href="http://4the99.org/stylez/style.css">
 
-// gonna have to enforce the use of javascript it will just hurt to much intally not to, but plan to leave things so we can enable n js users later
+// gonna have to enforce the use of javascript to many problems if i dont. 
 
 header allways append date_default_timezone_set("UTC");
 //don’t mess with server default time-zone, higher level functions will take care of conversions
@@ -79,7 +68,7 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 // strip_tags INSUFFICENT TO STOP XSS but may help with url filtering for clickable links 
 
 //php.ini thoughts
-// disable_funcitons
+// disable_funcitons eval() php_info() etc... (id love to hack the php core on these and set a trap)
 // disable_classes
 // max_input_vars    <---- limit how many form field inputs per page
 // upload_max_filesize 
@@ -90,8 +79,6 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 // allways move file into apropriate location
 // enctype="multipart/form-data"   on forms or it will crash out  
 
-// there are many problems with this code, see if you can spot them :P 
-// *sigh* hundreds of lines of code to go... just for firkin login. 
 // having a hard time keeping focused lots is going on. 
 // don’t use short php tags! (baaad habit)
 // trust no one, secure everything (seriously, im only this far behind because im going hardcore)
@@ -106,8 +93,18 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 
 //http://stackoverflow.com/questions/2184601/how-to-increment-count-in-the-replacement-string-when-using-preg-replace
 // preg replace hack detect
-// get javascript crypto libary (i think its @ mit, lost link)
-// think it was on the crackstation ha
+// https://crypto.stanford.edu/sjcl/   <---- java crypto 
+// https://gist.github.com/jo/8619441   <--- js crypto libary list
+// https://code.google.com/p/crypto-js/
+// http://fossbytes.com/learn-it-faster-the-entire-javascript-language-in-a-single-image/
+//https://www.cybrary.it/course/python/?utm_source=thehackernews&utm_medium=social&utm_campaign=Se_social
+
+
+
+// going to in essence for all inputs but email and file uploads <--- reminder, null byte! preg replace, in javascript 
+// any invalid chars hitting our inputs want to know they are, then can monitor which input gets hit (and what dosent in case there is a hole) 
+// map the attacks across our site, take proactive defensive measures and store in attacker database, host can work at layer 3/4 as well 
+
 ?>
 
 
@@ -668,13 +665,13 @@ A simple idea, massive impact, and one of the countless plans we have on the tab
 <?php
 // credit where credit is due, thanks this dude, for the handy kick start 
 //i was haing nighmares once upon a time trying to track down a decent mysqli prepared statment example and rediscoverd in lost code pile 
+// lost link, need to track it down again *sigh* 
 
 //the rest of the code was made by
 
 // no Klingon support yet :'(
 
-//"The greatest tragedy of this changing society is that people who never knew what it was like before will simply assume that this is the way things are supposed to be." -2600 Magazine, Fall 2002
-// ;)
+//
 ?>
 </body>
 </html>
