@@ -16,11 +16,13 @@ echo "header('Content-type: text/html; charset=utf-8mb4');" PHP_EOL;
 //block encoding exploits (obscure)
 
 
-// fuck!!! i thought htmlentites() should safley filter all utf8-mb4 encoding but it looks like only a small subset of the extended askii table
+// (*&^(*&^!!! i thought htmlentites() should safley filter all utf8-mb4 encoding but it looks like only a small subset of the extended askii table
 // how to i safely handle full utf compatibility along with making sure nullbytes aren’t injeacted in unassigned slots
 // there probbably is some form of blody char out there in the tables (its massive) that can break a string and let them inject custom code
 // http://stackoverflow.com/questions/46483/htmlentities-vs-htmlspecialchars
 // http://stackoverflow.com/questions/18749591/encode-html-entities-in-javascript
+// https://mathiasbynens.be/notes/mysql-utf8mb4
+// check db all is mb4 *groan* to way to bone tired and destroyed to figure that one out <----------- reminder!!!!!!!
 
 echo '<title>Welcome</title>' PHP_EOL;
 // should i be using ; (inside echo) to end the line for <title> <head> <meta> css inc, after a } ect
@@ -60,18 +62,19 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 //need to get working then look at converting into oop (im a bit iffy on the fine art)
 // if i can barley wrap my head around MVC im sure the other devs wont stand a chance, thus not using... 
 
-// datatype changing nice in theroy, but what happens to the dropped bits, and is there any risk of this being manipultated, (like in the memory buffers)
+// datatype changing nice in theroy, but what happens to the dropped bits, and is there any risk of this being manipulatable
+, (like in the memory buffers)
 // foreach ($post_array_variable as $cleaned_data) { htmlspecialchars($cleaned_data) } PHP_EOL;
 // foreach ($post_array_variable as $cleaned_data) { {float) $cleaned_data } PHP_EOL;
 // foreach ($post_array_variable as $cleaned_data) { (int) $cleaned_data } PHP_EOL;
 // foreach ($post_array_variable as $cleaned_data) { strip_tags($cleaned_data, '<br><i>' } PHP_EOL; <--- allows <br> and <i> or tags you desire
 // strip_tags INSUFFICENT TO STOP XSS but may help with url filtering for clickable links 
 
-//php.ini thoughts
+//php.ini thoughts (policy of least privilege) <--- speaking of which database permissions?
 // disable_funcitons eval() php_info() etc... (id love to hack the php core on these and set a trap)
 // disable_classes
 // max_input_vars    <---- limit how many form field inputs per page
-// upload_max_filesize 
+// upload_max_filesize
 // max_input_nesting_level
 // max file uploads (simultaneous uploads)
 // filter file size and type (yes the mime type (eg image/gif) can be forged)
@@ -82,10 +85,11 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 // having a hard time keeping focused lots is going on. 
 // don’t use short php tags! (baaad habit)
 // trust no one, secure everything (seriously, im only this far behind because im going hardcore)
+// every single input is a honeypot! it just idiotic to use a aplication firewall after the fact, though for pci compliance... 
 // crypto level im not toooooo worried about, may need tweaking when we go live until we start getting into mass dedicated servers
 // when we can specify custom hardware crypto cost is almost nothing
 
-// fucking css code now, prettyfy later, im focused on functionality rather than looking slick (for now)	
+// stupid css code now, prettyfy later, im focused on functionality rather than looking slick (for now)	
 // is css parsed by the server or the browser especially the screen size and can it be injected as such? or at all? 
 // same with -moz n stuff and @media as such is there a weak point in css, (google is being a fuck with detail)
 // or is it site admins allowing skinning and thus allowing javascript injections 
@@ -190,15 +194,15 @@ mysqli_close();
 closelog();
 session_destroy();
 fwrite(STDERR, "hack killed: $violation \n");
-exit(1); // A response code other than 0 is a failure <--- hub? why? 
+exit(1); // A response code other than 0 is a failure <--- huh? why? 
 // session destroy wildcard? destroy all?
-// read all sessions (filtered), destroy all sessions, create new sessions/files, to fingerprint and idenfity malicous users (flash cookies, browser headers, ip)
-// create tempoary files, and other more... dangerous ideas for the real scum like pedos. suffice to say a trail of blinking lights for Interpol to follow. *classified* 
-// disabled need to filter safley probbably with html_entities 
+// read all sessions (filtered), destroy all sessions, create new sessions/files, to fingerprint and identify malicious users (flash cookies, browser headers, ip)
+// create temporary files, and other more... dangerous ideas for the real scum like pedos. suffice to say a trail of blinking lights for Interpol to follow. *classified* 
+// disabled need to filter safely probably with html_entities 
 
 //use full (basic) fingerprinting to evolve below, needs work. 
 //get_browser($user_agent = null, $return_array = null);   
-// get_defined_functions();  <---- coustom functions from the injections? 
+// get_defined_functions();  <---- custom functions from the injections? 
 //get_headers($url, $format = null);
 //header($string, $replace, $http_response_code);
 //mail($to, $subject, $message, $additional_headers = null, $additional_parameters = null);
@@ -207,14 +211,14 @@ exit(1); // A response code other than 0 is a failure <--- hub? why?
 // need to look deeper into forged packet source/destination headers, but that’s layer 3 attacks  
 // *sigh* sooooo much to do on network/server security at lower layers gonna be a headache 
 // NEED a external hardware/vps keyserver for 2 way crypto entropy and lock that down tight!! 
-// salted password rotation with epoch timestamp as well in hash 
+// salted password rotation with epoch time-stamp as well in hash 
 // remember to run a time synchronization between server and lag catching
 // request packet dont match exactly block. TIGHT! security/along with ip, and header, and look at crytop key exchanges and tls and all the toys ^^
 
 
 echo "Sprung! behave! this is a charity! for now, ill just warn..."
 
-// nice union sql injeaction catcher (wont stop, just detect idiots)
+// nice union sql injection catcher (wont stop, just detect idiots)
 // need to put in the right spot but that area is compex enough as it is for now 
 // could also taget wait for blind sql injection 
 if (stirpos($input_string, 'UNION ') === false)
@@ -226,7 +230,7 @@ else
 $violation = "union sql injection attempt" ;
 haxxor_landmine($violation)
 //may put in page and box for all attacks as a second variable that way we can track attacks as they progress across the site
-//that is for silent mode/sandboxing
+//that is for silent mode/honeypot
 
 
 //ffs
@@ -262,6 +266,7 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 					// $strlen_count = strlen(utf8_decode($string_to_count));  <-- encoding    $dirty_password =  $string_to_count
 					
 					// need to work this with while logic instead of if 
+					// brain melting from loop logic its to much 
 					
 					$strlen_count_pass = 2;
 					$strlen_count_pass = strlen($dirty_email);
@@ -284,6 +289,10 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
    	 							// incorrect regex syntax (0-9 A-F case insensitive hex hash output from JavaScript)
    	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
 								// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+								// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
+								// thats it!! dont understand all the vars and syntax but its argument 5
+								// very, very, very stuck on this one. 
+
 								}
 								while ($count_pass == 1) 
 									// use value of 1 to stop null-bites being parsed rather than 0 
@@ -347,12 +356,12 @@ function login($dirty_email, $dirty_password)
 		// really want to protect db pass with everything i can thow at it, to make sure everything is protected and not being able to be called client side 
 		
 		$file = str_replace(chr(0), '', $string);
-		// how the fuck do i specify null byte from the keyboard exactly? or is it just a space 
+		// how the fruit do i specify null byte from the keyboard exactly? or is it just a space or 0x00000 or NULL or ? what to use considering, c++/sql/php/xml/html/js *sigh* 
 		//poison null byte prevention https://www.hackthis.co.uk/articles/common-php-attacks-poison-null-byte
 		// add count options 4 haxxor_landmine()
 		// *** danger**** str_replace is not comaptable with full unicode, BUT it starts @ string end, to nail nullbyte first and formost 
 		// for this particlar attack, may have to run preg_replacee() as well over the top with the U flag (and others mentioned above)
-		// to fully clean all file linkings for include, and also look @ php.ini include lockdown and see if it can have whitelist 
+		// to fully clean all file linkings for include, and also look @ php.ini include can i lockdown and see if it can have whitelist per include?
 		
 		// will generate multiple sessions per browser/ip and user set session control later 
 	   // gonna get rid of the shitty fsm browser model aka stay logged in but secure from xss/csrf
@@ -377,7 +386,7 @@ function login($dirty_email, $dirty_password)
         $stmt->store_result();
  
         // get variables from result.
-        // need to add user ip as entropy (will add one shot pin authentication to gen new session)
+        // need to add user ip as secondary session (will add one shot pin authentication to gen new session)
         // web socket echo encryption stage status (make this timing attack safe)
         $stmt->bind_result($UID, $clean_login, $clean_pass_hash, $clean_user_salt, $clean_encrypted_email,
     	 $clean_user_encrypted_registration_email, $clean_user_registration_timestamp, $clean_user_cookie_hash,
@@ -389,9 +398,9 @@ function login($dirty_email, $dirty_password)
         $stmt->fetch();
  
  // pulling salt to early in hashing, need to look @ using it in intal stages of encrypt and gen a few salts with password_hashing
-// fucking bcrypt cant have bigger than 72 chars, have to look @ 64 char hash outputs and do a pile 
+// stupid bcrypt cant have bigger than 72 chars, have to look @ 64 char hash outputs and do a pile 
       
-      // begin UnFuCkInCraCaBle
+      // begin UnFuCkInCrAcKaBlE
 		// https://crackstation.net/hashing-security.htm <-- a good write up for those interested 
 		// look 4 mit crypto javascript implementation @ ^^^^ if not dig in this area in bookmarks
 		// ***** stage 1 encryption******
@@ -440,14 +449,14 @@ function login($dirty_email, $dirty_password)
 		
 		//password_hashing() password_verify() password_needs_rehashing()
 		// *****warning**** password hashing uses bcrypt, and max password lengh is 72 so will need to use a portion of the string
-		// just how strong is bcrypt and what algos? i like the unique salt generation <--- check how, make sure its got good entropy source
-		// not weak like open ssl, because thats only generated once per load 
-		// enfofce javascript, to much hasstle to build a secure sockets from scratch (for now) but also look at hash server load
+		// i like the unique salt generation <--- check how, make sure its got good entropy source
+		// not weak like open ssl random, because that’s only generated once per load (server restart) 
+		// enfofce javascript, to much hassle to build a secure sockets from scratch (for now) but also look at hash server load
 		// LADAPS! 
 		
 		// extract user public key for addional entropy/fingerprinting bots x509/SPKAC(cause issues with cloudflare mitm?)
 		// could also be used to harden cloudflare secruty, thinking of detecting non cloudflare (ip/header/cert/connection) and blocking 
-		// open_ssl_default_stream_cyphers <--- aplication layer (php 5.6) or open ssl?
+		// open_ssl_default_stream_cyphers <--- application layer (php 5.6) or open ssl?
 // need to apply these to all cookies 		
 // session.cookie_httponly   <--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
 // session.cookie_secure		<--- enforces cookie over https 
@@ -465,7 +474,7 @@ function login($dirty_email, $dirty_password)
 
 		
 		
-	// needs overhauling not really focused here, just using as refrence, i got to get ^^^^ figured out first before i really spread my wings. 
+	// needs overhauling not really focused here, just using as reverencing, i got to get ^^^^ figured out first before i really spread my wings. 
         if ($stmt->num_rows == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
