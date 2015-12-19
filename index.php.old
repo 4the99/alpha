@@ -1,28 +1,38 @@
-<!DOCTYPE html>
-<html> PHP_EOL; 
-<head> PHP_EOL;
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8mb4" />; PHP_EOL;
-echo header('Content-type: text/html; charset=utf-8mb4'); PHP_EOL;  
-<!-- block encoding exploits (obscure) -->
-
+<!DOCTYPE html> 
 <?php
+// (php 7)declare(strict_types=1)    <---- locked down input into bool, int, float, string has to be here? "at top" (dont delcare on the inclue)
+// see here https://www.youtube.com/watch?v=5r5GkJL7Dgg   (php7)
+// goes above doctype? 
+// can i echo doctype? 
+// do i need php_EOL;
+
+//cpu choke for scripting
+// http://www.linuxscrew.com/2012/07/03/limit-cpu-usage-of-linux-process/
+
+echo '<html>' PHP_EOL; 
+echo '<head>' PHP_EOL;
+echo '<meta http-equiv="Content-Type" content="text/html; charset=utf-8mb4" />;' PHP_EOL;
+echo "header('Content-type: text/html; charset=utf-8mb4');" PHP_EOL;  
+//block encoding exploits (obscure)
+
+
 // (*&^(*&^!!! i thought htmlentites() should safley filter all utf8-mb4 encoding but it looks like only a small subset of the extended askii table
 // how to i safely handle full utf compatibility along with making sure nullbytes aren’t injeacted in unassigned slots
 // there probbably is some form of blody char out there in the tables (its massive) that can break a string and let them inject custom code
 // http://stackoverflow.com/questions/46483/htmlentities-vs-htmlspecialchars
 // http://stackoverflow.com/questions/18749591/encode-html-entities-in-javascript
 // https://mathiasbynens.be/notes/mysql-utf8mb4
-?>
+// check db all is mb4 *groan* to way to bone tired and destroyed to figure that one out <----------- reminder!!!!!!!
 
-<title>Welcome</title> PHP_EOL;
+echo '<title>Welcome</title>' PHP_EOL;
+// should i be using ; (inside echo) to end the line for <title> <head> <meta> css inc, after a } ect
 <link rel="stylesheet" href="http://4the99.org/stylez/style.css">
 
-<?php
+// gonna have to enforce the use of javascript to many problems if i dont. 
+
 header allways append date_default_timezone_set("UTC");
 //don’t mess with server default time-zone, higher level functions will take care of conversions
-
-
-//so not sure about all of same origin and hsts  
+  
 //https://tools.ietf.org/html/rfc6797 <--- strict transport security 
 // http://www.rackspace.com/knowledge_center/article/force-ssl-on-your-php-site <--- .htaccess https enforcement extra layer, why not?
 //http://www.enigmagroup.org/code/view/php/196-PHP-security-class
@@ -36,8 +46,8 @@ header always append Content-Security-Policy
 header always append X-WebKit-CSP
 header always append X-Content-Security-Policy
 header always append Strict-Transport-Security: max-age=31536000; includeSubDomains;
-//sintax? correct? 
 
+// ^^^^^^ suspected bad syntax also needs go go in apachie.conf (apparently) <---- not there in host options, set as hedder? how? per page?
 // http://docs.aws.amazon.com/ElasticLoadBalancing/latest/DeveloperGuide/x-forwarded-headers.html#x-forwarded-port
 // want to add paypall, youtube, facebook, ebay, api (deeply restricted) only on certan sections for account migration
 // can only add one exception per page? or global? (read somewhere)
@@ -49,10 +59,11 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 
 // was considering for standard input boxes javascript encode html_special_charecters (entquotes), then preg_replace on php side in and out
 // still need to figure out the safest way to handle links (to make em click-able), and email (to make it emailable and not email php_info)
-// need to get working then look at converting into oop (im a bit iffy on the fine art)
+//need to get working then look at converting into oop (im a bit iffy on the fine art)
 // if i can barley wrap my head around MVC im sure the other devs wont stand a chance, thus not using... 
 
-// datatype changing nice in theroy, but what happens to the dropped bits, and is there any risk of this being manipulatable (like in the memory buffers)
+// datatype changing nice in theroy, but what happens to the dropped bits, and is there any risk of this being manipulatable
+, (like in the memory buffers)
 // foreach ($post_array_variable as $cleaned_data) { htmlspecialchars($cleaned_data) } PHP_EOL;
 // foreach ($post_array_variable as $cleaned_data) { {float) $cleaned_data } PHP_EOL;
 // foreach ($post_array_variable as $cleaned_data) { (int) $cleaned_data } PHP_EOL;
@@ -70,7 +81,14 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 // allwase check file error never output 
 // allways move file into apropriate location
 // enctype="multipart/form-data"   on forms or it will crash out  
- 
+
+// having a hard time keeping focused lots is going on. 
+// don’t use short php tags! (baaad habit)
+// trust no one, secure everything (seriously, im only this far behind because im going hardcore)
+// every single input is a honeypot! it just idiotic to use a aplication firewall after the fact, though for pci compliance... 
+// crypto level im not toooooo worried about, may need tweaking when we go live until we start getting into mass dedicated servers
+// when we can specify custom hardware crypto cost is almost nothing
+
 // stupid css code now, prettyfy later, im focused on functionality rather than looking slick (for now)	
 // is css parsed by the server or the browser especially the screen size and can it be injected as such? or at all? 
 // same with -moz n stuff and @media as such is there a weak point in css, (google is being a fuck with detail)
@@ -90,6 +108,7 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 // going to in essence for all inputs but email and file uploads <--- reminder, null byte! preg replace, in javascript 
 // any invalid chars hitting our inputs want to know they are, then can monitor which input gets hit (and what dosent in case there is a hole) 
 // map the attacks across our site, take proactive defensive measures and store in attacker database, host can work at layer 3/4 as well 
+
 ?>
 
 
@@ -154,7 +173,7 @@ header always append Strict-Transport-Security: max-age=31536000; includeSubDoma
 //preg replace alert $haxxor landmine
 function haxxor_landmine($violation)
 {
-//grab header, locally resolved public ip, remotley resolve public ip, look for ban cookies seach database for fingerprints to see
+//grab header, locally resolved public ip, remotley resolve public ip, look for ban cookies seach datbase for fingerprints to see
 //if we have a persistent pest update accordingly log then nuke all connecitons and scripts 
 
 //need to redirect to blank page? for echo? multile echos, per page? in a process? socket? (bad for nuke)
@@ -240,6 +259,7 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 				//public variable not defended yet	<--- to do
 				// js detection on form (way down) may not work... need to test
 				{ 
+					// http://php.net/manual/en/function.microtime.php
 					// http://php.net/manual/en/function.strlen.php   <-- intresting function in comments 
 					// need to look at encoding for the count, but if i copy/encode vairable it breaks the if statment and
 					// killing post half way though once it hits a certan point? is this even possible? trying....
@@ -294,16 +314,11 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 								{
 							// return pass to short 
 								)
-					while($strlen_count_pass > 512)
-						{
-						// wait for a small timeout
-						
-							}
+					while($strlen_count_pass > 1000000)
 				
-					if($strlen_count_pass > 512) 
-					{	
-				   /// attemted buffer overflow of password 
-					}					
+				//allow post to continue but once it pops 1mill go thats a bit excessive.... we do encrypt properly
+				 
+					
 					else if($java_script_is_enabled != 1 or 2)
 					{
 						$violation = "injecting in2 javascript_is_enabled vairable";					
@@ -320,7 +335,7 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 					// http://php.net/manual/en/filter.examples.sanitization.php   <--- checkon filter in server 
 					}
 	}
-	// login needs buffer overflow protection. 
+	
 // now all that is done, do we put it into this function below can they call an inject into the login fucntion 
 function login($dirty_email, $dirty_password) 
 {
@@ -332,6 +347,7 @@ function login($dirty_email, $dirty_password)
 		// include database php 
 		require("~/mysqli_con.php")
 		http://dba.stackexchange.com/questions/8239/how-to-easily-convert-utf8-tables-to-utf8mb4-in-mysql-5-5
+		//reminder to get this chowned and set up with hosts due to policy enforcement 
 		//is referenced properly? outside public_html to prevent hack single or double quotes? 
 		// even better need to look deeply at hardening the security of this, is there a way to detect where exactly this script is called from? 
 		// on which page, under which fuction, and lock it down as a protected variable
@@ -655,9 +671,32 @@ A simple idea, massive impact, and one of the countless plans we have on the tab
 			</div>
 		</div>
 </div>
+<?php
+// credit where credit is due, thanks this dude, for the handy kick start 
+//i was haing nighmares once upon a time trying to track down a decent mysqli prepared statment example and rediscoverd in lost code pile 
+// lost link, need to track it down again *sigh* 
 
+//the rest of the code was made by
+
+// no Klingon support yet :'(
+
+//
 ?>
 </body>
 </html>
 
- 
+
+
+
+This is a .org domain, thus charity.
+
+NO we are definitely  not interested in Cms like drupal, or frameworks. 
+Im sure we dont fit their boxes and will cause vast headaches later on.
+Dont you dare try and run that insecure crap named flash on our domain either. 
+Even i can write exploits for it, no matter the "latest version". (and im white hat.)
+Im impressed how quickly you picked up on the site after i let slip the contact info, what 12 hour scrape? 
+we dont have the resources to hire you, and wont hire anyone until the site hits critical mass.
+If you truly read our index, do you really care? The world needs this, as crappy as the css is atm (i dont care, focused on better code)
+Im doing things different, because they need to be. Are you prepared to roll up your sleeves and get down and dirty with raw code? 
+
+If your interested in volunteering some time let me know id be quite happy to link you up with the rest of the team. 
