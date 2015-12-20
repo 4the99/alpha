@@ -455,7 +455,100 @@ function login($dirty_email, $dirty_password)
 // declare(strict_types=1)    <---- locked down input into bool, int, float, string
 // you can catch exceptions with error()
 
+Protected function bot_fingerprint() {
+//stash inside main login class
+//pdo and prepared and msquli couldnt be toughter to crack :)
+//http://www.w3schools.com/php/php_mysql_prepared_statements.asp
+// remember to put in the while preg replace detection inside the connection script
 
+//some of these may return null? remember to protect!
+
+$dirty_attacker_ip = $_SERVER['REMOTE_ADDR'];
+$dirty_attacker_resolved_ip = $_SERVER['REMOTE_HOST'];
+$dirty_attacker_remote_port = $_SERVER['REMOTE_PORT'];
+$dirty_attacker_hostname = $_SERVER['HTTP_HOST'];
+$dirty_attacker_user = $_SERVER['REMOTE_USER'];
+$dirty_attacker_useragent = $_SERVER['HTTP_USER_AGENT'];
+$dirty_cgi_stript_attacked = $_SERVER['GATEWAY_INTERFACE'];
+$dirty_attacked_server_ip = $_SERVER['SERVER_ADDR'];
+$dirty_attacked_server_hostname = $_SERVER['SERVER_NAME'];
+$dirty_server_sent_headers = $_SERVER['SERVER_SOFTWARE'];
+$dirty_attacked_protocol = $_SERVER['SERVER_PROTOCOL'];
+$dirty_attack_timestamp_float = $_SERVER['REQUEST_TIME_FLOAT'];
+$dirty_attack_query = $_SERVER['QUERY_STRING'];
+$dirty_attacker_metadata = $_SERVER['HTTP_ACCEPT'];
+$dirty_attacker_charset = $_SERVER['HTTP_ACCEPT_CHARSET'];
+$dirty_attacker_encoding = $_SERVER['HTTP_ACCEPT_ENCODING'];
+$dirty_attacker_languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+$dirty_attacker_http_headers = $_SERVER['HTTP_CONNECTION'];
+$dirty_attacker_https_flag = $_SERVER['HTTPS'];
+$dirty_attacker_refferer = $_SERVER['HTTP_REFERER'];
+$dirty_attacker_if_redirected = $_SERVER['REDIRECT_REMOTE_USER'];
+$dirty_attacked_filename = $_SERVER['SCRIPT_FILENAME'];
+$dirty_attacked_file_dir = $_SERVER['DOCUMENT_ROOT'];
+$dirty_attacked_after_parsing_path = $_SERVER['PATH_TRANSLATED'];
+$dirty_attacked_apachie_user_id = $_SERVER['SERVER_ADMIN'];
+$dirty_attacked_port = $_SERVER['SERVER_PORT'];
+$dirty_attacked_url = $_SERVER['REQUEST_URI'];
+$dirty_attacked_file_path = $_SERVER['PATH_INFO'];
+$dirty_attacker_user_auth_level = $_SERVER['PHP_AUTH_DIGEST'];
+$dirty_attacker_user_id = $_SERVER['PHP_AUTH_USER'];
+$dirty_attacker_user_attempted_pw = $_SERVER['PHP_AUTH_PW'];
+$dirty_attacker_authentication_type = $_SERVER['AUTH_TYPE'];
+$dirty_origingal_file_attacked = $_SERVER['ORIG_PATH_INFO'];
+
+// reminder to link vardump
+$dirty_attacker_method = $_SERVER['REQUEST_METHOD'];
+
+//http://php.net/manual/en/function.get-browser.php
+// more fingerprinting but hits ram hard
+
+// http://php.net/manual/en/wrappers.php.php#wrappers.php.input
+
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDBPDO";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // prepare sql and bind parameters
+    $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email)
+    VALUES (:firstname, :lastname, :email)");
+    $stmt->bindParam(':firstname', $firstname);
+    $stmt->bindParam(':lastname', $lastname);
+    $stmt->bindParam(':email', $email);
+
+    // insert a row
+    $firstname = "John";
+    $lastname = "Doe";
+    $email = "john@example.com";
+    $stmt->execute();
+
+    // insert another row
+    $firstname = "Mary";
+    $lastname = "Moe";
+    $email = "mary@example.com";
+    $stmt->execute();
+
+    // insert another row
+    $firstname = "Julie";
+    $lastname = "Dooley";
+    $email = "julie@example.com";
+    $stmt->execute();
+
+    echo "New records created successfully";
+    }
+catch(PDOException $e)
+    {
+    echo "Error: " . $e->getMessage();
+    }
+$conn = null;
+
+}
 		
 		
 	// needs overhauling not really focused here, just using as reverencing, i got to get ^^^^ figured out first before i really spread my wings. 
