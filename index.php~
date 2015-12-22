@@ -18,7 +18,7 @@ header always append Content-Security-Policy
 header always append X-WebKit-CSP
 header always append X-Content-Security-Policy
 header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
-//syntax correct? can i even set this in php? or is this php.ini can it be set in .htaccess? 
+//syntax correct?
 ?>
 
 </head>
@@ -34,7 +34,6 @@ haxxor_landne($violation)
 // can enforce clearing post from memory using $_POST = 1 then unset? 
 unset($_POST)
 }
-
 
 //preg replace alert $haxxor landmine
 function haxxor_landmine($violation $page $input_box $user $target_user)
@@ -71,13 +70,10 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 					$strlen_count_pass = strlen($dirty_email);
 					if($strlen_count_pass != 514)
 					// may cause timing issues on submit ect being processed before $_POST has had a chance to fully commit.
-					// mabe 500 milli second delay? (remember stay logged in, and working with sockets so no need to constantly authenticate) 
-					{
-						$violation = "injecting bufferoverflow inside initial js pw hashz";
-						haxxor_landmine($violation);
-					}
-						else if() 
-						{
+					// mabe 500 milli second delay? (remember stay logged in)
+					
+					
+					 {
 							$count_pass = 1; //this is a protected? variable and cant be injected into? 
 							//start at 1 to prevent null-bite (i think)							
 							do 
@@ -102,11 +98,9 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 											haxxor_landmine($violation)
 											}
 									}	
-						}	
-					}
-					
-					else if($java_script_is_enabled == false) 
-						{		
+						}{											
+// bugged brackets cant remove check and nuke						
+						
 							$strlen_count_pass = 2;
 							$strlen_count_pass = strlen($dirty_email);
 							if(strlen_count_pass != 2)  // <------- mabe a bit essesive for min lengh but probbably not
@@ -127,8 +121,40 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 					//clean email input factoring in weird email chars, html_entitles sound good in theory until you send an email
 					// http://php.net/manual/en/filter.examples.sanitization.php   <--- checkon filter in server 
 					}
+$violation = "injecting bufferoverflow inside initial js pw hashz";
+						haxxor_landmine($violation);
+					}
+						else if() 
+						{
+							$count_pass = 1; //this is a protected? vairable and cant be injected into? 
+							//start at 1 to prevent null-bite (i think)							
+							do 
+								{
+									
+   	 							// trying wrap my head around loop logic, want to fire off haxxor_landmine($violation) 
+   	 							// else allow password to continue 
+   	 							// incorrect regex syntax (0-9 A-F case insensitive hex hash output from JavaScript)
+   	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
+								// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+								// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
+								// thats it!! dont understand all the vars and syntax but its argument 5
+								// very, very, very stuck on this one. 
+
+								}
+								while ($count_pass == 1) 
+									// use value of 1 to stop null-bites being parsed rather than 0 
+									{
+										if ($count_pass != 1) 
+											{
+											$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
+											haxxor_landmine($violation)
+											}
+									}	
+						}	
+					}
 	}
 
+				
 // now all that is done, do we put it into this function below can they call the login fuction in html and inject strait into it?
 function login($dirty_email, $dirty_password) 
 {
@@ -176,7 +202,6 @@ function login($dirty_email, $dirty_password)
 
 Protected function bot_fingerprint() {
 //stash inside main login class
-//pdo and prepared and msquli couldnt be toughter to crack :)
 //http://www.w3schools.com/php/php_mysql_prepared_statements.asp
 // remember to put in the while preg replace detection inside the connection script
 
