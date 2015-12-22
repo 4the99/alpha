@@ -14,7 +14,7 @@ header allways append date_default_timezone_set("UTC");
 header always append X-Frame-Options SAMEORIGIN;
 header always append X-Frame-Options DENY;
 header always append X-Forwarded-Proto: https;
-header always append X-Forwarded-Port: 8080;
+header always append X-Forwarded-Port: 443;
 header always append Content-Security-Policy 
 header always append X-WebKit-CSP
 header always append X-Content-Security-Policy
@@ -25,7 +25,6 @@ header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
 </head>
 <body>
 <?php
-
 
 protected function nuke_post()
 {
@@ -55,9 +54,7 @@ protected function haxxor_landmine($violation $page $input_box $user $target_use
 	// see bot_fingerprint()  
 }
 
-
-
-				
+			
 protected function login($dirty_email, $dirty_password) 
 {		
 	// include database php 
@@ -109,28 +106,28 @@ Protected function bot_fingerprint()
 	$dirty_attacker_ip = $_SERVER['REMOTE_ADDR'];
 	$dirty_attacker_resolved_ip = $_SERVER['REMOTE_HOST'];
 	$dirty_attacker_remote_port = $_SERVER['REMOTE_PORT'];
-	$dirty_attacker_hostname = $_SERVER['HTTP_HOST'];
+	$dirty_attacker_host_name = $_SERVER['HTTP_HOST'];
 	$dirty_attacker_user = $_SERVER['REMOTE_USER'];
-	$dirty_attacker_useragent = $_SERVER['HTTP_USER_AGENT'];
-	$dirty_cgi_stript_attacked = $_SERVER['GATEWAY_INTERFACE'];
+	$dirty_attacker_user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$dirty_cgi_script_attacked = $_SERVER['GATEWAY_INTERFACE'];
 	$dirty_attacked_server_ip = $_SERVER['SERVER_ADDR'];
-	$dirty_attacked_server_hostname = $_SERVER['SERVER_NAME'];
+	$dirty_attacked_server_host_name = $_SERVER['SERVER_NAME'];
 	$dirty_server_sent_headers = $_SERVER['SERVER_SOFTWARE'];
 	$dirty_attacked_protocol = $_SERVER['SERVER_PROTOCOL'];
-	$dirty_attack_timestamp_float = $_SERVER['REQUEST_TIME_FLOAT'];
+	$dirty_attack_time_stamp_float = $_SERVER['REQUEST_TIME_FLOAT'];
 	$dirty_attack_query = $_SERVER['QUERY_STRING'];
-	$dirty_attacker_metadata = $_SERVER['HTTP_ACCEPT'];
+	$dirty_attacker_meta_data = $_SERVER['HTTP_ACCEPT'];
 	$dirty_attacker_charset = $_SERVER['HTTP_ACCEPT_CHARSET'];
 	$dirty_attacker_encoding = $_SERVER['HTTP_ACCEPT_ENCODING'];
 	$dirty_attacker_languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
 	$dirty_attacker_http_headers = $_SERVER['HTTP_CONNECTION'];
 	$dirty_attacker_https_flag = $_SERVER['HTTPS'];
-	$dirty_attacker_refferer = $_SERVER['HTTP_REFERER'];
+	$dirty_attacker_referrer = $_SERVER['HTTP_REFERER'];
 	$dirty_attacker_if_redirected = $_SERVER['REDIRECT_REMOTE_USER'];
 	$dirty_attacked_filename = $_SERVER['SCRIPT_FILENAME'];
 	$dirty_attacked_file_dir = $_SERVER['DOCUMENT_ROOT'];
 	$dirty_attacked_after_parsing_path = $_SERVER['PATH_TRANSLATED'];
-	$dirty_attacked_apachie_user_id = $_SERVER['SERVER_ADMIN'];
+	$dirty_attacked_apache_user_id = $_SERVER['SERVER_ADMIN'];
 	$dirty_attacked_port = $_SERVER['SERVER_PORT'];
 	$dirty_attacked_url = $_SERVER['REQUEST_URI'];
 	$dirty_attacked_file_path = $_SERVER['PATH_INFO'];
@@ -138,7 +135,8 @@ Protected function bot_fingerprint()
 	$dirty_attacker_user_id = $_SERVER['PHP_AUTH_USER'];
 	$dirty_attacker_user_attempted_pw = $_SERVER['PHP_AUTH_PW'];
 	$dirty_attacker_authentication_type = $_SERVER['AUTH_TYPE'];
-	$dirty_origingal_file_attacked = $_SERVER['ORIG_PATH_INFO'];
+	$dirty_original_file_attacked = $_SERVER['ORIG_PATH_INFO'];
+
 
 	// reminder to link vardump
 	$dirty_attacker_method = $_SERVER['REQUEST_METHOD'];
@@ -152,6 +150,31 @@ Protected function bot_fingerprint()
 	//get_headers($url, $format = null);
 	//header($string, $replace, $http_response_code);
 	//mail($to, $subject, $message, $additional_headers = null, $additional_parameters = null);
+
+
+//for the love of unicode! 
+// Unicode-proof htmlentities.
+http://php.net/manual/en/function.htmlentities.php#107985
+
+// Returns 'normal' chars as chars and weirdos as numeric html entites.
+function superentities( $super_ent_str_in ){
+    // get rid of existing entities else double-escape
+    $super_ent_str_in = html_entity_decode(stripslashes($super_ent_str_in),ENT_QUOTES,'UTF-8');
+    $ar = preg_split('/(?<!^)(?!$)/u', $super_ent_str_in );  // return array of every multi-byte character 
+    foreach ($ar as $c){
+        $o = ord($c);
+        if ( (strlen($c) > 1) || /* multi-byte [unicode] */
+            ($o <32 || $o > 126) || /* <- control / latin weirdos -> */
+            ($o >33 && $o < 40) ||/* quotes + ambersand */
+            ($o >59 && $o < 63) /* html */
+        ) {
+            // convert to numeric entity
+            $c = mb_encode_numericentity($c,array (0x0, 0xffff, 0, 0xffff), 'UTF-8');
+        }
+        $super_ent_string_out .= $c;
+    }
+    return $super_ent_string_out1;
+}
 
 		// this pdo stuff not my code, for referencing. 
 		//http://www.w3schools.com/php/php_mysql_prepared_statements.asp

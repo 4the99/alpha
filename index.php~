@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="http://4the99.org/stylez/style.css">
 <link rel="stylesheet" href="http://4the99.org/stylez/index.css">
 <!-- stuuuupid! question but one i cant figure out is the resolution/@moz parsed by server and then appropriate code sent to browser -->
+<!-- but i have to know, because i cant find an answer and just are not sure -->
 
 <?php
 header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
@@ -25,285 +26,180 @@ header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
 <body>
 <?php
 
-$kill_post = 1;
-if ($kill_post != 1 or 2)
-// order of operations fuckup here, not sure how to fix
-{
-$violation = "injecting injecting in2 kill_post var");
-haxxor_landne($violation)
-// can enforce clearing post from memory using $_POST = 1 then unset? 
-unset($_POST)
-}
 
+protected function nuke_post()
+{
+	//$kill_post = 1;
+	//need to put this somewhere....
+	if ($kill_post is != 1 or 2)
+		// order of operations fuckup here, not sure how to fix
+		// did is fix?
+		{
+			$violation = "injecting injecting in2 kill_post var");
+			haxxor_landmine($violation)
+			$_POST = 1;
+			unset($_POST);
+		}
+}
 //preg replace alert $haxxor landmine
-function haxxor_landmine($violation $page $input_box $user $target_user)
+protected function haxxor_landmine($violation $page $input_box $user $target_user)
 {
-ob_end_clean();
-mysqli_close();
-closelog();
-session_destroy();
-fwrite(STDERR, "hack killed: $violation $page $input_box\n");
-exit(1); // A response code other than 0 is a failure <--- huh? why? 
-// session destroy wildcard? destroy all?
-// need to add attacked inputbox/page
-// see bot_fingerprint()  
+	ob_end_clean();
+	mysqli_close();
+	closelog();
+	session_destroy();
+	fwrite(STDERR, "hack killed: $violation $page $input_box\n");
+	exit(1); // A response code other than 0 is a failure <--- huh? why? 
+	// session destroy wildcard? destroy all?
+	// need to add attacked inputbox/page
+	// see bot_fingerprint()  
 }
 
 
-
-do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_login']))) 
-	{ 
-		$dirty_email = $_POST['dirty_email'];
-		$dirty_password = $_POST['dirty_password'];
-		$dirty_button = $_POST['dirty_login'];
-		// mabe use count() but its counts the entire array 
- 		// dirty button undefended atm
- 			 {
-			while (if ($java_script_is_enabled == true)) 	
-				//no js no input box need to remake below
-				//need to make js hide a div if enabled, and unhide another it can be done
-				{ 					
-					// need to work this with while logic instead of if 
-					// brain melting from loop logic its to much 
-					
-					$strlen_count_pass = 2;
-					$strlen_count_pass = strlen($dirty_email);
-					if($strlen_count_pass != 514)
-					// may cause timing issues on submit ect being processed before $_POST has had a chance to fully commit.
-					// mabe 500 milli second delay? (remember stay logged in)
-					
-					
-					 {
-							$count_pass = 1; //this is a protected? variable and cant be injected into? 
-							//start at 1 to prevent null-bite (i think)							
-							do 
-								{
-									
-   	 							// trying wrap my head around loop logic, want to fire off haxxor_landmine($violation) 
-   	 							// else allow password to continue 
-   	 							// incorrect regex syntax (0-9 A-F case sensitive hex hash output from JavaScript)
-   	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
-								// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
-								// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
-								// thats it!! dont understand all the vars and syntax but its argument 5
-								// very, very, very stuck on this one. 
-
-								}
-								while ($count_pass == 1) 
-									// use value of 1 to stop null-bites being parsed rather than 0 
-									{
-										if ($count_pass != 1) 
-											{
-											$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
-											haxxor_landmine($violation)
-											}
-									}	
-						}{											
-// bugged brackets cant remove check and nuke						
-						
-							$strlen_count_pass = 2;
-							$strlen_count_pass = strlen($dirty_email);
-							if(strlen_count_pass != 2)  // <------- mabe a bit essesive for min lengh but probbably not
-								{
-								//haxor_landmine() 
-								//login form will be hidden without js if they login without js then its an attack. 
-								}
-					else if($java_script_is_enabled != 1 or 2)
-					{
-						$violation = "injecting in2 javascript_is_enabled vairable";					
-						haxxor_landmine($violation);
-					}
-					// detect injection into the submit button, need to know its default values 
-					
-					// if email over 50 chars, and make email 
-					// place this outside of the while and kill post cuz all check are ok 
-				hash($dirty_password)
-					//clean email input factoring in weird email chars, html_entitles sound good in theory until you send an email
-					// http://php.net/manual/en/filter.examples.sanitization.php   <--- checkon filter in server 
-					}
-$violation = "injecting bufferoverflow inside initial js pw hashz";
-						haxxor_landmine($violation);
-					}
-						else if() 
-						{
-							$count_pass = 1; //this is a protected? vairable and cant be injected into? 
-							//start at 1 to prevent null-bite (i think)							
-							do 
-								{
-									
-   	 							// trying wrap my head around loop logic, want to fire off haxxor_landmine($violation) 
-   	 							// else allow password to continue 
-   	 							// incorrect regex syntax (0-9 A-F case insensitive hex hash output from JavaScript)
-   	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
-								// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
-								// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
-								// thats it!! dont understand all the vars and syntax but its argument 5
-								// very, very, very stuck on this one. 
-
-								}
-								while ($count_pass == 1) 
-									// use value of 1 to stop null-bites being parsed rather than 0 
-									{
-										if ($count_pass != 1) 
-											{
-											$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
-											haxxor_landmine($violation)
-											}
-									}	
-						}	
-					}
-	}
 
 				
-// now all that is done, do we put it into this function below can they call the login fuction in html and inject strait into it?
-function login($dirty_email, $dirty_password) 
-{
-	//look up button value, if is not in essence true or false preg_replace, count flag and set off haxxor_landmine() <-- route hacker 2 sandbox 
-		
-		// include database php 
-		require("~/mysqli_con.php")
-		http://dba.stackexchange.com/questions/8239/how-to-easily-convert-utf8-tables-to-utf8mb4-in-mysql-5-5
-		//is referenced properly? outside public_html to prevent hack single or double quotes? 
+protected function login($dirty_email, $dirty_password) 
+{		
+	// include database php 
+	require("~/mysqli_con.php")
+	//is referenced properly? outside public_html to prevent hack single or double quotes? 
+	//better way to do this because of null bytes? 
 
-		$file = str_replace(chr(0), '', $string);
-		// how the fruit do i specify null byte from the keyboard exactly? or is it just a space or 0x00000 or NULL or ? what to use considering, c++/sql/php/xml/html/js *sigh* 
-
- if ($stmt = $mysqli->prepare("SELECT UID, clean_login, clean_pass_hash, clean_user_salt, clean_encrypted_email,
-    	 clean_user_encrypted_registration_email, clean_user_registration_timestamp, clean_user_cookie_hash,
-    	 clean_encrypted_user_ip, clean_user_session_id_hash, clean_user_bruteforce_level, 
-    	 clean_user_bruteforce_ip, clean_user_bruteforce_header, clean_user_bruteforce_timestamp,
-    	 clean_user_alert_level, clean_user_alert_type, clean_user_alert_priority, clean_user_drama_queen_value,
-    	 clean_user_admin_is_pissed_off_at_level, clean_user_banned_level, clean_user_banned_reason, clean_user_banned_ip
-    	 clean_user_is_hate_preacher clean_user_is_pedo_or_terrorist
-        FROM Userz_main
-       WHERE clean_email = ?
-        LIMIT 1"))
+	$file = str_replace(chr(0), '', $string);
+	// how do i specify null byte from the keyboard exactly? or is it just a space or 0x00000 or NULL or ? 
+	
+		if ($stmt = $mysqli->prepare("SELECT UID, clean_login, clean_pass_hash, clean_user_salt, clean_encrypted_email,
+		clean_user_encrypted_registration_email, clean_user_registration_timestamp, clean_user_cookie_hash,
+		clean_encrypted_user_ip, clean_user_session_id_hash, clean_user_bruteforce_level, 
+		clean_user_bruteforce_ip, clean_user_bruteforce_header, clean_user_bruteforce_timestamp,
+		clean_user_alert_level, clean_user_alert_type, clean_user_alert_priority, clean_user_drama_queen_value,
+		clean_user_admin_is_pissed_off_at_level, clean_user_banned_level, clean_user_banned_reason, clean_user_banned_ip
+		clean_user_is_hate_preacher clean_user_is_pedo_or_terrorist
+		FROM Userz_main
+		WHERE clean_email = ?
+		LIMIT 1"))
 			{
-        $stmt->bind_param('s', $email);  // Bind "$email" to parameter.
-        $stmt->execute();    // Execute the prepared query.
-        $stmt->store_result();
- 
-        // get variables from result.
-        // need to add user ip as secondary session (will add one shot pin authentication to gen new session)
-        // web socket echo encryption stage status (make this timing attack safe)
-        $stmt->bind_result($UID, $clean_login, $clean_pass_hash, $clean_user_salt, $clean_encrypted_email,
-    	 $clean_user_encrypted_registration_email, $clean_user_registration_timestamp, $clean_user_cookie_hash,
-    	 $clean_encrypted_user_ip, $clean_user_session_id_hash, $clean_user_bruteforce_level, 
-    	 $clean_user_bruteforce_ip, $clean_user_bruteforce_header, $clean_user_bruteforce_timestamp,
-    	 $clean_user_alert_level, $clean_user_alert_type, $clean_user_alert_priority, $clean_user_drama_queen_value,
-    	 $clean_user_admin_is_pissed_off_at_level, $clean_user_banned_level, $clean_user_banned_reason, $clean_user_banned_ip,
-    	 $clean_user_is_hate_preacher, $clean_user_is_pedo_or_terrorist);
-        $stmt->fetch();
+				$stmt->bind_param('s', $email);  // Bind "$email" to parameter.
+				$stmt->execute();    // Execute the prepared query.
+				$stmt->store_result();
+				
+				// get variables from result.
+				// need to add user ip as secondary session (will add one shot pin authentication to gen new session)
+				// web socket echo encryption stage status (make this timing attack safe)
+				$stmt->bind_result($UID, $clean_login, $clean_pass_hash, $clean_user_salt, $clean_encrypted_email,
+				$clean_user_encrypted_registration_email, $clean_user_registration_timestamp, $clean_user_cookie_hash,
+				$clean_encrypted_user_ip, $clean_user_session_id_hash, $clean_user_bruteforce_level, 
+				$clean_user_bruteforce_ip, $clean_user_bruteforce_header, $clean_user_bruteforce_timestamp,
+				$clean_user_alert_level, $clean_user_alert_type, $clean_user_alert_priority, $clean_user_drama_queen_value,
+				$clean_user_admin_is_pissed_off_at_level, $clean_user_banned_level, $clean_user_banned_reason, $clean_user_banned_ip,
+				$clean_user_is_hate_preacher, $clean_user_is_pedo_or_terrorist);
+				$stmt->fetch();
 	
 // need to apply these to all cookies 		
 // session.cookie_httponly   <--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
 // session.cookie_secure		<--- enforces cookie over https 
 // session.use_strict_mode
 
-Protected function bot_fingerprint() {
-//stash inside main login class
-//http://www.w3schools.com/php/php_mysql_prepared_statements.asp
-// remember to put in the while preg replace detection inside the connection script
+Protected function bot_fingerprint() 
+{
+	//stash inside main login class
+	// remember to put in the while preg replace detection inside the connection script
+	//some of these may return null? remember to protect!
 
-//some of these may return null? remember to protect!
+	$dirty_attacker_ip = $_SERVER['REMOTE_ADDR'];
+	$dirty_attacker_resolved_ip = $_SERVER['REMOTE_HOST'];
+	$dirty_attacker_remote_port = $_SERVER['REMOTE_PORT'];
+	$dirty_attacker_hostname = $_SERVER['HTTP_HOST'];
+	$dirty_attacker_user = $_SERVER['REMOTE_USER'];
+	$dirty_attacker_useragent = $_SERVER['HTTP_USER_AGENT'];
+	$dirty_cgi_stript_attacked = $_SERVER['GATEWAY_INTERFACE'];
+	$dirty_attacked_server_ip = $_SERVER['SERVER_ADDR'];
+	$dirty_attacked_server_hostname = $_SERVER['SERVER_NAME'];
+	$dirty_server_sent_headers = $_SERVER['SERVER_SOFTWARE'];
+	$dirty_attacked_protocol = $_SERVER['SERVER_PROTOCOL'];
+	$dirty_attack_timestamp_float = $_SERVER['REQUEST_TIME_FLOAT'];
+	$dirty_attack_query = $_SERVER['QUERY_STRING'];
+	$dirty_attacker_metadata = $_SERVER['HTTP_ACCEPT'];
+	$dirty_attacker_charset = $_SERVER['HTTP_ACCEPT_CHARSET'];
+	$dirty_attacker_encoding = $_SERVER['HTTP_ACCEPT_ENCODING'];
+	$dirty_attacker_languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
+	$dirty_attacker_http_headers = $_SERVER['HTTP_CONNECTION'];
+	$dirty_attacker_https_flag = $_SERVER['HTTPS'];
+	$dirty_attacker_refferer = $_SERVER['HTTP_REFERER'];
+	$dirty_attacker_if_redirected = $_SERVER['REDIRECT_REMOTE_USER'];
+	$dirty_attacked_filename = $_SERVER['SCRIPT_FILENAME'];
+	$dirty_attacked_file_dir = $_SERVER['DOCUMENT_ROOT'];
+	$dirty_attacked_after_parsing_path = $_SERVER['PATH_TRANSLATED'];
+	$dirty_attacked_apachie_user_id = $_SERVER['SERVER_ADMIN'];
+	$dirty_attacked_port = $_SERVER['SERVER_PORT'];
+	$dirty_attacked_url = $_SERVER['REQUEST_URI'];
+	$dirty_attacked_file_path = $_SERVER['PATH_INFO'];
+	$dirty_attacker_user_auth_level = $_SERVER['PHP_AUTH_DIGEST'];
+	$dirty_attacker_user_id = $_SERVER['PHP_AUTH_USER'];
+	$dirty_attacker_user_attempted_pw = $_SERVER['PHP_AUTH_PW'];
+	$dirty_attacker_authentication_type = $_SERVER['AUTH_TYPE'];
+	$dirty_origingal_file_attacked = $_SERVER['ORIG_PATH_INFO'];
 
-$dirty_attacker_ip = $_SERVER['REMOTE_ADDR'];
-$dirty_attacker_resolved_ip = $_SERVER['REMOTE_HOST'];
-$dirty_attacker_remote_port = $_SERVER['REMOTE_PORT'];
-$dirty_attacker_hostname = $_SERVER['HTTP_HOST'];
-$dirty_attacker_user = $_SERVER['REMOTE_USER'];
-$dirty_attacker_useragent = $_SERVER['HTTP_USER_AGENT'];
-$dirty_cgi_stript_attacked = $_SERVER['GATEWAY_INTERFACE'];
-$dirty_attacked_server_ip = $_SERVER['SERVER_ADDR'];
-$dirty_attacked_server_hostname = $_SERVER['SERVER_NAME'];
-$dirty_server_sent_headers = $_SERVER['SERVER_SOFTWARE'];
-$dirty_attacked_protocol = $_SERVER['SERVER_PROTOCOL'];
-$dirty_attack_timestamp_float = $_SERVER['REQUEST_TIME_FLOAT'];
-$dirty_attack_query = $_SERVER['QUERY_STRING'];
-$dirty_attacker_metadata = $_SERVER['HTTP_ACCEPT'];
-$dirty_attacker_charset = $_SERVER['HTTP_ACCEPT_CHARSET'];
-$dirty_attacker_encoding = $_SERVER['HTTP_ACCEPT_ENCODING'];
-$dirty_attacker_languages = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-$dirty_attacker_http_headers = $_SERVER['HTTP_CONNECTION'];
-$dirty_attacker_https_flag = $_SERVER['HTTPS'];
-$dirty_attacker_refferer = $_SERVER['HTTP_REFERER'];
-$dirty_attacker_if_redirected = $_SERVER['REDIRECT_REMOTE_USER'];
-$dirty_attacked_filename = $_SERVER['SCRIPT_FILENAME'];
-$dirty_attacked_file_dir = $_SERVER['DOCUMENT_ROOT'];
-$dirty_attacked_after_parsing_path = $_SERVER['PATH_TRANSLATED'];
-$dirty_attacked_apachie_user_id = $_SERVER['SERVER_ADMIN'];
-$dirty_attacked_port = $_SERVER['SERVER_PORT'];
-$dirty_attacked_url = $_SERVER['REQUEST_URI'];
-$dirty_attacked_file_path = $_SERVER['PATH_INFO'];
-$dirty_attacker_user_auth_level = $_SERVER['PHP_AUTH_DIGEST'];
-$dirty_attacker_user_id = $_SERVER['PHP_AUTH_USER'];
-$dirty_attacker_user_attempted_pw = $_SERVER['PHP_AUTH_PW'];
-$dirty_attacker_authentication_type = $_SERVER['AUTH_TYPE'];
-$dirty_origingal_file_attacked = $_SERVER['ORIG_PATH_INFO'];
+	// reminder to link vardump
+	$dirty_attacker_method = $_SERVER['REQUEST_METHOD'];
 
-// reminder to link vardump
-$dirty_attacker_method = $_SERVER['REQUEST_METHOD'];
+	//http://php.net/manual/en/function.get-browser.php
+	// more fingerprinting but hits ram hard
+	// http://php.net/manual/en/wrappers.php.php#wrappers.php.input
 
-//http://php.net/manual/en/function.get-browser.php
-// more fingerprinting but hits ram hard
+	//get_browser($user_agent = null, $return_array = null);   
+	// get_defined_functions();  <---- custom functions from the injections? 
+	//get_headers($url, $format = null);
+	//header($string, $replace, $http_response_code);
+	//mail($to, $subject, $message, $additional_headers = null, $additional_parameters = null);
 
-// http://php.net/manual/en/wrappers.php.php#wrappers.php.input
+		// this pdo stuff not my code, for referencing. 
+		//http://www.w3schools.com/php/php_mysql_prepared_statements.asp
+		
+		$servername = "localhost";
+		$username = "username";
+		$password = "password";
+		$dbname = "myDBPDO";
 
-//use full (basic) fingerprinting to evolve below, needs work. 
-//get_browser($user_agent = null, $return_array = null);   
-// get_defined_functions();  <---- custom functions from the injections? 
-//get_headers($url, $format = null);
-//header($string, $replace, $http_response_code);
-//mail($to, $subject, $message, $additional_headers = null, $additional_parameters = null);
+		try {
+ 				$conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+				// set the PDO error mode to exception
+				$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// remember to get header dump 
+				// prepare sql and bind parameters
+				$stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email)
+				VALUES (:firstname, :lastname, :email)");
+				$stmt->bindParam(':firstname', $firstname);
+				$stmt->bindParam(':lastname', $lastname);
+				$stmt->bindParam(':email', $email);
 
+				// insert a row
+				$firstname = "John";
+				$lastname = "Doe";
+				$email = "john@example.com";
+				$stmt->execute();
 
-// this pdo stuff not my code, for referencing. 
-$servername = "localhost";
-$username = "username";
-$password = "password";
-$dbname = "myDBPDO";
+				// insert another row
+				$firstname = "Mary";
+				$lastname = "Moe";
+				$email = "mary@example.com";
+				$stmt->execute();
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    			// insert another row
+				$firstname = "Julie";
+				$lastname = "Dooley";
+				$email = "julie@example.com";
+				$stmt->execute();
+				
+				echo "New records created successfully";
+			}
+		catch(PDOException $e)
+    	{
+    	echo "Error: " . $e->getMessage();
+    	}
+	$conn = null;
 
-    // prepare sql and bind parameters
-    $stmt = $conn->prepare("INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES (:firstname, :lastname, :email)");
-    $stmt->bindParam(':firstname', $firstname);
-    $stmt->bindParam(':lastname', $lastname);
-    $stmt->bindParam(':email', $email);
-
-    // insert a row
-    $firstname = "John";
-    $lastname = "Doe";
-    $email = "john@example.com";
-    $stmt->execute();
-
-    // insert another row
-    $firstname = "Mary";
-    $lastname = "Moe";
-    $email = "mary@example.com";
-    $stmt->execute();
-
-    // insert another row
-    $firstname = "Julie";
-    $lastname = "Dooley";
-    $email = "julie@example.com";
-    $stmt->execute();
-
-    echo "New records created successfully";
-    }
-catch(PDOException $e)
-    {
-    echo "Error: " . $e->getMessage();
-    }
-$conn = null;
-
-}
+	}
 
 ?>
 <!-- no pointer to public dirty vars yet --> 
