@@ -1,10 +1,10 @@
 <!DOCTYPE html> 
 <html> PHP_EOL; 
 <head> PHP_EOL;
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />; PHP_EOL;
+<meta http-equiv='Content-Type' content="text/html; charset=utf-8" />; PHP_EOL;
 <title>Welcome</title>PHP_EOL;
-<link rel="stylesheet" href="http://4the99.org/stylez/style.css">
-<link rel="stylesheet" href="http://4the99.org/stylez/index.css">
+<link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
+<link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
 <!-- stuuuupid! question but one i cant figure out is the resolution/@moz parsed by server and then appropriate code sent to browser -->
 <!-- but i have to know, because i cant find an answer and just are not sure -->
 
@@ -34,7 +34,7 @@ protected function nuke_post()
 		// order of operations fuckup here, not sure how to fix
 		// did is fix?
 		{
-			$violation = "injecting injecting in2 kill_post var");
+			$violation = ('injecting injecting in2 kill_post var');
 			haxxor_landmine($violation)
 			$_POST = 1;
 			unset($_POST);
@@ -47,16 +47,117 @@ protected function haxxor_landmine($violation $page $input_box $user $target_use
 	mysqli_close();
 	closelog();
 	session_destroy();
-	fwrite(STDERR, "hack killed: $violation $page $input_box\n");
+	fwrite(STDERR, "hack killed: {$violation $page $input_box\n}");
 	exit(1); // A response code other than 0 is a failure <--- huh? why? 
 	// session destroy wildcard? destroy all?
 	// need to add attacked inputbox/page
 	// see bot_fingerprint()  
 }
 
+do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_login']))) 
+	{ 
+		$dirty_email = $_POST['dirty_email'];
+		$dirty_password = $_POST['dirty_password'];
+		$dirty_button = $_POST['dirty_login'];
+		// mabe use count() but its counts the entire array 
+ 		// dirty button undefended atm
+ 			{
+				while (if ("{$java_script_is_enabled == true}")) 	
+				//no js no friendly input box only hidden traps need to remake below
+				//need to make js hide a div if enabled, and unhide another it can be done
+				{ 					
+					// need to work this with while logic instead of if 
+					// brain melting from loop logic its to much 
+					
+					private $strlen_count_mail = 2;
+					$strlen_count_mail = strlen("{$dirty_email}");
+					if($strlen_count_email > 514)				
+						{
+														
+							do 
+								{
+									private $count_pass = 1; 
+   	 							// incorrect regex syntax (0-9 A-F case sensitive hex hash output from JavaScript)
+   	 							$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
+									// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+									// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
+									// thats it!! dont understand all the vars and syntax but its argument 5
+									// very, very, very stuck on this one. 
+
+								}
+							while ($count_pass === 1) 
+									// use value of 1 to stop null-bites being parsed rather than 0 
+									{
+										if ($count_pass != 1) 
+											{
+												$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
+												haxxor_landmine($violation)
+											}
+									}	
+					
+									$strlen_count_pass = 2;
+									$strlen_count_pass = strlen($dirty_email);
+									if(strlen_count_pass != 2)  // <------- mabe a bit essesive for min lengh but probbably not
+										{
+											//haxor_landmine() 
+											//login form will be hidden without js if they login without js then its an attack. 
+										}
+							else if($java_script_is_enabled != 1 or 2)
+							{
+								$violation = 'injecting in2 javascript_is_enabled variable';					
+								haxxor_landmine($violation);
+							}
+							
+							//lost loop logic here, and not good idea to loop? its flat out is or isnt. 	
+							protected $dirt_pass_count	= 1
+							$dirt_pass_cout = strlen($dirty_password) 
+							if ($dirt_pass_count != 512)
+								//clean email input factoring in weird email chars, html_entitles sound good in theory until you send an email
+								// http://php.net/manual/en/filter.examples.sanitization.php   <--- checkon filter in server 
+								{
+									$violation = 'tampering with password, submitting wrong length';
+									haxxor_landmine($violation);
+								}
+								else if() 
+								{
+									$count_pass = 1; //this is a protected? vairable and cant be injected into? 
+									//start at 1 to prevent null-bite (i think)							
+									do 
+										{
+									
+   	 									// trying wrap my head around loop logic, want to fire off haxxor_landmine($violation) 
+   	 									// else allow password to continue 
+   	 									// incorrect regex syntax (0-9 A-F case insensitive hex hash output from JavaScript)
+   	 									$string = preg_replace('/(\d)((\d\d\d)+\b)/','$1,$2', $string, 1, $count_pass);
+// HELP!!! PLZ!---->>>				// preg_replace must use i m s flags ---> http://php.net/manual/en/reference.pcre.pattern.modifiers.php
+											// http://stackoverflow.com/questions/6364269/preg-replace-within-a-while-loop
+											// thats it!! dont understand all the vars and syntax but its argument 5
+											// very, very, very stuck on this one. 
+
+										}
+									while ($count_pass == 1) 
+										
+										{
+											if ($count_pass != 1) 
+												{
+												$violation = 'injecting invalid chars into password hashz with java scipt filtering enabled';
+												haxxor_landmine($violation)
+												}
+										}	
+								}	
+					}
+				}
+			}	
+				
+	}
+				
+// now all that is done, do we put it into this function below can they call the login fuction in html and inject strait into it?
+
 			
 protected function login($dirty_email, $dirty_password) 
 {		
+
+
 	// include database php 
 	require("~/mysqli_con.php")
 	//is referenced properly? outside public_html to prevent hack single or double quotes? 
