@@ -26,4 +26,6 @@ For ecample one person may like to keep chatlogs, the other dosent, in communuca
 Personal saftey is everything. 
 There will be vast, ammounts of work into keeping our users safe, and we have many creative solotions to implenment, everything from walking home late at night, to helping seach and rescue in the middle of a natural disaster, to critical life saving information when seconds count. 
 
+Open Book financial records, (live recods) That said, user privacy is also a major contributing factor so some things will have to be generalised to state/country for tax pourposes 
+
 So, So, So............. much more to say, but happy xmass! Watch this space it will! be intresting. 
