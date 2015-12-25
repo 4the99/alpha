@@ -13,7 +13,7 @@ Personally Identifiable Information (PID) of our users is sacrosanct.
 If a user puts in any information that could be used to trace them back to their true identity, we protect it with anything and everything that we feesably can do so. (econimes of scale) 
 
 Users have complete control of their information. 
-All users can see, edit, and modify virtually everything we colect. The few rare eceptions to this rule is on the level of some dumb jihadi scum. 
+All users can see, edit, and modify virtually everything we colect about them. The few rare eceptions to this rule is on the level of some dumb jihadi scum. 
 
 Minamilst disclosre to 3rd parties. 
 For example, It is not nessasary to disclose the date of birth, or name, or virtually any details to ship a package, other than where to send it, and payment. We fully indend to be a privacy shield against the internt to much information is colleced stored in inseure databases, websites are getting hacked right and center "big data" tracking and collection is everywhere the more we can protect and minimise to keep our uses safe the beter. 
