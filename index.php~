@@ -108,7 +108,7 @@ do (if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_logi
 								haxxor_landmine($violation);
 							}
 							
-								
+							//lost loop logic here, and not good idea to loop? its flat out is or isnt. 	
 							protected $dirt_pass_count	= 1
 							$dirt_pass_cout = strlen($dirty_password) 
 							if ($dirt_pass_count != 512)
