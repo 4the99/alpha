@@ -20,6 +20,8 @@ For example, It is not nessasary to disclose the date of birth, or name, or virt
 
 Maimum usability and coustomoisation (if so desired) some peoople like things simple and easy, others like tweaking everything we wish to cater to both worlds, nice and simple yet can me modified to however they like (within reason) 
 
+Last but not least, im not sure what to say on a half formed idea, but leave it up for the world to say, (at last for the "upper managment" to decide and vote on whats fair for pay. "lower managment and workers" this can bring issues in diffrencees of currency value, exange rate and cost of living. vs country x, y, or z, i bluntly want to treat em right, and not have to worry about bills, or anything. 
+
 If in doubt, deny access. 
 For ecample one person may like to keep chatlogs, the other dosent, in communucation between both of them, no chat logs will be kept. 
 
