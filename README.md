@@ -6,8 +6,8 @@ Any help or feedback is welcome, if you wish to chip in send 4the99/admin a mess
 
 All code must follow the following principles: 
 
-Security without compromise. If it can't be done secure, then we don't do it until we can.
-I will do everything I can to make sure everything is secure, however I am just a mere mortal, I will need help. Most of the delays are because of depression/security concerns and the vast amount of research and upskilling ongoing into protecting every layer (not just the site) from every known attack I can think of theoretical or not. 
+Security without compromise. If it can't be done secure, then we won't do it until we can.
+We will do everything I can to make sure everything is absolutely secure, however we are just mere mortals, We will need the help. Most of the delays are because of depression/security concerns and the vast amount of research and upskilling ongoing into protecting every layer (not just the site) from every known attack we can think of theoretical or not. Ultimate secuity is after all the holy grail, a lofty goal and perhaps a delusional fantasty, but we can try, we can try. 
 
 Personally Identifiable Information (PID) of our users is sacrosanct.
 If a user puts in any information that could be used to trace them back to their true identity, we protect it with anything and everything that we feasible can do so. (economies of scale) 
