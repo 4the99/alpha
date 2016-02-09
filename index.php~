@@ -23,12 +23,17 @@
 ?>
 
 </head>
+
 <body>
 <?php
 
-// input hidden, unless js is enabled, if form is submitted, but dirty_dirty_js_is_enabled !2 then its a bot
+// bot check to do:
+// will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
 // http://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
+
+
+
 
 ?>
 
@@ -42,11 +47,6 @@
         <input type="email" name="dirty_email" placeholder="Email"/>
         <input type="password" name="dirty_password" placeholder="******"/>
         <button name="dirty_login">Login</button> 
-
-        <form onsubmit="this.dirty_js_enabled.value=2;return true;">
-            <input type="hidden" name="js_enabled" value="1">
-            <input type="submit" value="go">
-        </form>
     </form>
 </div>
 <br />

@@ -7,6 +7,7 @@
 <link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
 <!-- stuuuupid! question but one i cant figure out is the resolution/@moz parsed by server and then appropriate code sent to browser -->
 <!-- but i have to know, because i cant find an answer and just are not sure -->
+<!-- i think index.css needs another container box to stop bacground shade bug -->
 
 <?php
     header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
@@ -27,10 +28,24 @@
 <body>
 <?php
 
-// input hidden, unless js is enabled, if form is submitted, but dirty_dirty_js_is_enabled !2 then its a bot
-// http://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
+// bot check to do:
+// will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
+// https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
+
+class the_portal_to_enlightenment 
+{
+    public function get_post_and_filter () 
+    {
+        if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_login']))) 
+        { 
+            public $dirty_email = $_POST['dirty_email'];
+            public $dirty_password = $_POST['dirty_password'];
+            public $dirty_button = $_POST['dirty_login'];
+        }
+    }        
+}
 ?>
 
 <script type="text/javascript" >
@@ -42,7 +57,7 @@
     <form method="POST" action="" id="Login">
         <input type="email" name="dirty_email" placeholder="Email"/>
         <input type="password" name="dirty_password" placeholder="******"/>
-        <button name="dirty_login">Login</button> 
+        <button name="dirty_login_button">Login</button> 
     </form>
 </div>
 <br />
@@ -53,7 +68,7 @@
             <br />
             This is earth. Over 7 billion people live here. <br />
             A child starves to death every 4 seconds.<br />
-            21 children die every second of every day from diarrhoea. <br />
+            21 children die every second of every day from diarrhea. <br />
             123 children die every second before they reach the age of 5.<br />
             Over a billion people cant read or even write their own name.<br />
             With 1% of the of the money spent on weapons, every child could be in school<br />
