@@ -23,6 +23,7 @@
 ?>
 
 </head>
+
 <body>
 <?php
 
@@ -42,11 +43,6 @@
         <input type="email" name="dirty_email" placeholder="Email"/>
         <input type="password" name="dirty_password" placeholder="******"/>
         <button name="dirty_login">Login</button> 
-
-        <form onsubmit="this.dirty_js_enabled.value=2;return true;">
-            <input type="hidden" name="js_enabled" value="1">
-            <input type="submit" value="go">
-        </form>
     </form>
 </div>
 <br />
