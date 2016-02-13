@@ -27,44 +27,55 @@
 
 <body>
 <?php
-
 // bot check to do:
 // will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
 
-class the_portal_to_enlightenment 
+public class the_portal_to_enlightenment 
 {
-    public function get_post_and_filter () 
+    protected function get_post_and_filter () 
     {
-        if(isset($_POST['dirty_email'], $_POST['dirty_password'], $_POST['dirty_login']))) 
-        { 
-            public $dirty_email = $_POST['dirty_email'];
-            public $dirty_password = $_POST['dirty_password'];
-            public $dirty_button = $_POST['dirty_login'];
-        }
+private function null_byte_catcher () 
+    	{
+    	
+    	    $null_byte_count = 1;
+          if(isset $_POST)
+          { 
+              $_POST =	preg_replace("\x{0}", "", "$_POST", 'wtf this bit do???/placeholder?', "$null_byte_count")
+          // do something 
+          }
+    	
+      $dirty_email = isset($_POST['dirty_login_email'])
+      $dirty_password = isset($_POST['dirty_login_password'])
+      $dirty_button = isset($_POST['dirty_login_button'])
+      
+      $dirty_login_form = isset($_POST['dirty_email_login'])
+      //is the form itself, exploitable? if its not "read" by POST...
+      //can it be used as an attack platform to hit the server? 
+      //what about the JS aware div, specifically the div id?  
+      
     }        
 }
 ?>
-
 <script type="text/javascript" >
     document.getElementById('non_js_is_hidden').style.display='block';
 </script>
 
 
-<div id="non_js_hidden" style="display:none">
-    <form method="POST" action="" id="Login">
-        <input type="email" name="dirty_email" placeholder="Email"/>
-        <input type="password" name="dirty_password" placeholder="******"/>
-        <button name="dirty_login_button">Login</button> 
+<div id='non_js_hidden' style="display:none">
+    <form method="POST" action="" id="dirty_login_form">
+        <input type='email' name='dirty_email_login' placeholder='Email' />
+        <input type='password' name='dirty_password_login' placeholder='******'/>
+        <button name='dirty_login_button'>Login</button> 
     </form>
 </div>
 <br />
 <br />
-<div id="container">
-     <div id="block">
-         <div id="txt">
+<div id='container'>
+     <div id='block'>
+         <div id='txt'>
             <br />
             This is earth. Over 7 billion people live here. <br />
             A child starves to death every 4 seconds.<br />
@@ -95,5 +106,3 @@ class the_portal_to_enlightenment
     </div>
 </body>
 </html>
-
- 
