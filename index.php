@@ -1,32 +1,6 @@
-<!DOCTYPE html> 
-<html> PHP_EOL; 
-<head> PHP_EOL;
-<meta http-equiv='Content-Type' content="text/html; charset=utf-8" />; PHP_EOL;
-<title>Welcome</title>PHP_EOL;
-<link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
-<link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
-<!-- stuuuupid! question but one i cant figure out is the resolution/@moz parsed by server and then appropriate code sent to browser -->
-<!-- but i have to know, because i cant find an answer and just are not sure -->
-<!-- i think index.css needs another container box to stop bacground shade bug -->
 
 <?php
-    header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
-    header allways append date_default_timezone_set("UTC");
-    header always append X-Frame-Options SAMEORIGIN;
-    header always append X-Frame-Options DENY;
-    header always append X-Forwarded-Proto: https;
-    header always append X-Forwarded-Port: 443;
-    header always append Content-Security-Policy 
-    header always append X-WebKit-CSP
-    header always append X-Content-Security-Policy
-    header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
-    //syntax correct?
-?>
-
-</head>
-
-<body>
-<?php
+   
 // bot check to do:
 // will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
@@ -35,30 +9,70 @@
 
 public class the_portal_to_enlightenment 
 {
-    protected function get_post_and_filter () 
+  // get input and validate layer
+    protected function get_login_post ()
     {
-private function null_byte_catcher () 
-    	{
-    	
-    	    $null_byte_count = 1;
-          if(isset $_POST)
-          { 
-              $_POST =	preg_replace("\x{0}", "", "$_POST", 'wtf this bit do???/placeholder?', "$null_byte_count")
-          // do something 
-          }
-    	
-      $dirty_email = isset($_POST['dirty_login_email'])
-      $dirty_password = isset($_POST['dirty_login_password'])
-      $dirty_button = isset($_POST['dirty_login_button'])
-      
-      $dirty_login_form = isset($_POST['dirty_email_login'])
-      //is the form itself, exploitable? if its not "read" by POST...
-      //can it be used as an attack platform to hit the server? 
-      //what about the JS aware div, specifically the div id?  
-      
-    }        
+       $dirty_email = isset($_POST['dirty_login_email'])
+       $dirty_password = isset($_POST['dirty_login_password'])
+       $dirty_button = isset($_POST['dirty_login_button']) 
+       $dirty_login_form = isset($_POST['dirty_email_login'])      
+       
+       private function parse_login($dirty_email) //passing var to function correct? 
+       {
+           $dirty_email = filter_var($email, FILTER_SANITIZE_EMAIL);
+                
+           if (!filter_var($dirty_email, FILTER_VALIDATE_EMAIL) === false) 
+           {
+                 echo("$dirty_email".'is a valid email address');
+           } 
+           
+           else 
+           // how do i return this to javascript/ajax validating emails... properly...           
+           {
+                 echo("$dirty_email".'is not a valid email address');           
+           }
+                      
+       }
 }
+    
+    
+    
+    
+    
+    
+//Presentation layer   
+    public function add_headers() 
+        {
+            header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
+            header allways append date_default_timezone_set("UTC");
+            header always append X-Frame-Options SAMEORIGIN;
+            header always append X-Frame-Options DENY;
+            header always append Content-Security-Policy 
+            header always append X-WebKit-CSP
+            header always append X-Content-Security-Policy
+            header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
+            header always append X-Forwarded-Proto: https;
+            header always append X-Forwarded-Port: 443;    
+            //syntax correct?
+        }
+
+
+
+    }
 ?>
+
+<!DOCTYPE html> 
+<html> PHP_EOL; 
+<head> PHP_EOL;
+<meta http-equiv='Content-Type' content="text/html; charset=utf-8" />; PHP_EOL;
+<title>Welcome</title>PHP_EOL;
+<link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
+<link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
+<!-- i think index.css needs another container box to stop background shade bug TODO -->
+
+</head>
+
+<body>
 <script type="text/javascript" >
     document.getElementById('non_js_is_hidden').style.display='block';
 </script>
