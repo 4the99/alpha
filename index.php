@@ -51,7 +51,9 @@ public class the_portal_to_enlightenment
        }
    private function set_cookies() 
    {
-    
+       session.cookie_httponly   //<--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
+       session.cookie_secure     //<--- enforces cookie over https 
+       session.use_strict_mode
    }
    	
     
