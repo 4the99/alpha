@@ -49,7 +49,11 @@ public class the_portal_to_enlightenment
            return("$password_hash $password_salt");
            //  password_verify()
        }
-   
+   private function set_cookies() 
+   {
+    
+   }
+   	
     
    //Presentation layer   
    public function add_headers() 
