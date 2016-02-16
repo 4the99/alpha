@@ -7,15 +7,16 @@
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
 
-public class the_portal_to_enlightenment 
+class the_portal_to_enlightenment 
 {
    // get input and validate layer
-   protected function get_login_post ()
+   protected function get_login_post()
    {
        $dirty_email = isset($_POST['dirty_login_email'])
        $dirty_password = isset($_POST['dirty_login_password'])
        $dirty_button = isset($_POST['dirty_login_button']) 
        $dirty_login_form = isset($_POST['dirty_email_login'])      
+       //not sure about form button/security and what exactly to do, if anything? considering, if not requested by post? 
        
        private function parse_login($dirty_email) //passing var to function correct? 
        {
@@ -23,7 +24,9 @@ public class the_portal_to_enlightenment
                
            if (!filter_var($dirty_email, FILTER_VALIDATE_EMAIL) === false) 
            {
-               echo("$dirty_email".'is a valid email address');
+               protected $clean_email =  $dirty_email;
+               return $clean_email;
+              
            } 
           
            else 
@@ -35,41 +38,58 @@ public class the_portal_to_enlightenment
        }
    }
    
-   private function db_get_login 
+   private function db_get_login($clean_email) 
   		 {
       	  //this CANNOT! be include() or require() due to nullbytes 
   		     unknown_function("/path/to/db/connection/script")
        
            // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
-           $stmt = $db->prepare("SELECT password_hash=:password_hash_placeholder AND password_salt=:password_salt_placeholder .
-           FROM table WHERE dirty_email=:dirty_email_placeholder");
-       
-           $stmt->execute(array(':password_hash_placeholder' => $password_hash, ':password_salt_placeholder' => $password_salt));
+           $stmt = $db->prepare("SELECT user_login_mater_array=:user_login_master_array_placeholder FROM user_master_table .
+           WHERE dirty_email=:dirty_email_placeholder");
+           
+           $stmt->execute(array(':user_login_master_array' => $dirty_array_user_master_login, ':clean_email' => $clean_email));
            $rows = $stmt->fetch(PDO::FETCH_BOUND);
-           return("$password_hash $password_salt");
+           return("$dirty_array_user_master_login");
            //  password_verify()
        }
-   private function set_cookies() 
-   {
-       session.cookie_httponly   //<--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
-       session.cookie_secure     //<--- enforces cookie over https 
-       session.use_strict_mode
-   }
-   	
-    
+       
+
+
+
+
    //Presentation layer   
+   //htmlspecialchars();
+  
+   private function nom_nom_nom()
+   {
+   
+       private function cookie_preperation() 
+       {
+          header('session.cookie_httponly;');   //<--- dont wory about the http instead of https bit, thats ok, its correct, its just browser cookie sandboxing 
+          header('session.cookie_secure;');     //<--- enforces cookie over https 
+          header('session.use_strict_mode;');
+       
+           private function cookie_setting()
+               {
+              	    //seriously think about ways to harden this layer, privacy vs security vs spoofing & open source *sigh* 
+                   session_start()
+                   //check if cookie is set or catch error & return fail           
+               } 
+       }
+   }	
+      
    public function add_headers() 
        {
-           header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
-           header date_default_timezone_set("UTC");
-           header X-Frame-Options SAMEORIGIN;
-           header X-Frame-Options DENY;
-           header Content-Security-Policy 
-           header X-WebKit-CSP
-           header X-Content-Security-Policy
-           header Strict-Transport-Security: max-age=1000; includeSubDomains;
-           header X-Forwarded-Proto: https;
-           header X-Forwarded-Port: 443;    
+           header('Content-type: text/html; charset=utf-8;');  
+           header('date_default_timezone_set("UTC");');
+           header('X-Frame-Options SAMEORIGIN;');
+           header('X-Frame-Options DENY;');
+           header('Content-Security-Policy;'); 
+           header('X-WebKit-CSP;');
+           header('X-Content-Security-Policy;');
+           header('Strict-Transport-Security: max-age=1000; includeSubDomains;');
+           header('X-Forwarded-Proto: https;');
+           header('X-Forwarded-Port: 443;');    
            //syntax correct?
        }
 
@@ -79,10 +99,10 @@ public class the_portal_to_enlightenment
 ?>
 
 <!DOCTYPE html> 
-<html> PHP_EOL; 
-    <head> PHP_EOL;
-        <meta http-equiv='Content-Type' content="text/html; charset=utf-8" />; PHP_EOL;
-        <title>Welcome</title>PHP_EOL;
+<html> 
+    <head>
+        <meta http-equiv='Content-Type' content="text/html; charset=utf-8" />;
+        <title>Welcome</title>;
         <link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
         <link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
         <!-- i think index.css needs another container box to stop background shade bug TODO -->
