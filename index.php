@@ -6,26 +6,53 @@
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
+class master_control_class()
+{
+       private function domain_wide_heatbeat_intilisation()
+       {
+          public var $everything_is_ok_status_var = true;
+          public var $webserver_emergency_shutdown_status_var = false;
+          public var $hard_shutdown_status_var = false;
+          public var $request_crash_and_burn_status_var = false;
+          public var $secured_shutdown_status_var = false;
+          public var $maitnence_shutdown_status_var = false; 
+          public var $development_mode_status_var = true;
+          public var $testing_mode_status_var = true;
+          public var $parinoia_level_status_var = 'medium';       
+       }    
+    
+    
+    private function domain_wide_heartbeat() 
+    {    	
+        //runs away screaming!!!
+        //my mind keeps EXPLODING with configs! 
+
+        public list master_contol_list($everything_is_ok_status_var, $webserver_emergency_shutdown_status_var, .
+        $hard_shutdown_status_var, $request_crash_and_burn_status_var, $secured_shutdown_status_var,           .
+        $maitnence_shutdown_status_var, $development_mode_status_var, $testing_mode_status_var, $parinoia_level_status_var);
+               
+    }
+}
 
 class the_portal_to_enlightenment 
 {
    // get input and validate layer
    protected function get_login_post()
    {
-       $dirty_email = isset($_POST['dirty_login_email'])
-       $dirty_password = isset($_POST['dirty_login_password'])
+       $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
+       $dirty_user_low_security_zone_login_password = isset($_POST['dirty_user_low_security_zone_login_password'])
 //       $dirty_button = isset($_POST['dirty_login_button']) 
 //       $dirty_login_form = isset($_POST['dirty_email_login'])      
 //not sure about form button/security and what exactly to do, if anything? considering, if not requested server side by post? 
        
-       private function parse_login($dirty_email) //passing var to function correct? 
+       private function parse_login($dirty_user_login_email) //passing var to function correct? 
        {
-           $dirty_email = filter_var($email, FILTER_SANITIZE_EMAIL);
+           $dirty_user_login_email = filter_var($email, FILTER_SANITIZE_EMAIL);
                
-           if (!filter_var($dirty_email, FILTER_VALIDATE_EMAIL) === false) 
+           if (!filter_var($dirty_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
            {
-               protected $clean_email =  $dirty_email;
-               return $clean_email;
+               protected $clean_user_login_email =  $dirty_user_login_email;
+               return $clean_user_login_email;
               
            } 
           
@@ -38,23 +65,46 @@ class the_portal_to_enlightenment
        }
    }
    
-   private function db_get_login($clean_email) 
+   private function db_get_login($clean_user_email) 
   		 {
       	  //this CANNOT! be include() or require() due to nullbytes 
   		     unknown_function("/path/to/db/connection/script")
-       
-           // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
-           $stmt = $db->prepare("SELECT user_login_mater_array=:user_login_master_array_placeholder FROM user_master_table .
-           WHERE dirty_email=:dirty_email_placeholder");
            
-           $stmt->execute(array(':user_login_master_array' => $dirty_array_user_master_login, ':clean_email' => $clean_email));
-           $rows = $stmt->fetch(PDO::FETCH_BOUND);
-           return("$dirty_array_user_master_login");
+           // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
+           try 
+           {                  
+               $stmt = $db->prepare("SELECT dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
+               FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
+           
+               $stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, ':clean_user_email' => $clean_user_email));
+               $rows = $stmt->fetch(PDO::FETCH_BOUND);
+               return("$dirty_list_user_master_login");
+           }
+           
+           catch(PDOException $ex) 
+           {
+               echo ('Something mission critical just blew up in our face.'."/n".
+               '4the99.org is now entering emergency shutdown mode.'."/n".
+               'Your last request to the server has just been lost sorry.'."/n".
+               'The most likely reason you are seeing this message is that a single error occurred and the whole site was'."/n".
+               'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
+               ."/n".               
+               'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+               'as we diagnose and correct the fault in our systems.'."/n".             
+               'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+               ."/n".
+               'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+               'then risk a security breach from something we created'
+               'We apologize for the inconvenience and we will let you know more when we do'
+               
+               'PS. There is also a very small chance you managed to cause this error, in which case congratulations!'
+               'You get a cookie!'
+               );
+               some_logging_function($ex->getMessage());
+           }
            //  password_verify()
        }
        
-
-
 
 
    //Presentation layer   
@@ -92,9 +142,6 @@ class the_portal_to_enlightenment
            header('X-Forwarded-Port: 443;');    
            //syntax correct?
        }
-
-
-
    }
 ?>
 
@@ -118,10 +165,14 @@ class the_portal_to_enlightenment
         <div id='non_js_hidden' style="display:none">
             <form method="POST" action="" id="dirty_login_form">
                 <input type='email' name='dirty_email_login' placeholder='Email' />
-                <input type='password' name='dirty_password_login' placeholder='******'/>
+                <input type='password' name='dirty_user_low_security_zone_login_password' placeholder='******'/>
                 <button name='dirty_login_button'>Login</button> 
             </form>
         </div>
+
+<!-- amusing dev note about "low security" goes here, need templat
+ing up and running to reference functions properly -->
+
         <br />
         <br />
         <div id='container'>
