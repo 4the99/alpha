@@ -51,7 +51,9 @@ public class the_portal_to_enlightenment
        }
    private function set_cookies() 
    {
-    
+       session.cookie_httponly   //<--- dont wory about the http instead of https bit, thats ok, its correct, its just sandbox cookie in browser. 
+       session.cookie_secure     //<--- enforces cookie over https 
+       session.use_strict_mode
    }
    	
     
@@ -59,15 +61,15 @@ public class the_portal_to_enlightenment
    public function add_headers() 
        {
            header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
-           header allways append date_default_timezone_set("UTC");
-           header always append X-Frame-Options SAMEORIGIN;
-           header always append X-Frame-Options DENY;
-           header always append Content-Security-Policy 
-           header always append X-WebKit-CSP
-           header always append X-Content-Security-Policy
-           header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
-           header always append X-Forwarded-Proto: https;
-           header always append X-Forwarded-Port: 443;    
+           header date_default_timezone_set("UTC");
+           header X-Frame-Options SAMEORIGIN;
+           header X-Frame-Options DENY;
+           header Content-Security-Policy 
+           header X-WebKit-CSP
+           header X-Content-Security-Policy
+           header Strict-Transport-Security: max-age=1000; includeSubDomains;
+           header X-Forwarded-Proto: https;
+           header X-Forwarded-Port: 443;    
            //syntax correct?
        }
 

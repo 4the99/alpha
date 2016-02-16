@@ -7,7 +7,7 @@
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
 
-public class the_portal_to_enlightenment 
+class the_portal_to_enlightenment 
 {
    // get input and validate layer
    protected function get_login_post ()
@@ -60,16 +60,16 @@ public class the_portal_to_enlightenment
    //Presentation layer   
    public function add_headers() 
        {
-           header('Content-type: text/html; charset=utf-8'); PHP_EOL;  
-           header allways append date_default_timezone_set("UTC");
-           header always append X-Frame-Options SAMEORIGIN;
-           header always append X-Frame-Options DENY;
-           header always append Content-Security-Policy 
-           header always append X-WebKit-CSP
-           header always append X-Content-Security-Policy
-           header always append Strict-Transport-Security: max-age=1000; includeSubDomains;
-           header always append X-Forwarded-Proto: https;
-           header always append X-Forwarded-Port: 443;    
+           header('Content-type: text/html; charset=utf-8');  
+           header date_default_timezone_set("UTC");
+           header X-Frame-Options SAMEORIGIN;
+           header X-Frame-Options DENY;
+           header Content-Security-Policy 
+           header X-WebKit-CSP
+           header X-Content-Security-Policy
+           header Strict-Transport-Security: max-age=1000; includeSubDomains;
+           header X-Forwarded-Proto: https;
+           header X-Forwarded-Port: 443;    
            //syntax correct?
        }
 
@@ -79,10 +79,10 @@ public class the_portal_to_enlightenment
 ?>
 
 <!DOCTYPE html> 
-<html> PHP_EOL; 
-    <head> PHP_EOL;
-        <meta http-equiv='Content-Type' content="text/html; charset=utf-8" />; PHP_EOL;
-        <title>Welcome</title>PHP_EOL;
+<html> 
+    <head>
+        <meta http-equiv='Content-Type' content="text/html; charset=utf-8" />;
+        <title>Welcome</title>;
         <link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
         <link rel='stylesheet' href='http://4the99.org/stylez/index.css'>
         <!-- i think index.css needs another container box to stop background shade bug TODO -->
