@@ -81,26 +81,27 @@ class the_portal_to_enlightenment
                return("$dirty_list_user_master_login");
            }
            
-           catch(PDOException $ex) 
+           catch(PDOException $dirty_database_crash_error_dump) 
            {
                echo ('Something mission critical just blew up in our face.'."/n".
                '4the99.org is now entering emergency shutdown mode.'."/n".
                'Your last request to the server has just been lost sorry.'."/n".
-               'The most likely reason you are seeing this message is that a single error occurred and the whole site was'."/n".
+               'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
                'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
                ."/n".               
                'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
-               'as we diagnose and correct the fault in our systems.'."/n".             
+               'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
                'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
                ."/n".
                'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
-               'then risk a security breach from something we created'
-               'We apologize for the inconvenience and we will let you know more when we do'
-               
-               'PS. There is also a very small chance you managed to cause this error, in which case congratulations!'
-               'You get a cookie!'
-               );
-               some_logging_function($ex->getMessage());
+               'then risk a security breach from something we created'."/n".
+               'We apologize for the inconvenience and we will let you know more when we do'."/n".
+               'Please visit here: '."<a href='"https://4the99.org"'>'https://4the99.org'<p>"."/n".
+               'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
+               ."/n". 
+               'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
+               'You get a cookie!'); //<--- a special award will appear on their profile ^^. 
+               database_has_crashed($diry_database_crash_error_dump->getMessage());
            }
            //  password_verify()
        }

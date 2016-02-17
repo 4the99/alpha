@@ -69,14 +69,39 @@ class the_portal_to_enlightenment
   		 {
       	  //this CANNOT! be include() or require() due to nullbytes 
   		     unknown_function("/path/to/db/connection/script")
-       
-           // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
-           $stmt = $db->prepare("SELECT dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
-           FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
            
-           $stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, ':clean_user_email' => $clean_user_email));
-           $rows = $stmt->fetch(PDO::FETCH_BOUND);
-           return("$dirty_list_user_master_login");
+           // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
+           try 
+           {                  
+               $stmt = $db->prepare("SELECT dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
+               FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
+           
+               $stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, ':clean_user_email' => $clean_user_email));
+               $rows = $stmt->fetch(PDO::FETCH_BOUND);
+               return("$dirty_list_user_master_login");
+           }
+           
+           catch(PDOException $ex) 
+           {
+               echo ('Something mission critical just blew up in our face.'."/n".
+               '4the99.org is now entering emergency shutdown mode.'."/n".
+               'Your last request to the server has just been lost sorry.'."/n".
+               'The most likely reason you are seeing this message is that a single error occurred and the whole site was'."/n".
+               'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
+               ."/n".               
+               'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+               'as we diagnose and correct the fault in our systems.'."/n".             
+               'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+               ."/n".
+               'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+               'then risk a security breach from something we created'
+               'We apologize for the inconvenience and we will let you know more when we do'
+               
+               'PS. There is also a very small chance you managed to cause this error, in which case congratulations!'
+               'You get a cookie!'
+               );
+               some_logging_function($ex->getMessage());
+           }
            //  password_verify()
        }
        
