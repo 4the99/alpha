@@ -26,15 +26,11 @@ class master_control_class()
     
     
    private function domain_wide_heartbeat() 
-   {  
-       public list master_contol_list($everything_is_ok_status_var, $webserver_emergency_shutdown_status_var, .
-       $hard_shutdown_status_var, $request_crash_and_burn_status_var, $secured_shutdown_status_var,           .
-       $maitnence_shutdown_status_var, $development_mode_status_var, $testing_mode_status_var, $webserver_recovery_mode_status_var .
-       $parinoia_level_status_var, $give_that_user_a_cookie);
+   {    
        //runs away screaming!!!
        //my mind keeps EXPLODING with configs n code!         
    }
-   public function database_has_crashed() 
+   public function something_has_crashed() 
    {
        if($everything_is_ok_status_var === true) 
        {  
