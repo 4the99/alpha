@@ -99,7 +99,7 @@ class ThePortalToEnlightenment
                        'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
                        'You get a cookie!'); //<--- a special award will appear on their profile ^^. 
                        
-                       //because im firing off a function/method below VVVV  do
+                       //because im firing off a function/method below, does this have to go ---after--- the echo? 
                        database_Has_Crashed($dirty_db_crash_error_dump->getMessage(), $user_login_db_crash_timestamp, . 
                        $user_login_db_login_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
                    }           
