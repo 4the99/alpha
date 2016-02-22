@@ -6,108 +6,180 @@
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 // anti brute force to do. 
-
+// parse login after db, to do
+// presentation layer to do
+// shorten var names, to do. 
+// check if logged in, to do. 
 
 
 class ThePortalToEnlightenment 
 {
    // get input and validate layer
-   protected function getLoginPost()
+   private function getLoginPost()
    {
-       $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
-       $dirty_user_low_security_zone_login_password = isset($_POST['dirty_user_low_security_zone_login_password'])
+     private var  $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
+     private var  $dirty_user_lowsec_login_password = isset($_POST['dirty_user_lowsec_login_pass'])
        //$dirty_button = isset($_POST['dirty_login_button']) 
        //$dirty_login_form = isset($_POST['dirty_email_login'])      
        //not sure about form button/security and what exactly to do, if anything? considering, if not requested server side by post? 
-       
-       private function parseLogin($dirty_user_login_email) //passing var to function correct? 
-       {
-           $dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL);
+      parseLoginEmail($dirty_user_login_email)
+   }
+   
+   private function parseLoginEmail($dirty_user_login_email) //passing var to function correct? 
+   {
+       $dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL);
+       //spambot monitor <--- to do 
                
-           if (!filter_var($dirty_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
-           {
-               protected $clean_user_login_email =  $dirty_user_login_email;
-               return $clean_user_login_email;
-              
-           } 
+       if (!filter_var($dirty_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
+       {
+           protected $clean_user_login_email =  $dirty_user_login_email;
+           return $clean_user_login_email;              
+       } 
           
-           else 
-           // how do i return this to javascript/ajax validating emails... properly...           
-           // KISS code atm, return using header? then, make email input box bg red.
-           // set a cookie counter, after 3 attempts fire off a js popup under box "incorrect email!"
-            
-           {
-               echo('This is not a valid email address');           
-                          
-           }
-                     
+       else            
+       // KISS code atm, return using header? then, make email input box bacground red.
+       // set a cookie counter, after 3 attempts fire off a js popup under box "incorrect email!"    
+       {
+           echo('This is not a valid email address');                  
        }
    }
   
-
-   class databaseLayer()
+sub class DatabaseLayer()
    {
        private function mainDatabaseInput () 
        {
        
        
- //!!!!!!   if(yada... if mysql goes here)   <---- code breaker, to do!  
+           if($goto_db_type === 'mysql')  
            {
-			      private function dbGetLogin($clean_user_login_email) 
-  		         {
-      	          //this CANNOT! be include() or require() due to nullbytes 
-  		             unknown_function("/path/to/db/connection/script")
+           	   if($goto_db_db === 'user_master_db') 
+           	   {
+           	   	 if($goto_db_table === 'user_master_table') 
+           	   	 {
+           	   	 	  if($goto_stmt === 'prepared login') 
+           	   	 	  {
+           	   	      dbGetLogin($clean_user_login_email);
+           	   	     }
+           	   	 } 
+           	   	 elseif($goto_db_db === 'error_db') 
+           	   	 {
+           	   	     dbHasCrashed();  // <---- pass though vars gotta hit the road.  
+           	   	 }	
+           	   }
+           	   else 
+           	   {
+           	   	 echo 'you ain\'t coded that far ahead yet'
+           	   }
+           )
+      
+      
+           else if ($go_db_type != 'mysql')
+           {
+					echo 'you haven\'t set up nosql yet idiot'            
+           }       
+      
+       }
+       
+       
+       private function dbGetLogin($clean_user_login_email) 
+  		 {
+       //this CANNOT! be include() or require() due to nullbytes 
+  		 unknown_function("/path/to/db/connection/script")           
+       // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
+       
+           try 
+           {                  
+               $user_login_db_stmt = $db->prepare("SELECT .
+               dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
+               FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
            
-                   // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
-                   try 
-                   {                  
-                       $user_login_db_login_stmt = $db->prepare("SELECT .
-                       dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
-                       FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
-           
-                       $user_login_db_login_stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, .
-                        ':clean_user_email' => $clean_user_email));
-                       $rows = $user_login_db_login_stmt->fetch(PDO::FETCH_BOUND);
-                       return("$dirty_list_user_master_login");
-                   }
-           
-                  catch(PDOException $dirty_db_crash_error_dump) 
-                  {
-             	        public var $user_login_db_crash_timestamp = microtime($get_as_float = null);
-             	        //according to php docs, float reduces!? accuracy to seconds, instead of microseconds..
-                       if ($give_that_user_a_cookie != false)
-                       {
-                           $give_that_user_a_cookie = $clean_user_login_email;
-                       }           
-                       
-                       echo ('Something mission critical just blew up in our face.'."/n".
-                       '4the99.org is now entering emergency shutdown mode.'."/n".
-                       'Your last request to the server has just been lost sorry.'."/n".
-                       'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
-                       'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
-                       ."/n".               
-                       'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
-                       'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
-                       'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
-                       ."/n".
-                       'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
-                       'then risk a security breach from something we created'."/n".
-                       'We apologize for the inconvenience and we will let you know more when we do'."/n".
-                       'Please visit here: '."<a href='"https://4the99.org"'>'https://4the99.org'<p>"."/n".
-                       'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
-                       ."/n". 
-                       'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
-                       'You get a cookie!'); //<--- a special award will appear on their profile ^^. 
-                       
-                       //because im firing off a function/method below, does this have to go ---after--- the echo? 
-                       database_Has_Crashed($dirty_db_crash_error_dump->getMessage(), $user_login_db_crash_timestamp, . 
-                       $user_login_db_login_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
-                   }           
-               }
+               $user_login_db_stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, .
+               ':clean_user_email' => $clean_user_email));
+               $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
+               return $dirty_user_master_login_array
+               // need to figure out how to store a shitton of vars/arrays as "objects" in a db field, and which db supports this 
            }
+           
+           catch(PDOException $dirty_db_crash_dump) 
+           {
+               private var $user_login_db_crash_timestamp = microtime($get_as_float = null);
+             	//according to php docs, float reduces!? accuracy to seconds, instead of microseconds..
+               if ($give_that_user_a_cookie != false)
+                   {
+                       $give_that_user_a_cookie = $clean_user_login_email;
+                   }           
+               echo ('Something mission critical just blew up in our face.'."/n".
+               '4the99.org is now entering emergency shutdown mode.'."/n".
+               'Your last request to the server has just been lost sorry.'."/n".
+               'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
+               'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
+               ."/n".               
+               'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+               'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
+               'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+               ."/n".
+               'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+               'then risk a security breach from something we created'."/n".
+               'We apologize for the inconvenience and we will let you know more when we do'."/n".
+               'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
+               'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
+               ."/n". 
+               'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
+               'You get a cookie! Check your profile to see if you won one.'); 
+               
+                $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
+                $goto_db_db = 'error_db'
+                $goto_db_table = 'db_error_dump'      
+               
+               //because im firing off a function/method below, does this have to go ---after--- the echo? 
+               dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
+               $user_login_db_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
+           }           
        }
    }
 
+
+// pesentation layer 
+//htmlspecialchars();
+   
+   
+   private function cookiePreparation() 
+   {
+   	   //http only means https, its ok, its telling browser to sandbox 
+       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
+         header('session.use_strict_mode;'); //<---- havent figured out that one for ^^^ & VVV .... to google
+   }	
+    
+    
+   private function nomNomNom()
+   {
+               	
+              	    //seriously think about ways to harden this layer, privacy vs security vs spoofing & open source *sigh* 
+                   //if someone was really bored enough they could spoof all the way down to the cpu core. 
+                   // looking into rolling own session cookies, random_bytes 
+                   // take a long hard look at SessionHandler()
+						 // https://secure.php.net/manual/en/intro.session.php
+						 // track down that old script that gets 100k+ cookies and maps out randomness in visual graph. 
+                   session_set_cookie_params($lifetime, $path = null, $domain = null, $secure = null, $httponly = null);                   
+                   session_start()
+                   //check if cookie is set or catch error & return fail           
+   } 
+         
+   public function addHeaders() 
+       {
+           header('Content-type: text/html; charset=utf-8;');  
+           header('date_default_timezone_set("UTC");');
+           header('X-Frame-Options SAMEORIGIN;');
+           header('X-Frame-Options DENY;');
+           header('Content-Security-Policy;'); 
+           header('X-WebKit-CSP;');
+           header('X-Content-Security-Policy;');
+           header('Strict-Transport-Security: max-age=1000; includeSubDomains;');
+           header('X-Forwarded-Proto: https;');
+           header('X-Forwarded-Port: 443;');    
+           //syntax correct?
+       }
+   }
   
   
    //Presentation layer   
@@ -118,16 +190,17 @@ class ThePortalToEnlightenment
    
        private function cookiePreparation() 
        {
-          header('session.cookie_httponly;');   //<--- dont wory about the http instead of https bit, thats ok, its correct, its just browser cookie sandboxing 
-          header('session.cookie_secure;');     //<--- enforces cookie over https 
-          header('session.use_strict_mode;');
+       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
+
+ //         header('use_strict_mode;'); <--- need to look this up again to add to ^^^ and vvv
        
            private function cookieSetting()
                {
               	    //seriously think about ways to harden this layer, privacy vs security vs spoofing & open source *sigh* 
-                   //if someone was really bored enough they could spoof all the way down to the cpu core. 
+                   session_set_cookie_params($lifetime, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
                    session_start()
-                   //check if cookie is set or catch error & return fail           
+                   //check if cookie is set or catch error & return fail        
+                      
                } 
        }
    }	
@@ -170,7 +243,7 @@ class ThePortalToEnlightenment
         <div id='non_js_hidden' style="display:none">
             <form method="POST" action="" id="dirty_login_form">
                 <input type='email' name='dirty_email_login' placeholder='Email' />
-                <input type='password' name='dirty_user_low_security_zone_login_password' placeholder='******'/>
+                <input type='password' name='dirty_user_lowsec_login_pass' placeholder='******'/>
                 <button name='dirty_login_button'>Login</button> 
             </form>
         </div>
