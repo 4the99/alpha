@@ -10,7 +10,32 @@
 // presentation layer to do
 // shorten var names, to do. 
 // check if logged in, to do. 
+// post timing tracking to do.
+// error db passing of functions to do. 
 
+
+class SomethingFuckedUp
+{
+	// ignore this
+   public $implosion_warning = ('Something mission critical just blew up in our face.'."/n".
+   '4the99.org is now entering emergency shutdown mode.'."/n".
+   'Your last request to the server has just been lost sorry.'."/n".
+   'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
+   'automatically shut down as a safety measure'."/n".
+   ."/n".               
+   'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+   'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
+   'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+   ."/n".
+   'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+   'then risk a security breach from something we created'."/n".
+   'We apologize for the inconvenience and we will let you know more when we do'."/n".
+   'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
+   'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
+   ."/n". 
+   'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
+   'You get a cookie! Check your profile to see if you won one.'); 
+}
 
 class ThePortalToEnlightenment 
 {
@@ -18,7 +43,7 @@ class ThePortalToEnlightenment
    private function getLoginPost()
    {
      private var  $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
-     private var  $dirty_user_lowsec_login_password = isset($_POST['dirty_user_lowsec_login_pass'])
+     private var  $dirty_user_lowsec_login_pass = isset($_POST['dirty_user_lowsec_login_pass'])
        //$dirty_button = isset($_POST['dirty_login_button']) 
        //$dirty_login_form = isset($_POST['dirty_email_login'])      
        //not sure about form button/security and what exactly to do, if anything? considering, if not requested server side by post? 
@@ -27,20 +52,28 @@ class ThePortalToEnlightenment
    
    private function parseLoginEmail($dirty_user_login_email) //passing var to function correct? 
    {
-       $dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL);
-       //spambot monitor <--- to do 
-               
-       if (!filter_var($dirty_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
+       
+       if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === true)
        {
-           protected $clean_user_login_email =  $dirty_user_login_email;
-           return $clean_user_login_email;              
+       private $clean_user_login_email =  $dirty_user_login_email;
+       return $clean_user_login_email;
+       }
+       
+               
+       elseif (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
+       {
+       	  //kiss code
+       	  echo('Incorrect email');             
        } 
           
-       else            
-       // KISS code atm, return using header? then, make email input box bacground red.
-       // set a cookie counter, after 3 attempts fire off a js popup under box "incorrect email!"    
+       elseif (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === true) 
        {
-           echo('This is not a valid email address');                  
+           mainDatabaseInput($clean_user_login_email)
+           //ok confused! how do i pass $clean_user_login_email to the class DatabaseLayer() and direct it to fire off the function/method?
+       }
+       else 
+       {
+          echo ("$implosion_warning")
        }
    }
   
@@ -49,14 +82,15 @@ sub class DatabaseLayer()
        private function mainDatabaseInput () 
        {
        
-       
+       //really got to think of a better way to route my scripts to appropriate db 
+       // mabe array n case
            if($goto_db_type === 'mysql')  
            {
            	   if($goto_db_db === 'user_master_db') 
            	   {
            	   	 if($goto_db_table === 'user_master_table') 
            	   	 {
-           	   	 	  if($goto_stmt === 'prepared login') 
+           	   	 	  if($goto_stmt === 'prepared_login') 
            	   	 	  {
            	   	      dbGetLogin($clean_user_login_email);
            	   	     }
@@ -68,7 +102,7 @@ sub class DatabaseLayer()
            	   }
            	   else 
            	   {
-           	   	 echo 'you aint coded that far ahead yet'
+           	   	 echo 'you ain\'t coded that far ahead yet'
            	   }
            )
       
@@ -90,42 +124,25 @@ sub class DatabaseLayer()
            try 
            {                  
                $user_login_db_stmt = $db->prepare("SELECT .
-               dirty_user_login_master_array=:dirty_user_login_master_array_placeholder .
+               dirty_login_master_array=:dirty_login_master_array_placeholder .
                FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
            
-               $user_login_db_stmt->execute(array(':user_login_master_array' => $dirty_list_user_master_login, .
-               ':clean_user_email' => $clean_user_email));
+               $user_login_db_stmt->execute(array(':dirty_user_login_master_array_placeholder' => $dirty_login_master_array, .
+               ':clean_user_email_placeholder' => $clean_user_login_email));
                $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
-               return $dirty_user_master_login_array
+               return $dirty_login_master_array
                // need to figure out how to store a shitton of vars/arrays as "objects" in a db field, and which db supports this 
            }
            
            catch(PDOException $dirty_db_crash_dump) 
            {
                private var $user_login_db_crash_timestamp = microtime($get_as_float = null);
-             	//according to php docs, float reduces!? accuracy to seconds, instead of microseconds..
+             	//according to php docs, float reduces!? accuracy to seconds, instead of microseconds!?!?!?
                if ($give_that_user_a_cookie != false)
                    {
                        $give_that_user_a_cookie = $clean_user_login_email;
                    }           
-               echo ('Something mission critical just blew up in our face.'."/n".
-               '4the99.org is now entering emergency shutdown mode.'."/n".
-               'Your last request to the server has just been lost sorry.'."/n".
-               'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
-               'automatically shut down as a safety measure, then your request to access one of the databases was blocked.'."/n".
-               ."/n".               
-               'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
-               'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
-               'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
-               ."/n".
-               'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
-               'then risk a security breach from something we created'."/n".
-               'We apologize for the inconvenience and we will let you know more when we do'."/n".
-               'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
-               'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
-               ."/n". 
-               'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
-               'You get a cookie! Check your profile to see if you won one.'); 
+               echo ($implosion_error_warning_db)
                
                 $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
                 $goto_db_db = 'error_db'
