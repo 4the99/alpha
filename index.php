@@ -1,4 +1,3 @@
-
 <?php
 // ignore this, todo list
   
@@ -40,47 +39,73 @@ class SomethingFuckedUp
 
 class ThePortalToEnlightenment 
 {
-    //need to put a cookie check in, if logged in cookie set bypass all below and go strait to user page 	
-	
-	
-   // get input and validate layer
-   private function getLoginPost()
+   
+
+private var  $dirty_user_lowsec_login_pass -> getLoginPass();
+private var  $dirty_user_login_email -> getlLoginEmail(); 
+private var  $clean_user_login_email -> cleanLoginEmail();
+   
+   private function getLoginPass(if(isset($_POST['dirty_user_lowsec_login_pass'])))
+   { 
+   //variables cannot be seen outside a method unless returned
+   		$hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
+         return $hidden_var_pass;
+         
+         //i think fires off method? 
+         $this -> getLoginEmail();
+         
+   }
+   private function getLoginEmail(if(isset($_POST['dirty_login_email'])))
    {
-     private var  $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
-     private var  $dirty_user_lowsec_login_pass = isset($_POST['dirty_user_lowsec_login_pass'])
-       //$dirty_button = isset($_POST['dirty_login_button']) 
-       //$dirty_login_form = isset($_POST['dirty_email_login'])      
-       //not sure about form button/security and what exactly to do, if anything? considering, if not requested server side by post? 
-      parseLoginEmail($dirty_user_login_email)
+   		$hidden_var_email = $_POST['dirty_login_email'];
+         return $hidden_var_email;
+         $this -> parseLoginEmail();
+         
    }
    
-   private function parseLoginEmail($dirty_user_login_email) //passing var to function correct? 
+   private function cleanLoginEmail() //passing var to function correct? 
    {
        
        if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === true)
        {
-       private $clean_user_login_email =  $dirty_user_login_email;
-       return $clean_user_login_email;
+           private $no_nasties_are_here =  $dirty_user_login_email;
+           return $no_nasties_are_here; 
+           $this -> parseLoginEmail()  
        }
-       
-               
-       elseif (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false) 
+              
+       elseif (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === false) 
        {
-       	  //kiss code
-       	  echo('Incorrect email');             
+       	  //kiss code 
+       	  echo('Incorrect email');
+       	  $this -> suspectedBot();             
        } 
-          
-       elseif (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === true) 
-       {
-           mainDatabaseInput($clean_user_login_email)
-           //ok confused! how do i pass $clean_user_login_email to the class DatabaseLayer() and direct it to fire off the function/method?
-       }
        else 
        {
           echo ("$implosion_warning");
+          $this -> emergency_shutdown();
        }
    }
-  
+   
+   parseLoginEmail()
+   {
+       if  (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === true)
+       {
+           $this ->  mainDatabaseInput($clean_user_login_email);
+       }
+       elseif(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false)
+       {
+       		 echo('Incorrect email');
+       		 $this -> sucpectedBruteForce();
+		 }
+		 else ()
+       {
+            echo ("$implosion_warning");
+            $this -> emergency_shutdown();
+       }
+       
+   }
+   
+   
 sub class DatabaseLayer()
    {
        private function mainDatabaseInput () 
@@ -96,12 +121,12 @@ sub class DatabaseLayer()
            	   	 {
            	   	 	  if($goto_stmt === 'prepared_login') 
            	   	 	  {
-           	   	      dbGetLogin($clean_user_login_email);
+           	   	      $this -> dbGetLogin();
            	   	     }
            	   	 } 
            	   	 elseif($goto_db_db === 'error_db') 
            	   	 {
-           	   	     dbHasCrashed();  // <---- pass though vars gotta hit the road.  
+           	   	   $this -> dbHasCrashed();  
            	   	 }	
            	   }
            	   else 
@@ -136,7 +161,7 @@ sub class DatabaseLayer()
                FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
            
                $user_login_db_stmt->execute(array(':dirty_user_login_master_array_placeholder' => $dirty_login_master_array, .
-               ':clean_user_email_placeholder' => $clean_user_login_email));
+               ':clean_user_login_email_placeholder' => $clean_user_login_email));
                $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
                return $dirty_login_master_array
                // need to figure out how to store a shitton of vars/arrays as "objects" in a db field, and which db supports this 
@@ -169,7 +194,7 @@ sub class DatabaseLayer()
 
        private function verifyPass ()
        {  
-           //unknow code here: 
+           //unknown code here: 
            //split up array/obcect/list $dirty_login_master_array extract password and salt  
            password_verify($dirty_user_lowsec_login_pass, $user_lowsec_login_hash);
        }

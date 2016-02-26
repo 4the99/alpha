@@ -1,4 +1,3 @@
-
 <?php
 // ignore this, todo list
   
@@ -40,19 +39,25 @@ class SomethingFuckedUp
 
 class ThePortalToEnlightenment 
 {
-    //need to put a cookie check in, if logged in cookie set bypass all below and go strait to user page 	
-	
-	
+   
+private var  $dirty_user_login_email -> getlLoginEmail();) 
+private var  $dirty_user_lowsec_login_pass -> 
+private var  $clean_user_login_email -> 
+   
    // get input and validate layer
-   private function getLoginPost()
-   {
-     private var  $dirty_user_login_email = isset($_POST['dirty_user_login_email'])
-     private var  $dirty_user_lowsec_login_pass = isset($_POST['dirty_user_lowsec_login_pass'])
-       //$dirty_button = isset($_POST['dirty_login_button']) 
-       //$dirty_login_form = isset($_POST['dirty_email_login'])      
-       //not sure about form button/security and what exactly to do, if anything? considering, if not requested server side by post? 
-      parseLoginEmail($dirty_user_login_email)
+   private function getLoginPass(if(isset($_POST['dirty_user_lowsec_login_pass'])))
+   { 
+   	{
+   		$dirty_user_lowsec_login_pass = $_POST['dirty_user_lowsec_login_pass'];
+         return $dirty_user_lowsec_login_pass;
+      }
    }
+   private function getLoginEmail(if(isset($_POST['dirty_login_email'])))
+   {
+   		$dirty_user_login_email = $_POST['dirty_login_email'];
+         return $dirty_user_login_email;
+   }
+   
    
    private function parseLoginEmail($dirty_user_login_email) //passing var to function correct? 
    {
