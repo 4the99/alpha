@@ -1,6 +1,7 @@
 
 <?php
-   
+// ignore this, todo list
+  
 // bot check to do:
 // will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
@@ -16,7 +17,7 @@
 
 class SomethingFuckedUp
 {
-	// ignore this
+	// ignore this as well
    public $implosion_warning = ('Something mission critical just blew up in our face.'."/n".
    '4the99.org is now entering emergency shutdown mode.'."/n".
    'Your last request to the server has just been lost sorry.'."/n".
@@ -39,6 +40,9 @@ class SomethingFuckedUp
 
 class ThePortalToEnlightenment 
 {
+    //need to put a cookie check in, if logged in cookie set bypass all below and go strait to user page 	
+	
+	
    // get input and validate layer
    private function getLoginPost()
    {
@@ -73,7 +77,7 @@ class ThePortalToEnlightenment
        }
        else 
        {
-          echo ("$implosion_warning")
+          echo ("$implosion_warning");
        }
    }
   
@@ -102,15 +106,19 @@ sub class DatabaseLayer()
            	   }
            	   else 
            	   {
-           	   	 echo 'you ain\'t coded that far ahead yet'
+           	   	 echo ('you ain\'t coded that far ahead yet');
            	   }
-           )
+           }
       
       
            else if ($go_db_type != 'mysql')
            {
-					echo 'you haven\'t set up nosql yet idiot'            
-           }       
+					echo ('you haven\'t set up nosql yet idiot');            
+           } 
+           else 
+           {
+               echo("$implosion_warning");           
+           }      
       
        }
        
@@ -142,11 +150,11 @@ sub class DatabaseLayer()
                    {
                        $give_that_user_a_cookie = $clean_user_login_email;
                    }           
-               echo ($implosion_error_warning_db)
+               echo ($implosion_error_warning)
                
                 $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
                 $goto_db_db = 'error_db'
-                $goto_db_table = 'db_error_dump'      
+                $goto_db_table = 'login_db_error_dump'      
                
                //because im firing off a function/method below, does this have to go ---after--- the echo? 
                dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
@@ -156,15 +164,23 @@ sub class DatabaseLayer()
    }
 
 
+
 // pesentation layer 
-//htmlspecialchars();
-   
+
+       private function verifyPass ()
+       {  
+           //unknow code here: 
+           //split up array/obcect/list $dirty_login_master_array extract password and salt  
+           password_verify($dirty_user_lowsec_login_pass, $user_lowsec_login_hash);
+       }
    
    private function cookiePreparation() 
    {
    	   //http only means https, its ok, its telling browser to sandbox 
-       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
+       	// cookie value = user id, and user pivacy/site settings
+       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);        
          header('session.use_strict_mode;'); //<---- havent figured out that one for ^^^ & VVV .... to google
+   nomNomNom()
    }	
     
     
@@ -178,11 +194,11 @@ sub class DatabaseLayer()
 						 // https://secure.php.net/manual/en/intro.session.php
 						 // track down that old script that gets 100k+ cookies and maps out randomness in visual graph. 
                    session_set_cookie_params($lifetime, $path = null, $domain = null, $secure = null, $httponly = null);                   
-                   session_start()
-                   //check if cookie is set or catch error & return fail           
+                   session_start()        
+   addHeaders()
    } 
          
-   public function addHeaders() 
+       public function addHeaders() 
        {
            header('Content-type: text/html; charset=utf-8;');  
            header('date_default_timezone_set("UTC");');
@@ -201,42 +217,6 @@ sub class DatabaseLayer()
   
    //Presentation layer   
    //htmlspecialchars();
-
-   private function nomNomNom()
-   {
-   
-       private function cookiePreparation() 
-       {
-       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
-
- //         header('use_strict_mode;'); <--- need to look this up again to add to ^^^ and vvv
-       
-           private function cookieSetting()
-               {
-              	    //seriously think about ways to harden this layer, privacy vs security vs spoofing & open source *sigh* 
-                   session_set_cookie_params($lifetime, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);
-                   session_start()
-                   //check if cookie is set or catch error & return fail        
-                      
-               } 
-       }
-   }	
-      
-   public function addHeaders() 
-       {
-           header('Content-type: text/html; charset=utf-8;');  
-           header('date_default_timezone_set("UTC");');
-           header('X-Frame-Options SAMEORIGIN;');
-           header('X-Frame-Options DENY;');
-           header('Content-Security-Policy;'); 
-           header('X-WebKit-CSP;');
-           header('X-Content-Security-Policy;');
-           header('Strict-Transport-Security: max-age=1000; includeSubDomains;');
-           header('X-Forwarded-Proto: https;');
-           header('X-Forwarded-Port: 443;');    
-           //syntax correct?
-       }
-   }
 
 ?>
 
