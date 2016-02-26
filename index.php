@@ -39,51 +39,65 @@ class SomethingFuckedUp
 
 class ThePortalToEnlightenment 
 {
-   
+   private  $dirty_user_lowsec_login_pass = getLoginPass();
+   private  $dirty_user_login_email = getlLoginEmail(); 
+   private  $clean_user_login_email = cleanLoginEmail();
+   public  $dirty_something_fucked_up  
+   public  $everything_is_ok
 
-private var  $dirty_user_lowsec_login_pass -> getLoginPass();
-private var  $dirty_user_login_email -> getlLoginEmail(); 
-private var  $clean_user_login_email -> cleanLoginEmail();
-   
-   private function getLoginPass(if(isset($_POST['dirty_user_lowsec_login_pass'])))
+   private function theYellowBrickRoad()
    { 
-   //variables cannot be seen outside a method unless returned
-   		$hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
-         return $hidden_var_pass;
-         
-         //i think fires off method? 
-         $this -> getLoginEmail();
-         
-   }
-   private function getLoginEmail(if(isset($_POST['dirty_login_email'])))
-   {
-   		$hidden_var_email = $_POST['dirty_login_email'];
-         return $hidden_var_email;
-         $this -> parseLoginEmail();
-         
+       if($everything_is_ok = true) 
+       {
+           try 
+           {
+       	      getLoginPass();
+       	      getLoginEmail();
+       	      cleanLoginEmail();
+       	      parseLoginEmail();
+           }
+           catch (Exception $e) 
+           { 
+               log($e->getMessage());
+               this -> $everything_is_ok = false;
+           }
+       }           
    }
    
-   private function cleanLoginEmail() //passing var to function correct? 
+   private function getLoginPass(if($_SERVER['REQUEST_METHOD'] == 'POST'))
+   { 
+       $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
+       if($hidden_var_pass != null)
+       {           
+          return $hidden_var_pass;
+       }
+       else 
+       {
+           echo ('In this day and age, we cant just let you use blank passwords. :S');
+       }   
+   }
+   
+   private function getLoginEmail()
+   {
+       $hidden_var_email = $_POST['dirty_login_email'];
+       return $hidden_var_email;
+   }
+   
+   private function cleanLoginEmail() 
    {
        
        if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === true)
        {
            private $no_nasties_are_here =  $dirty_user_login_email;
-           return $no_nasties_are_here; 
-           $this -> parseLoginEmail()  
+           return $no_nasties_are_here;   
        }
               
-       elseif (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === false) 
+       else (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === false) 
        {
        	  //kiss code 
        	  echo('Incorrect email');
-       	  $this -> suspectedBot();             
+ //      	  $this -> suspectedBot();   <---- todo              
        } 
-       else 
-       {
-          echo ("$implosion_warning");
-          $this -> emergency_shutdown();
-       }
    }
    
    parseLoginEmail()
@@ -92,17 +106,11 @@ private var  $clean_user_login_email -> cleanLoginEmail();
        {
            $this ->  mainDatabaseInput($clean_user_login_email);
        }
-       elseif(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false)
+       else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false)
        {
        		 echo('Incorrect email');
        		 $this -> sucpectedBruteForce();
 		 }
-		 else ()
-       {
-            echo ("$implosion_warning");
-            $this -> emergency_shutdown();
-       }
-       
    }
    
    
