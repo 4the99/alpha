@@ -60,16 +60,30 @@ class ThePortalToEnlightenment
            { 
                log($e->getMessage());
                this -> $everything_is_ok = false;
+               this -> $something_fucked_up = true; 
+               this -> emergency_shutdown()
            }
        }           
    }
-   
+
    private function getLoginPass(if($_SERVER['REQUEST_METHOD'] == 'POST'))
    { 
+   // this is bad, and i know it is, just not sure how to sort out "when the post 
        $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
        if($hidden_var_pass != null)
-       {           
+       {   
+          //just in case of any chance of nullbyte injection
+          $count = 1         
+          $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
+          if ($count == 1)
+          {
           return $hidden_var_pass;
+          }
+          else 
+          {
+          suspectedHacker();
+          }
+          
        }
        else 
        {
@@ -77,10 +91,23 @@ class ThePortalToEnlightenment
        }   
    }
    
-   private function getLoginEmail()
+   private function getLoginEmail(if($_SERVER['REQUEST_METHOD'] == 'POST'))
    {
-       $hidden_var_email = $_POST['dirty_login_email'];
-       return $hidden_var_email;
+           $hidden_var_email = $_POST['dirty_login_email'];
+           $count = 1         
+           $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
+           if ($count == 1)
+           {
+               return $hidden_var_pass;
+           }
+           else 
+           {
+           suspectedHacker();
+           }
+        else 
+        {
+        echo ('Hmmmm... Whom might you be exactly?')
+        }             
    }
    
    private function cleanLoginEmail() 
@@ -96,7 +123,7 @@ class ThePortalToEnlightenment
        {
        	  //kiss code 
        	  echo('Incorrect email');
- //      	  $this -> suspectedBot();   <---- todo              
+       	  $this -> suspectedBot();             
        } 
    }
    
@@ -112,7 +139,20 @@ class ThePortalToEnlightenment
        		 $this -> sucpectedBruteForce();
 		 }
    }
-   
+
+   private function suspectedBot() 
+   {
+   	//sanity check
+   	echo('suspected bot');
+   }
+   private function suspectedBruteForce() 
+   {
+   	echo('suspected bruteforce');
+   }
+   private function suspectedHacker()	
+   {
+   	echo('suspected hacker');     
+   }
    
 sub class DatabaseLayer()
    {
