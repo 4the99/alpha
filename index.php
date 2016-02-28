@@ -45,7 +45,7 @@ class ThePortalToEnlightenment
    public  $dirty_something_fucked_up  
    public  $everything_is_ok
 
-   private function theYellowBrickRoad()
+   private function theYellowBrickRoad(if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true ))
    { 
        if($everything_is_ok = true) 
        {
@@ -66,9 +66,10 @@ class ThePortalToEnlightenment
        }           
    }
 
-   private function getLoginPass(if($_SERVER['REQUEST_METHOD'] == 'POST'))
+   private function getLoginPass(if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true ))
    { 
-   // this is bad, and i know it is, just not sure how to sort out "when the post 
+   // this is bad, and i know it is, the sane way to target exactly when the post is made, then.. do this... 
+   
        $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
        if($hidden_var_pass != null)
        {   
@@ -91,7 +92,7 @@ class ThePortalToEnlightenment
        }   
    }
    
-   private function getLoginEmail(if($_SERVER['REQUEST_METHOD'] == 'POST'))
+   private function getLoginEmail(if(isset ($_SERVER['REQUEST_METHOD'] == 'POST') == true))
    {
            $hidden_var_email = $_POST['dirty_login_email'];
            $count = 1         
@@ -113,13 +114,13 @@ class ThePortalToEnlightenment
    private function cleanLoginEmail() 
    {
        
-       if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === true)
+       if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) == true)
        {
            private $no_nasties_are_here =  $dirty_user_login_email;
            return $no_nasties_are_here;   
        }
               
-       else (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) === false) 
+       else (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) == false) 
        {
        	  //kiss code 
        	  echo('Incorrect email');
@@ -129,11 +130,11 @@ class ThePortalToEnlightenment
    
    parseLoginEmail()
    {
-       if  (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === true)
+       if  (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == true)
        {
            $this ->  mainDatabaseInput($clean_user_login_email);
        }
-       else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) === false)
+       else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == false)
        {
        		 echo('Incorrect email');
        		 $this -> sucpectedBruteForce();
@@ -153,6 +154,11 @@ class ThePortalToEnlightenment
    {
    	echo('suspected hacker');     
    }
+
+   private function 	
+	{
+	
+	}   
    
 sub class DatabaseLayer()
    {
@@ -161,18 +167,18 @@ sub class DatabaseLayer()
        
        //really got to think of a better way to route my scripts to appropriate db 
        // mabe array n case
-           if($goto_db_type === 'mysql')  
+           if($goto_db_type == 'mysql')  
            {
-           	   if($goto_db_db === 'user_master_db') 
+           	   if($goto_db_db == 'user_master_db') 
            	   {
-           	   	 if($goto_db_table === 'user_master_table') 
+           	   	 if($goto_db_table == 'user_master_table') 
            	   	 {
-           	   	 	  if($goto_stmt === 'prepared_login') 
+           	   	 	  if($goto_stmt == 'prepared_login') 
            	   	 	  {
            	   	      $this -> dbGetLogin();
            	   	     }
            	   	 } 
-           	   	 elseif($goto_db_db === 'error_db') 
+           	   	 elseif($goto_db_db == 'error_db') 
            	   	 {
            	   	   $this -> dbHasCrashed();  
            	   	 }	
