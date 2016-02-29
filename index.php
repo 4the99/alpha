@@ -1,5 +1,5 @@
 <?php
-// ignore this, todo list
+// by the way.... Hello world! 
   
 // bot check to do:
 // will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
@@ -13,39 +13,46 @@
 // post timing tracking to do.
 // error db passing of functions to do. 
 
+//reminder to ask lgbti community, for options for race, sex, sexuality, etc so that if someone decides to define themselves
+// as a lesbian zombie Klingon drag queen hobbit etc, they can... 
 
-class SomethingFuckedUp
-{
-	// ignore this as well
-   public $implosion_warning = ('Something mission critical just blew up in our face.'."/n".
-   '4the99.org is now entering emergency shutdown mode.'."/n".
-   'Your last request to the server has just been lost sorry.'."/n".
-   'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
-   'automatically shut down as a safety measure'."/n".
-   ."/n".               
-   'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
-   'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
-   'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
-   ."/n".
-   'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
-   'then risk a security breach from something we created'."/n".
-   'We apologize for the inconvenience and we will let you know more when we do'."/n".
-   'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
-   'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
-   ."/n". 
-   'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
-   'You get a cookie! Check your profile to see if you won one.'); 
-}
+// you cannot call functions to assign defaults to property values.  e.g., :42-:44
+// when you need input, that's what arguments are for.  e.g., getLoginPass should look like  function getLoginPass($hiddenvarpass) { ... }
+// it should not do  $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
 
-class ThePortalToEnlightenment 
-{
-   private  $dirty_user_lowsec_login_pass = getLoginPass();
-   private  $dirty_user_login_email = getlLoginEmail(); 
-   private  $clean_user_login_email = cleanLoginEmail();
-   public  $dirty_something_fucked_up  
-   public  $everything_is_ok
 
-   private function theYellowBrickRoad(if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true ))
+// not sure if i can hide this in a class/method 
+if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true) 
+   {
+   	// look at http 1.1, block http 1.0 set off landmine  
+      // check for https://  301 attempted http://       
+      // look out for redirect looped bots, mabe set a cookie for this 
+      
+      theYellowBrickRoad();   
+   }
+   else if() // <-- standard http get for pageload non submit 
+   {
+     SetHeaders(); 
+   }
+   else if () //  <--- check for session cookie 
+   )
+   // send user to profile 
+   }
+   
+   else 
+   {
+      suspectedHacker();
+   }
+
+
+
+class ThePortalToEnlightenment()
+{   
+   private  $dirty_user_lowsec_login_pass
+   private  $dirty_user_login_email  
+   private  $clean_user_login_email 
+
+   private function theYellowBrickRoad()
    { 
        if($everything_is_ok = true) 
        {
@@ -59,55 +66,56 @@ class ThePortalToEnlightenment
            catch (Exception $e) 
            { 
                log($e->getMessage());
-               this -> $everything_is_ok = false;
-               this -> $something_fucked_up = true; 
-               this -> emergency_shutdown()
+               $everything_is_ok = false;
+               $something_fucked_up = true; 
+               emergency_shutdown()
            }
        }           
    }
 
-   private function getLoginPass(if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true ))
+   private function getLoginPass()
    { 
-   // this is bad, and i know it is, the sane way to target exactly when the post is made, then.. do this... 
-   
        $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
        if($hidden_var_pass != null)
        {   
-          //just in case of any chance of nullbyte injection
-          $count = 1         
-          $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
-          if ($count == 1)
-          {
-          return $hidden_var_pass;
-          }
-          else 
-          {
-          suspectedHacker();
-          }
+           //just in case of any chance of nullbyte injection
+           $count = 1         
+           $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
+           if ($count == 1)
+           {
+               $dirty_user_lowsec_login_pass = $hidden_var_pass;
+           }
+           else 
+           {
+              suspectedHacker();
+           }
           
        }
-       else 
+       else //<--- not... quite... sure about empty post, and filtering null byte, and, if this will fire, to test. 
        {
            echo ('In this day and age, we cant just let you use blank passwords. :S');
        }   
    }
    
-   private function getLoginEmail(if(isset ($_SERVER['REQUEST_METHOD'] == 'POST') == true))
+   private function getLoginEmail()
    {
-           $hidden_var_email = $_POST['dirty_login_email'];
+       $hidden_var_email = $_POST['dirty_login_email'];
+       if($hidden_var_email != null) 
+       {
            $count = 1         
-           $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
+           $hidden_var_email = str_replace(chr(0), '', $hidden_var_email, $limit = -1, $count);  
            if ($count == 1)
            {
-               return $hidden_var_pass;
+             $dirty_user_login_email = $hidden_var_email;
            }
            else 
            {
            suspectedHacker();
            }
+        }
         else 
         {
-        echo ('Hmmmm... Whom might you be exactly?')
+            echo ('Hmmmm... Whom might you be exactly? Hint: Email.')
         }             
    }
    
@@ -116,58 +124,55 @@ class ThePortalToEnlightenment
        
        if (($dirty_user_login_email = filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) == true)
        {
-           private $no_nasties_are_here =  $dirty_user_login_email;
-           return $no_nasties_are_here;   
+           $clean_user_login_email =  $dirty_user_login_email;   
        }
               
        else (filter_var($dirty_user_login_email, FILTER_SANITIZE_EMAIL) == false) 
        {
        	  //kiss code 
        	  echo('Incorrect email');
-       	  $this -> suspectedBot();             
+       	  suspectedBot();             
        } 
    }
    
    parseLoginEmail()
    {
-       if  (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == true)
+       if  (filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == true)  // <==== wrong!!!
        {
-           $this ->  mainDatabaseInput($clean_user_login_email);
+           // look this up again. 
        }
        else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == false)
        {
        		 echo('Incorrect email');
-       		 $this -> sucpectedBruteForce();
+       		 sucpectedBruteForce();
 		 }
    }
+}  
 
-   private function suspectedBot() 
+class landmines()
+{
+   //sanity checks. 
+   public function suspectedBot() 
    {
-   	//sanity check
    	echo('suspected bot');
    }
-   private function suspectedBruteForce() 
+   public function suspectedBruteForce() 
    {
    	echo('suspected bruteforce');
    }
-   private function suspectedHacker()	
+   public function suspectedHacker()	
    {
    	echo('suspected hacker');     
    }
+}
 
-   private function 	
-	{
-	
-	}   
-   
-sub class DatabaseLayer()
-   {
-       private function mainDatabaseInput () 
+class DatabaseRouter()
+{
+//set up an array
+//needs recoding
+       private function dbRoute () 
        {
-       
-       //really got to think of a better way to route my scripts to appropriate db 
-       // mabe array n case
-           if($goto_db_type == 'mysql')  
+         if($goto_db_type == 'mysql')  
            {
            	   if($goto_db_db == 'user_master_db') 
            	   {
@@ -200,102 +205,142 @@ sub class DatabaseLayer()
            }      
       
        }
-       
-       
-       private function dbGetLogin($clean_user_login_email) 
-  		 {
-       //this CANNOT! be include() or require() due to nullbytes 
-  		 unknown_function("/path/to/db/connection/script")           
+}       
+ 
+class LoginDb
+{
+   //email UID, Field for UUID (separate database to process cookies)
+   private function __Construct()
+   {
+       include_once("/path/to/db/connection/script")   
+   } 
+     
+    private function dbGetLogin($clean_user_login_email) 
+    {          
        // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
        
            try 
            {                  
                $user_login_db_stmt = $db->prepare("SELECT .
-               dirty_login_master_array=:dirty_login_master_array_placeholder .
-               FROM dirty_user_master_table WHERE clean_user_email=:clean_email_placeholder");
+               dirty_login_master_object=:dirty_login_master_object_placeholder .
+               FROM dirty_user_login_table WHERE clean_user_email=:clean_email_placeholder");
            
-               $user_login_db_stmt->execute(array(':dirty_user_login_master_array_placeholder' => $dirty_login_master_array, .
+               $user_login_db_stmt->execute(array(':dirty_user_login_master_object_placeholder' => $dirty_login_master_object, .
                ':clean_user_login_email_placeholder' => $clean_user_login_email));
                $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
-               return $dirty_login_master_array
-               // need to figure out how to store a shitton of vars/arrays as "objects" in a db field, and which db supports this 
+               return $dirty_login_master_oject
+               // check db support obj 
            }
            
-           catch(PDOException $dirty_db_crash_dump) 
+       catch(PDOException $dirty_db_crash_dump) 
+       {
+           private var $user_login_db_crash_timestamp = microtime($get_as_float = null);
+           //according to php docs, float reduces!? accuracy to seconds, instead of microseconds!?!?!?
+           if ($give_that_user_a_cookie != false)
            {
-               private var $user_login_db_crash_timestamp = microtime($get_as_float = null);
-             	//according to php docs, float reduces!? accuracy to seconds, instead of microseconds!?!?!?
-               if ($give_that_user_a_cookie != false)
-                   {
-                       $give_that_user_a_cookie = $clean_user_login_email;
-                   }           
-               echo ($implosion_error_warning)
-               
-                $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
-                $goto_db_db = 'error_db'
-                $goto_db_table = 'login_db_error_dump'      
-               
-               //because im firing off a function/method below, does this have to go ---after--- the echo? 
-               dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
-               $user_login_db_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
+                   $give_that_user_a_cookie = $clean_user_login_email;
            }           
-       }
-   }
+           echo ($implosion_error_warning)
+               
+           $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
+           $goto_db_db = 'error_db'
+           $goto_db_table = 'login_db_error_dump'      
+               
+           //because im firing off a function/method below, does this have to go ---after--- the echo? 
+           dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
+           $user_login_db_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
+           
+           //thinking about having a constructor, for login db to kill off db connection @ class end, but persistance? 
+       }           
+    }
+}
 
+class CookieMonster()
 
-
-// pesentation layer 
-
-       private function verifyPass ()
-       {  
-           //unknown code here: 
-           //split up array/obcect/list $dirty_login_master_array extract password and salt  
+   private function verifyPass ()
+   {  
+           
            password_verify($dirty_user_lowsec_login_pass, $user_lowsec_login_hash);
-       }
+   }
    
    private function cookiePreparation() 
    {
-   	   //http only means https, its ok, its telling browser to sandbox 
-       	// cookie value = user id, and user pivacy/site settings
-       	setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);        
-         header('session.use_strict_mode;'); //<---- havent figured out that one for ^^^ & VVV .... to google
-   nomNomNom()
+   	 //http only means https, its ok, its telling browser to sandbox 
+       // cookie value = user id, and user pivacy/site settings
+       setcookie($name, $value = null, $expire = null, $path = null, $domain = 'https://4the99.org', $secure = true, $httponly = true);        
+       header('session.use_strict_mode;'); //<---- havent figured out that one for ^^^ & VVV .... to google
    }	
     
     
    private function nomNomNom()
    {
                	
-              	    //seriously think about ways to harden this layer, privacy vs security vs spoofing & open source *sigh* 
-                   //if someone was really bored enough they could spoof all the way down to the cpu core. 
-                   // looking into rolling own session cookies, random_bytes 
-                   // take a long hard look at SessionHandler()
-						 // https://secure.php.net/manual/en/intro.session.php
-						 // track down that old script that gets 100k+ cookies and maps out randomness in visual graph. 
-                   session_set_cookie_params($lifetime, $path = null, $domain = null, $secure = null, $httponly = null);                   
-                   session_start()        
-   addHeaders()
-   } 
-         
-       public function addHeaders() 
-       {
-           header('Content-type: text/html; charset=utf-8;');  
-           header('date_default_timezone_set("UTC");');
-           header('X-Frame-Options SAMEORIGIN;');
-           header('X-Frame-Options DENY;');
-           header('Content-Security-Policy;'); 
-           header('X-WebKit-CSP;');
-           header('X-Content-Security-Policy;');
-           header('Strict-Transport-Security: max-age=1000; includeSubDomains;');
-           header('X-Forwarded-Proto: https;');
-           header('X-Forwarded-Port: 443;');    
-           //syntax correct?
-       }
+       // looking into rolling own session cookies, random_bytes 
+       // take a long hard look at SessionHandler()
+       // https://secure.php.net/manual/en/intro.session.php
+	    // track down that old script that gets 100k+ cookies and maps out randomness in visual graph.        
+       session_set_cookie_params($lifetime, $path = null, $domain = null, $secure = null, $httponly = null);                   
+       session_start()
+    
    }
+}
+
+class SetHeaders()
+{
+   public function addHeaders() 
+   {
+       header('Content-type: text/html; charset=utf-8;');  
+       header('date_default_timezone_set("UTC");');
+       header('X-Frame-Options SAMEORIGIN;');
+       header('X-Frame-Options DENY;');
+       header('Content-Security-Policy;'); 
+       header('X-WebKit-CSP;');
+       header('X-Content-Security-Policy;');
+       header('Strict-Transport-Security: max-age=1000; includeSubDomains;');
+       header('X-Forwarded-Proto: https;');
+       header('X-Forwarded-Port: 443;');    
+       //syntax correct?
+   }
+   public function extraHeaders()
+   {
+     // yadda yadda, allow from origin PayPal etc 
+     // restricted to certain pages/frames only. 
+   }
+}
   
   
-   //Presentation layer   
-   //htmlspecialchars();
+
+
+class MasterController()
+{
+public  $everything_is_ok
+}
+
+class SomethingFuckedUp()
+{
+	public  $something_fucked_up_status  
+   public $implosion_warning = ('Something mission critical just blew up in our face.'."/n".
+   '4the99.org is now entering emergency shutdown mode.'."/n".
+   'Your last request to the server has just been lost sorry.'."/n".
+   'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
+   'automatically shut down as a safety measure'."/n".
+   ."/n".               
+   'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+   'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
+   'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+   ."/n".
+   'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+   'then risk a security breach from something we created'."/n".
+   'We apologize for the inconvenience and we will let you know more when we do'."/n".
+   'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
+   'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
+   ."/n". 
+   'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
+   'You get a cookie! Check your profile to see if you won one.'); 
+
+// what fucked up, where, what actions to take <--- to do *sighs deeply* this will hurt. 
+}
+
 
 ?>
 
@@ -310,8 +355,13 @@ sub class DatabaseLayer()
         </head>
 
     <body>
-        <!-- normally js would be split off into its own file, as per standards instead keeping it at the top of html 
-        instead im going to keep it simple for the code tweakers skinning the site to their desires -->
+<!-- I want to give a special shout out and thanks to all the php gods, @ ##php for all those glorious little tidbits that made ALL the difference -->
+
+
+<!-- normally js would be split off into its own file, as per standards instead keeping it at the top of html 
+instead im going to keep it simple for the code tweakers skinning the site to their desires -->
+
+
         <script type="text/javascript" >
     document.getElementById('non_js_is_hidden').style.display='block';
 </script>
