@@ -22,7 +22,7 @@
 
 
 // not sure if i can hide this in a class/method 
-if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true) 
+if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true) 
    {
    	// look at http 1.1, block http 1.0 set off landmine  
       // check for https://  301 attempted http://       
@@ -30,9 +30,11 @@ if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true)
       
       theYellowBrickRoad();   
    }
-   else if() // <-- standard http get for pageload non submit 
+   else if(isset($_SERVER['REQUEST_METHOD'] === 'GET') == true) 
+   // standard HTTP get for page-load non submit need to harden this by making it more specific 
    {
-     SetHeaders(); 
+     SetHeaders();
+     NormalIndexHtml();   //<--- so not sure about treating the HTML as an object.
    }
    else if () //  <--- check for session cookie 
    )
@@ -44,6 +46,46 @@ if(isset($_SERVER['REQUEST_METHOD'] == 'POST') == true)
       suspectedHacker();
    }
 
+
+class MasterLoginObjClass($clean_user_login_email)
+{
+	protected $user_id
+	protected $optional_user_url_id
+	protected $clean_user_lowsec_login_hash
+   protected $optional_advanced_login_security_enabled
+   protected $dirty_optional_last_login_ip_array
+   protected $optional_last_login_timestamp
+   protected $optional_last_login_location
+   protected $dirty_optional_named_computers_array
+   protected $active_session_tracking
+   protected $optional_session_locations_array
+   protected $dirty_optional_browser_fingerprint_session_tracking   //<--- run tests to look at encryption overhead 
+   protected $optional_failed_login_tracking
+   protected $optional_user_targeted_hacking_allert_level
+	protected $optional_user_targeted_hacking_timestamp_array
+	protected $dirty_optional_user_targeted_hacking_browser_fingerprinting
+	protected $optional_user_targeted_hackers_location
+	protected $dirty_optional_user_targeted_hackers_fingerprint
+	protected $optional_user_targeted_hacker_notes
+	protected $optional_user_targeted_additonal_information
+	protected $optional_user_needs_special_protections
+	protected $user_has_insecure_fuckwit_partner
+	protected $user_has_violent_partner
+	protected $user_has_lifeline
+	protected $user_emergency_contact_array
+	protected $user_is_dramaqueen
+	protected $user_suspected_trouble_maker
+	protected $user_reputation_array
+	protected $user_suspected_terrorist_or_pedo_scum
+   protected $user_suspected_scammer
+   protected $user_suspected_malicious
+   protected $user_admin_notes
+   protected $user_is_banned
+   protected $user_is_banned_timestamp
+   protected $user_is_banned_history
+   protected $user_is_banned_reason
+   protected $user_is_banned_untill
+}
 
 
 class ThePortalToEnlightenment()
@@ -81,7 +123,7 @@ class ThePortalToEnlightenment()
            //just in case of any chance of nullbyte injection
            $count = 1         
            $hidden_var_pass = str_replace(chr(0), '', $hidden_var_pass, $limit = -1, $count);  
-           if ($count == 1)
+           if ($count === 1)
            {
                $dirty_user_lowsec_login_pass = $hidden_var_pass;
            }
@@ -104,7 +146,7 @@ class ThePortalToEnlightenment()
        {
            $count = 1         
            $hidden_var_email = str_replace(chr(0), '', $hidden_var_email, $limit = -1, $count);  
-           if ($count == 1)
+           if ($count === 1)
            {
              $dirty_user_login_email = $hidden_var_email;
            }
@@ -144,7 +186,7 @@ class ThePortalToEnlightenment()
        else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == false)
        {
        		 echo('Incorrect email');
-       		 sucpectedBruteForce();
+       		 suspectedBruteForce();
 		 }
    }
 }  
@@ -165,47 +207,7 @@ class landmines()
    	echo('suspected hacker');     
    }
 }
-
-class DatabaseRouter()
-{
-//set up an array
-//needs recoding
-       private function dbRoute () 
-       {
-         if($goto_db_type == 'mysql')  
-           {
-           	   if($goto_db_db == 'user_master_db') 
-           	   {
-           	   	 if($goto_db_table == 'user_master_table') 
-           	   	 {
-           	   	 	  if($goto_stmt == 'prepared_login') 
-           	   	 	  {
-           	   	      $this -> dbGetLogin();
-           	   	     }
-           	   	 } 
-           	   	 elseif($goto_db_db == 'error_db') 
-           	   	 {
-           	   	   $this -> dbHasCrashed();  
-           	   	 }	
-           	   }
-           	   else 
-           	   {
-           	   	 echo ('you ain\'t coded that far ahead yet');
-           	   }
-           }
-      
-      
-           else if ($go_db_type != 'mysql')
-           {
-					echo ('you haven\'t set up nosql yet idiot');            
-           } 
-           else 
-           {
-               echo("$implosion_warning");           
-           }      
-      
-       }
-}       
+     
  
 class LoginDb
 {
@@ -217,20 +219,18 @@ class LoginDb
      
     private function dbGetLogin($clean_user_login_email) 
     {          
-       // http://wiki.hashphp.org/PDO_Tutorial_for_MySQL_Developers
-       
-           try 
-           {                  
-               $user_login_db_stmt = $db->prepare("SELECT .
-               dirty_login_master_object=:dirty_login_master_object_placeholder .
-               FROM dirty_user_login_table WHERE clean_user_email=:clean_email_placeholder");
+       try 
+       {                  
+           $user_login_db_stmt = $db->prepare("SELECT .
+           dirty_login_master_object=:dirty_login_master_object_placeholder .
+           FROM dirty_user_login_table WHERE clean_user_email=:clean_email_placeholder");
            
-               $user_login_db_stmt->execute(array(':dirty_user_login_master_object_placeholder' => $dirty_login_master_object, .
-               ':clean_user_login_email_placeholder' => $clean_user_login_email));
-               $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
-               return $dirty_login_master_oject
-               // check db support obj 
-           }
+           $user_login_db_stmt->execute(array(':dirty_user_login_master_object_placeholder' => $dirty_login_master_object, .
+           ':clean_user_login_email_placeholder' => $clean_user_login_email));
+           $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
+           return $dirty_login_master_object
+           // check db support obj 
+       }
            
        catch(PDOException $dirty_db_crash_dump) 
        {
@@ -244,23 +244,34 @@ class LoginDb
                
            $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
            $goto_db_db = 'error_db'
-           $goto_db_table = 'login_db_error_dump'      
+           $goto_db_table = 'login_db_error_dump'                     
                
            //because im firing off a function/method below, does this have to go ---after--- the echo? 
            dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
            $user_login_db_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
            
-           //thinking about having a constructor, for login db to kill off db connection @ class end, but persistance? 
        }           
     }
 }
 
+class ErrorDB ()
+{
+// ya so much to do here... 
+}
+
+
 class CookieMonster()
+
+// https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
+// looking into rolling own session cookies, random_bytes 
+// take a long hard look at SessionHandler()
+// https://secure.php.net/manual/en/intro.session.php
+// track down that old script that gets 100k+ cookies and maps out randomness in visual graph.  
 
    private function verifyPass ()
    {  
            
-           password_verify($dirty_user_lowsec_login_pass, $user_lowsec_login_hash);
+       password_verify($dirty_user_lowsec_login_pass, $user_lowsec_login_hash);
    }
    
    private function cookiePreparation() 
@@ -273,15 +284,9 @@ class CookieMonster()
     
     
    private function nomNomNom()
-   {
-               	
-       // looking into rolling own session cookies, random_bytes 
-       // take a long hard look at SessionHandler()
-       // https://secure.php.net/manual/en/intro.session.php
-	    // track down that old script that gets 100k+ cookies and maps out randomness in visual graph.        
+   {      
        session_set_cookie_params($lifetime, $path = null, $domain = null, $secure = null, $httponly = null);                   
-       session_start()
-    
+       session_start();
    }
 }
 
@@ -342,11 +347,12 @@ class SomethingFuckedUp()
 }
 
 
-?>
 
-<!DOCTYPE html> 
-<html> 
-    <head>
+class NormalInexHtml()
+{
+   <!DOCTYPE html> 
+   <html> 
+   <head>
         <meta http-equiv='Content-Type' content="text/html; charset=utf-8" />;
         <title>Welcome</title>;
         <link rel='stylesheet' href='http://4the99.org/stylez/style.css'>
@@ -355,16 +361,16 @@ class SomethingFuckedUp()
         </head>
 
     <body>
-<!-- I want to give a special shout out and thanks to all the php gods, @ ##php for all those glorious little tidbits that made ALL the difference -->
+    <!-- I want to give a special shout out and thanks to all the php gods, @ ##php for all those glorious little tidbits that made ALL the difference -->
 
 
-<!-- normally js would be split off into its own file, as per standards instead keeping it at the top of html 
-instead im going to keep it simple for the code tweakers skinning the site to their desires -->
+   <!-- normally js would be split off into its own file, as per standards instead keeping it at the top of html  
+    instead im going to keep it simple for the code tweakers skinning the site to their desires -->
 
 
-        <script type="text/javascript" >
-    document.getElementById('non_js_is_hidden').style.display='block';
-</script>
+       <script type="text/javascript" >
+          document.getElementById('non_js_is_hidden').style.display='block';
+       </script>
 
         <div id='non_js_hidden' style="display:none">
             <form method="POST" action="" id="dirty_login_form">
@@ -412,5 +418,7 @@ instead im going to keep it simple for the code tweakers skinning the site to th
             </div>
         </div>
     </div>
-</body>
-</html>
+    </body>
+    </html>
+}
+?>
