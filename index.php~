@@ -1,25 +1,11 @@
 <?php
 // by the way.... Hello world! 
-  
-// bot check to do:
-// will create some simple algorithm in js only if form submitted without correct answer then we know its a bot. 
+
 // https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
-// anti brute force to do. 
-// parse login after db, to do
-// presentation layer to do
-// shorten var names, to do. 
-// check if logged in, to do. 
-// post timing tracking to do.
-// error db passing of functions to do. 
 
 //reminder to ask lgbti community, for options for race, sex, sexuality, etc so that if someone decides to define themselves
 // as a lesbian zombie Klingon drag queen hobbit etc, they can... 
-
-// you cannot call functions to assign defaults to property values.  e.g., :42-:44
-// when you need input, that's what arguments are for.  e.g., getLoginPass should look like  function getLoginPass($hiddenvarpass) { ... }
-// it should not do  $hidden_var_pass = $_POST['dirty_user_lowsec_login_pass'];
-
 
 // not sure if i can hide this in a class/method 
 if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true) 
@@ -33,8 +19,8 @@ if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true)
    else if(isset($_SERVER['REQUEST_METHOD'] === 'GET') == true) 
    // standard HTTP get for page-load non submit need to harden this by making it more specific 
    {
-     SetHeaders();
-     NormalIndexHtml();   //<--- so not sure about treating the HTML as an object.
+    $set_headers = new SetHeaders();
+   //  NormalIndexHtml();   //<--- so not sure about treating the HTML as an object.
    }
    else if () //  <--- check for session cookie 
    )
@@ -54,17 +40,23 @@ class TheHappyLoginClass()
        {
            try 
            {
-       	      getLoginPass();
-       	      getLoginEmail();
-       	      cleanLoginEmail();
-       	      parseLoginEmail();
+       	      $ThePortalToEnligenment =  new ThePortalToEnlightenment();
+       	      $ThePortalToEnligenment -> getLoginPass();
+       	      $ThePortalToEnligenment -> getLoginEmail();
+       	      $ThePortalToEnligenment -> cleanLoginEmail();
+       	      $ThePortalToEnligenment -> parseLoginEmail();
+       	      $login_db = new loginDB();   // <-- not sure about the construct/destruct for the db connection include 
+       	      $login_db -> 
+       	
            }
            catch (Exception $e) 
            { 
                log($e->getMessage());
-               $everything_is_ok = false;
-               $something_fucked_up = true; 
-               emergency_shutdown()
+               $this -> $everything_is_ok = false;
+               $something_fucked_up = new SomethingFuckedUp();
+               $something_fucked_up -> $something_fucked_up_status = false;
+               $something_fucked_up -> 
+               $emergency = new emergency_shutdown();
            }
        }           
    }
@@ -72,7 +64,8 @@ class TheHappyLoginClass()
 class MasterLoginObjClass($clean_user_login_email)
 {
 	// this will be broken up into chunks and only loaded at need, kiss code for now. 
-	protected $user_id;
+	// this is the opgect pulled from the database, and not sure if i should declare it here
+	
 	protected $optional_user_url_id;
 	protected $clean_user_lowsec_login_hash;
    protected $optional_advanced_login_security_enabled;
@@ -132,7 +125,9 @@ class ThePortalToEnlightenment()
            }
            else 
            {
-              suspectedHacker();
+         //   $suspected_hacker = new ->  suspectedHacker();
+            echo ('the blank password is going hinky');
+           
            }
           
        }
@@ -155,7 +150,8 @@ class ThePortalToEnlightenment()
            }
            else 
            {
-           suspectedHacker();
+          // suspectedHacker();
+            echo('the blank email is going hinky');
            }
         }
         else 
@@ -176,7 +172,7 @@ class ThePortalToEnlightenment()
        {
        	  //kiss code 
        	  echo('Incorrect email');
-       	  suspectedBot();             
+       	//  suspectedBot();             
        } 
    }
    
@@ -189,7 +185,7 @@ class ThePortalToEnlightenment()
        else(filter_var($clean_user_login_email, FILTER_VALIDATE_EMAIL) == false)
        {
        		 echo('Incorrect email');
-       		 suspectedBruteForce();
+       	//	 suspectedBruteForce();
 		 }
    }
 }  
@@ -209,10 +205,14 @@ class landmines()
    {
    	echo('suspected hacker');     
    }
+   public function emergency_shutdown();
+   {
+   	echo('shutdown');
+   }
 }
      
  
-class LoginDb
+class LoginDb()
 {
    //email UID, Field for UUID (separate database to process cookies)
    private function __Construct()
@@ -222,39 +222,18 @@ class LoginDb
      
     private function dbGetLogin($clean_user_login_email) 
     {          
-       try 
        {                  
-           $user_login_db_stmt = $db->prepare("SELECT .
+           $user_login_db_stmt = $db->prepare("SELECT . UID=:UID_placeholder AND
            dirty_login_master_object=:dirty_login_master_object_placeholder .
            FROM dirty_user_login_table WHERE clean_user_email=:clean_email_placeholder");
            
-           $user_login_db_stmt->execute(array(':dirty_user_login_master_object_placeholder' => $dirty_login_master_object, .
+           $user_login_db_stmt->execute(array(':UID' => $user_id .
+           ':dirty_user_login_master_object_placeholder' => $dirty_login_master_object, .
            ':clean_user_login_email_placeholder' => $clean_user_login_email));
            $rows = $user_login_db_stmt->fetch(PDO::FETCH_BOUND);
            return $dirty_login_master_object
-           // check db support obj 
+           return $user_id
        }
-           
-       catch(PDOException $dirty_db_crash_dump) 
-       {
-           private var $user_login_db_crash_timestamp = microtime($get_as_float = null);
-           //according to php docs, float reduces!? accuracy to seconds, instead of microseconds!?!?!?
-           if ($give_that_user_a_cookie != false)
-           {
-                   $give_that_user_a_cookie = $clean_user_login_email;
-           }           
-           echo ($implosion_error_warning)
-               
-           $goto_db_type = 'mysql'  //<-- nosql is probbably better for massive error dumping
-           $goto_db_db = 'error_db'
-           $goto_db_table = 'login_db_error_dump'                     
-               
-           //because im firing off a function/method below, does this have to go ---after--- the echo? 
-           dbHasCrashed($dirty_db_crash_dump->getMessage(), $user_login_db_crash_timestamp, . 
-           $user_login_db_stmt, $goto_db_type, $goto_db_db, $goto_db_table);
-           
-       }           
-    }
 }
 
 class ErrorDB ()
@@ -327,32 +306,35 @@ public  $everything_is_ok
 class SomethingFuckedUp()
 {
 	public  $something_fucked_up_status  
-   public $implosion_warning = ('Something mission critical just blew up in our face.'."/n".
-   '4the99.org is now entering emergency shutdown mode.'."/n".
-   'Your last request to the server has just been lost sorry.'."/n".
-   'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
-   'automatically shut down as a safety measure'."/n".
-   ."/n".               
-   'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
-   'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
-   'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
-   ."/n".
-   'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
-   'then risk a security breach from something we created'."/n".
-   'We apologize for the inconvenience and we will let you know more when we do'."/n".
-   'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
-   'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
-   ."/n". 
-   'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
-   'You get a cookie! Check your profile to see if you won one.'); 
-
+    
+   public function implosion_warning
+   {
+       echo ('Something mission critical just blew up in our face.'."/n".
+       '4the99.org is now entering emergency shutdown mode.'."/n".
+       'Your last request to the server has just been lost sorry.'."/n".
+       'The most likely reason you are seeing this message is that a single error occurred and the whole site was.'."/n".
+       'automatically shut down as a safety measure'."/n".
+       ."/n".               
+       'Privacy Note: A timestamp and error specifics have been logged into a database, this will be deleted as soon'."/n".
+       'as we diagnose and correct the fault in our systems. This may plausibly contain some personal information.'."/n".             
+       'This is unfortunate, and we would avoid if we could but it may be required to diagnose the fault'."/n".
+       ."/n".
+       'We take your privacy and security very seriously and would rather kill off everything over a single error'."/n".
+       'then risk a security breach from something we created'."/n".
+       'We apologize for the inconvenience and we will let you know more when we do'."/n".
+       'Please visit here: '."<a href='https://4the99.org'>'https://4the99.org'<a>"."/n".
+       'for live updates as we diagnose and correct the situation, and bring everything back online as fast as we can'."/n".
+       ."/n". 
+       'PS. There is also a very remote chance you somehow managed to cause this error, in which case congratulations!.'"/n".
+       'You get a cookie! Check your profile to see if you won one.'); 
+   }
 // what fucked up, where, what actions to take <--- to do *sighs deeply* this will hurt. 
 }
 
+?>
 
-
-class NormalInexHtml()
-{
+//class NormalInexHtml()
+//{
    <!DOCTYPE html> 
    <html> 
    <head>
@@ -366,11 +348,6 @@ class NormalInexHtml()
     <body>
     <!-- I want to give a special shout out and thanks to all the php gods, @ ##php for all those glorious little tidbits that made ALL the difference -->
 
-
-   <!-- normally js would be split off into its own file, as per standards instead keeping it at the top of html  
-    instead im going to keep it simple for the code tweakers skinning the site to their desires -->
-
-
        <script type="text/javascript" >
           document.getElementById('non_js_is_hidden').style.display='block';
        </script>
@@ -382,8 +359,6 @@ class NormalInexHtml()
                 <button name='dirty_login_button'>Login</button> 
             </form>
         </div>
-
-<!-- amusing dev note about "low security" goes here, need template up and running to reference functions properly -->
 
         <br />
         <br />
@@ -423,5 +398,5 @@ class NormalInexHtml()
     </div>
     </body>
     </html>
-}
-?>
+//}
+//?>
