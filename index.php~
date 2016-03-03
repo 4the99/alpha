@@ -10,14 +10,10 @@
 // not sure if i can hide this in a class/method 
 if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true) 
    {
-   	// look at http 1.1, block http 1.0 set off landmine  
-      // check for https://  301 attempted http://       
-      // look out for redirect looped bots, mabe set a cookie for this 
-      
-     $login_gloabal_obgect new TheHappyLoginClass;
+       //sniff headers, route accordingly <-- lots to do here to harden site  
+       $login_gloabal_obgect new TheHappyLoginClass;
    }
    else if(isset($_SERVER['REQUEST_METHOD'] === 'GET') == true) 
-   // standard HTTP get for page-load non submit need to harden this by making it more specific 
    {
     $set_headers = new SetHeaders();
    //  NormalIndexHtml();   //<--- so not sure about treating the HTML as an object.
@@ -45,18 +41,24 @@ class TheHappyLoginClass()
        	      $ThePortalToEnligenment -> getLoginEmail();
        	      $ThePortalToEnligenment -> cleanLoginEmail();
        	      $ThePortalToEnligenment -> parseLoginEmail();
-       	      $login_db = new loginDB();   // <-- not sure about the construct/destruct for the db connection include 
-       	      $login_db -> 
+       	      $LoginDB = new loginDB();   // <-- not sure about the construct/destruct for the db connection include 
+       	      $LoginDB -> dbGetLogin();   // <---- do i pass property in method or here? 
+       	      $CookieMonster = new CookieMonster();
        	
            }
            catch (Exception $e) 
            { 
+               $crash_timestamp = microtime($get_as_float = null);
                log($e->getMessage());
                $this -> $everything_is_ok = false;
                $something_fucked_up = new SomethingFuckedUp();
-               $something_fucked_up -> $something_fucked_up_status = false;
-               $something_fucked_up -> 
+               $something_fucked_up -> $something_fucked_up_status = true;  // <---- do i have to call a method to do this? 
+               $something_fucked_up -> implosion_warning(); 
                $emergency = new emergency_shutdown();
+               if ($give_that_user_a_cookie != false)
+                   {
+                        $give_that_user_a_cookie = $clean_user_login_email;
+                   }  
            }
        }           
    }
@@ -243,6 +245,7 @@ echo ("landed at errordb");
 
 
 class CookieMonster()
+{
 
 // https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 // looking into rolling own session cookies, random_bytes 

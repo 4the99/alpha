@@ -5,7 +5,7 @@
 // https://stackoverflow.com/questions/22108118/displaying-a-form-only-if-javascript-is-enabled
 
 //reminder to ask lgbti community, for options for race, sex, sexuality, etc so that if someone decides to define themselves
-// as a lesbian zombie Klingon drag queen hobbit etc, they can... 
+//for example: as a lesbian zombie Klingon hobbit drag queen they can... 
 
 // not sure if i can hide this in a class/method 
 if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true) 
