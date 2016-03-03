@@ -28,7 +28,7 @@ if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true)
       // check for https://  301 attempted http://       
       // look out for redirect looped bots, mabe set a cookie for this 
       
-      theYellowBrickRoad();   
+     $login_gloabal_obgect new TheHappyLoginClass;
    }
    else if(isset($_SERVER['REQUEST_METHOD'] === 'GET') == true) 
    // standard HTTP get for page-load non submit need to harden this by making it more specific 
@@ -46,56 +46,8 @@ if(isset($_SERVER['REQUEST_METHOD'] === 'POST') == true)
       suspectedHacker();
    }
 
-
-class MasterLoginObjClass($clean_user_login_email)
+class TheHappyLoginClass()
 {
-	protected $user_id
-	protected $optional_user_url_id
-	protected $clean_user_lowsec_login_hash
-   protected $optional_advanced_login_security_enabled
-   protected $dirty_optional_last_login_ip_array
-   protected $optional_last_login_timestamp
-   protected $optional_last_login_location
-   protected $dirty_optional_named_computers_array
-   protected $active_session_tracking
-   protected $optional_session_locations_array
-   protected $dirty_optional_browser_fingerprint_session_tracking   //<--- run tests to look at encryption overhead 
-   protected $optional_failed_login_tracking
-   protected $optional_user_targeted_hacking_allert_level
-	protected $optional_user_targeted_hacking_timestamp_array
-	protected $dirty_optional_user_targeted_hacking_browser_fingerprinting
-	protected $optional_user_targeted_hackers_location
-	protected $dirty_optional_user_targeted_hackers_fingerprint
-	protected $optional_user_targeted_hacker_notes
-	protected $optional_user_targeted_additonal_information
-	protected $optional_user_needs_special_protections
-	protected $user_has_insecure_fuckwit_partner
-	protected $user_has_violent_partner
-	protected $user_has_lifeline
-	protected $user_emergency_contact_array
-	protected $user_is_dramaqueen
-	protected $user_suspected_trouble_maker
-	protected $user_reputation_array
-	protected $user_suspected_terrorist_or_pedo_scum
-   protected $user_suspected_scammer
-   protected $user_suspected_malicious
-   protected $user_admin_notes
-   protected $user_is_banned
-   protected $user_is_banned_timestamp
-   protected $user_is_banned_history
-   protected $user_is_banned_reason
-   protected $user_is_banned_untill
-}
-
-
-
-
-class ThePortalToEnlightenment()
-{   
-   private  $dirty_user_lowsec_login_pass
-   private  $dirty_user_login_email  
-   private  $clean_user_login_email 
-
    private function theYellowBrickRoad()
    { 
        if($everything_is_ok = true) 
@@ -116,6 +68,55 @@ class ThePortalToEnlightenment()
            }
        }           
    }
+}
+class MasterLoginObjClass($clean_user_login_email)
+{
+	// this will be broken up into chunks and only loaded at need, kiss code for now. 
+	protected $user_id;
+	protected $optional_user_url_id;
+	protected $clean_user_lowsec_login_hash;
+   protected $optional_advanced_login_security_enabled;
+   protected $dirty_optional_last_login_ip_array;
+   protected $optional_last_login_timestamp;
+   protected $optional_last_login_location;
+   protected $dirty_optional_named_computers_array;
+   protected $active_session_tracking;
+   protected $optional_session_locations_array;
+   protected $dirty_optional_browser_fingerprint_session_tracking;   //<--- run tests to look at encryption overhead 
+   protected $optional_failed_login_tracking;
+   protected $optional_user_targeted_hacking_allert_level;
+	protected $optional_user_targeted_hacking_timestamp_array;
+	protected $dirty_optional_user_targeted_hacking_browser_fingerprinting;
+	protected $optional_user_targeted_hackers_location;
+	protected $dirty_optional_user_targeted_hackers_fingerprint;
+	protected $optional_user_targeted_hacker_notes;
+	protected $optional_user_targeted_additonal_information;
+	protected $optional_user_needs_special_protections;
+	protected $user_has_insecure_fuckwit_partner;
+	protected $user_has_violent_partner;
+	protected $user_has_lifeline;
+	protected $user_emergency_contact_array;
+	protected $user_is_dramaqueen;
+	protected $user_suspected_trouble_maker;
+	protected $user_reputation_array;
+	protected $user_suspected_terrorist_or_pedo_scum;
+   protected $user_suspected_scammer;
+   protected $user_suspected_malicious;
+   protected $user_admin_notes;
+   protected $user_is_banned;
+   protected $user_is_banned_timestamp;
+   protected $user_is_banned_history;
+   protected $user_is_banned_reason;
+   protected $user_is_banned_untill;
+}
+
+
+class ThePortalToEnlightenment()
+{   
+   private  $dirty_user_lowsec_login_pass;
+   private  $dirty_user_login_email;
+   private  $clean_user_login_email;
+
 
    private function getLoginPass()
    { 
@@ -258,7 +259,7 @@ class LoginDb
 
 class ErrorDB ()
 {
-// ya so much to do here... 
+echo ("landed at errordb"); 
 }
 
 
