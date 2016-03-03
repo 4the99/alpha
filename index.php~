@@ -301,13 +301,16 @@ class SetHeaders()
 class MasterController()
 {
 public  $everything_is_ok
+// this will be a var, stored in the db, and a kill switch for the entire site. 
+// it will be checked first and foremost, and if everything is not ok, everything is blocked from running
+// nosql key based db, the really fast one! 
 }
 
 class SomethingFuckedUp()
 {
 	public  $something_fucked_up_status  
     
-   public function implosion_warning
+   public function implosion_warning()
    {
        echo ('Something mission critical just blew up in our face.'."/n".
        '4the99.org is now entering emergency shutdown mode.'."/n".
